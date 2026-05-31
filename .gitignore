@@ -1,0 +1,27 @@
+# Visual Studio
+.vs/
+*.VC.db
+*.VC.opendb
+
+# Build Result
+x64/
+Debug/
+Release/
+
+# Temporary
+*.obj
+*.pdb
+*.ilk
+*.idb
+*.ipdb
+*.iobj
+*.tlog
+
+# User Settings
+*.vcxproj.user
+
+# Visual Studio Cache
+*.suo
+
+# Generated
+*.log

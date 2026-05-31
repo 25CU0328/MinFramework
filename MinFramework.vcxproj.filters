@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ソース ファイル\Render">
+      <UniqueIdentifier>{4e91c992-933f-4cae-af8e-e5e68ffecbb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Assets">
+      <UniqueIdentifier>{f167d838-32ce-4d60-a4df-a254b6f50a74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Assets\Model">
+      <UniqueIdentifier>{0ccbe0f3-248d-422d-99cb-5d55792613a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\RuntimeResource">
+      <UniqueIdentifier>{cf5c0aab-d159-4851-a190-91cfd200739c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Assets\Image">
+      <UniqueIdentifier>{9ee8ed95-c94c-42f3-aea8-d05305b7f0ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Render\Core">
+      <UniqueIdentifier>{99e165fc-57fe-4951-8b40-4f22115165c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Render\Resource">
+      <UniqueIdentifier>{e34de6d0-7080-4cbb-97e9-52acbcd5333c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Render\Pipeline">
+      <UniqueIdentifier>{b62d021e-a7d1-4f1d-9ca0-8843a25ab952}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\Shader">
+      <UniqueIdentifier>{f3fac0b5-bb49-4023-bad8-c6196b6262ef}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\main.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Assets\AssetsManager.cpp">
+      <Filter>ソース ファイル\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Assets\Model\ModleLoader.cpp">
+      <Filter>ソース ファイル\Assets\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Assets\Image\ImageLoader.cpp">
+      <Filter>ソース ファイル\Assets\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Render\Core\CommandList.cpp">
+      <Filter>ソース ファイル\Render\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Render\Core\CommandQueue.cpp">
+      <Filter>ソース ファイル\Render\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Render\Core\Fence.cpp">
+      <Filter>ソース ファイル\Render\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Render\Core\SwapChain.cpp">
+      <Filter>ソース ファイル\Render\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Render\Pipeline\PipelineState.cpp">
+      <Filter>ソース ファイル\Render\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Render\Pipeline\RootSignature.cpp">
+      <Filter>ソース ファイル\Render\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Render\Pipeline\ShaderObject.cpp">
+      <Filter>ソース ファイル\Render\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Render\Resource\ConstantBuffer.cpp">
+      <Filter>ソース ファイル\Render\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Render\Resource\DescriptorHeap.cpp">
+      <Filter>ソース ファイル\Render\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Render\Resource\IndexBuffer.cpp">
+      <Filter>ソース ファイル\Render\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Render\Resource\TextureBuffer.cpp">
+      <Filter>ソース ファイル\Render\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Render\Resource\VertexBuffer.cpp">
+      <Filter>ソース ファイル\Render\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\App.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RuntimeResource\Camera.cpp">
+      <Filter>ソース ファイル\RuntimeResource</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RuntimeResource\Material.cpp">
+      <Filter>ソース ファイル\RuntimeResource</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RuntimeResource\Mesh.cpp">
+      <Filter>ソース ファイル\RuntimeResource</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RuntimeResource\Model.cpp">
+      <Filter>ソース ファイル\RuntimeResource</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RuntimeResource\Sprite.cpp">
+      <Filter>ソース ファイル\RuntimeResource</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RuntimeResource\Texture.cpp">
+      <Filter>ソース ファイル\RuntimeResource</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Render\Resource\DepthStencilBuffer.cpp">
+      <Filter>ソース ファイル\Render\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Render\RenderManager.cpp">
+      <Filter>ソース ファイル\Render</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\AppDef.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Assets\AssetsManager.h">
+      <Filter>ソース ファイル\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Assets\Model\ModleLoader.h">
+      <Filter>ソース ファイル\Assets\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Assets\Model\ModelData.h">
+      <Filter>ソース ファイル\Assets\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Assets\Image\ImageLoader.h">
+      <Filter>ソース ファイル\Assets\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\Core\CommandList.h">
+      <Filter>ソース ファイル\Render\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\Core\CommandQueue.h">
+      <Filter>ソース ファイル\Render\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\Core\Fence.h">
+      <Filter>ソース ファイル\Render\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\Core\SwapChain.h">
+      <Filter>ソース ファイル\Render\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\Pipeline\PipelineState.h">
+      <Filter>ソース ファイル\Render\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\Pipeline\RootSignature.h">
+      <Filter>ソース ファイル\Render\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\Pipeline\ShaderObject.h">
+      <Filter>ソース ファイル\Render\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\Resource\ConstantBuffer.h">
+      <Filter>ソース ファイル\Render\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\Resource\DescriptorHeap.h">
+      <Filter>ソース ファイル\Render\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\Resource\IndexBuffer.h">
+      <Filter>ソース ファイル\Render\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\Resource\TextureBuffer.h">
+      <Filter>ソース ファイル\Render\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\Resource\VertexBuffer.h">
+      <Filter>ソース ファイル\Render\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\ComPtr.h">
+      <Filter>ソース ファイル\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\d3dx12.h">
+      <Filter>ソース ファイル\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RuntimeResource\Camera.h">
+      <Filter>ソース ファイル\RuntimeResource</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RuntimeResource\Sprite.h">
+      <Filter>ソース ファイル\RuntimeResource</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RuntimeResource\Texture.h">
+      <Filter>ソース ファイル\RuntimeResource</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RuntimeResource\Material.h">
+      <Filter>ソース ファイル\RuntimeResource</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RuntimeResource\Mesh.h">
+      <Filter>ソース ファイル\RuntimeResource</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RuntimeResource\Model.h">
+      <Filter>ソース ファイル\RuntimeResource</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\RenderManager.h">
+      <Filter>ソース ファイル\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\Resource\DepthStencilBuffer.h">
+      <Filter>ソース ファイル\Render\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\App.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Assets\Image\ImageData.h">
+      <Filter>ソース ファイル\Assets\Image</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Assets\Shader\PixelShader.hlsl">
+      <Filter>リソース ファイル\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Assets\Shader\VertexShader.hlsl">
+      <Filter>リソース ファイル\Shader</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Shader\BasicShaderHeader.hlsli">
+      <Filter>リソース ファイル\Shader</Filter>
+    </None>
+  </ItemGroup>
+</Project>
