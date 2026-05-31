@@ -4,9 +4,8 @@
 *.VC.opendb
 
 # Build Result
-x64/
-Debug/
-Release/
+Build/
+MinFramework/
 
 # Temporary
 *.obj
