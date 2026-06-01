@@ -1,8 +1,8 @@
-
+ï»¿
 #include "AssetsManager.h"
 using namespace Assets;
 
-// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 AssetsManager::AssetsManager() :
 	m_imageLoader(),
 	m_modelLoader()
@@ -10,19 +10,19 @@ AssetsManager::AssetsManager() :
 
 }
 
-// ƒfƒXƒgƒ‰ƒNƒ^[
+// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ¼
 AssetsManager::~AssetsManager()
 {
 
 }
 
-// ƒ‚ƒfƒ‹ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+// ãƒ¢ãƒ‡ãƒ«ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
 bool AssetsManager::LoadModelFile(std::string _strFileName, ModelData& _outData)
 {
 	return m_modelLoader.LoadObjModel(_strFileName, _outData);
 }
 
-// ‰æ‘œƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+// ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
 bool AssetsManager::LoadImageFile(const wchar_t* _fileName, ImageData& _outData)
 {
 	return m_imageLoader.LoadImageFile(_fileName, _outData);

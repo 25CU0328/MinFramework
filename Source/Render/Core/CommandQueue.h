@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <d3d12.h>
 #include <cstdint>
@@ -8,48 +8,48 @@
 
 
 /*
-	CommandList‚Ì–½—ß‚ð”­‘—‚µA
-	–½—ß‚Ì“¯Šú‚ð’S“–‚·‚éƒNƒ‰ƒX
+	CommandListã®å‘½ä»¤ã‚’ç™ºé€ã—ã€
+	å‘½ä»¤ã®åŒæœŸã‚’æ‹…å½“ã™ã‚‹ã‚¯ãƒ©ã‚¹
 
-	‚Ü‚½AFenceƒNƒ‰ƒX‚Æ‘g‚Ý‡‚í‚¹‚é‚±‚Æ‚ÅA
-	CPU‚ÆGPU‚Ì“¯Šú‚ðs‚¤
+	ã¾ãŸã€Fenceã‚¯ãƒ©ã‚¹ã¨çµ„ã¿åˆã‚ã›ã‚‹ã“ã¨ã§ã€
+	CPUã¨GPUã®åŒæœŸã‚’è¡Œã†
 */
 
 namespace Render 
 {
 	class CommandQueue
 	{
-		// ƒIƒuƒWƒFƒNƒg‚Ì•¡»‚ð‹ÖŽ~‚·‚é
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®è¤‡è£½ã‚’ç¦æ­¢ã™ã‚‹
 		CommandQueue(const CommandQueue&) = delete;
-		// ƒIƒyƒŒ[ƒ^[‚É‚æ‚éƒRƒs[‚ð‹ÖŽ~‚·‚é
+		// ã‚ªãƒšãƒ¬ãƒ¼ã‚¿ãƒ¼ã«ã‚ˆã‚‹ã‚³ãƒ”ãƒ¼ã‚’ç¦æ­¢ã™ã‚‹
 		CommandQueue operator = (const CommandQueue&) = delete;
 
 	public:
-		// ƒRƒ“ƒXƒgƒ‰ƒNƒ^EƒfƒXƒgƒ‰ƒNƒ^[
+		// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ»ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ¼
 		CommandQueue();
 		~CommandQueue();
 
-		// ‰Šú‰»ˆ—
+		// åˆæœŸåŒ–å‡¦ç†
 		bool Init(ID3D12Device* _pDevice);
 
-		// Œã•Ð•t‚¯ˆ—
+		// å¾Œç‰‡ä»˜ã‘å‡¦ç†
 		void Term();
 
-		// ƒRƒ}ƒ“ƒhƒŠƒXƒg‚ðŽæ“¾‚·‚é‚½‚ß‚Ìƒƒ\ƒbƒh
+		// ã‚³ãƒžãƒ³ãƒ‰ãƒªã‚¹ãƒˆã‚’å–å¾—ã™ã‚‹ãŸã‚ã®ãƒ¡ã‚½ãƒƒãƒ‰
 		ID3D12CommandQueue* Get();
 
 		/// <summary>
-		/// ƒRƒ}ƒ“ƒhƒŠƒXƒg‚Ì–½—ß‚ðŽÀs‚·‚é
+		/// ã‚³ãƒžãƒ³ãƒ‰ãƒªã‚¹ãƒˆã®å‘½ä»¤ã‚’å®Ÿè¡Œã™ã‚‹
 		/// </summary>
-		/// <param name="_listNum"> ƒRƒ}ƒ“ƒhƒŠƒXƒg‚Ì” </param>
+		/// <param name="_listNum"> ã‚³ãƒžãƒ³ãƒ‰ãƒªã‚¹ãƒˆã®æ•° </param>
 		/// 
 		/// <param name="_ppCommandLists"> 
-		/// “n‚³‚ê‚½ƒRƒ}ƒ“ƒhƒŠƒXƒg‚Ìƒ|ƒCƒ“ƒ^[”z—ñ
+		/// æ¸¡ã•ã‚ŒãŸã‚³ãƒžãƒ³ãƒ‰ãƒªã‚¹ãƒˆã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼é…åˆ—
 		/// </param>
 		void Execute(UINT _listNum, ID3D12CommandList** _ppCommandLists);
 
 	private:
-		// ƒRƒ}ƒ“ƒhƒLƒ…[‚Ì–{‘Ì
+		// ã‚³ãƒžãƒ³ãƒ‰ã‚­ãƒ¥ãƒ¼ã®æœ¬ä½“
 		ComPtr<ID3D12CommandQueue> m_pCommandQueue;
 	};
 }

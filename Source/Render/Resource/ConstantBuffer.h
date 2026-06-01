@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <d3d12.h>
 #include <cstdint>
@@ -9,42 +9,42 @@
 #include "DirectXMath.h"
 
 /*
-	GPU‚ÌƒVƒF[ƒ_[‚ÖA•p”É‚É•Ï‚í‚éƒf[ƒ^‚ğ“n‚·‚½‚ß‚Ìƒoƒbƒtƒ@
+	GPUã®ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã¸ã€é »ç¹ã«å¤‰ã‚ã‚‹ãƒ‡ãƒ¼ã‚¿ã‚’æ¸¡ã™ãŸã‚ã®ãƒãƒƒãƒ•ã‚¡
 
-	À•W•ÏŠ·‚Ég‚¤s—ñ‚âƒ‰ƒCƒh‚Ìî•ñ‚È‚Ç
+	åº§æ¨™å¤‰æ›ã«ä½¿ã†è¡Œåˆ—ã‚„ãƒ©ã‚¤ãƒ‰ã®æƒ…å ±ãªã©
 */
 
 namespace Render
 {
-	// ’è”ƒoƒbƒtƒ@[‚ğ•\‚·ƒNƒ‰ƒX
+	// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒ¼ã‚’è¡¨ã™ã‚¯ãƒ©ã‚¹
 	class ConstantBuffer
 	{
-		// ƒRƒs[‚ğ‹Ö~‚·‚é
+		// ã‚³ãƒ”ãƒ¼ã‚’ç¦æ­¢ã™ã‚‹
 		ConstantBuffer(const ConstantBuffer&) = delete;
-		// ƒIƒyƒŒ[ƒ^[‚É‚æ‚éƒRƒs[‚ğ‹Ö~‚·‚é
+		// ã‚ªãƒšãƒ¬ãƒ¼ã‚¿ãƒ¼ã«ã‚ˆã‚‹ã‚³ãƒ”ãƒ¼ã‚’ç¦æ­¢ã™ã‚‹
 		void operator = (const ConstantBuffer&) = delete;
 
 	public:
-		// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		ConstantBuffer();
-		// ƒfƒXƒgƒ‰ƒNƒ^[
+		// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ¼
 		~ConstantBuffer();
 
-		// ‰Šú‰»ˆ—
+		// åˆæœŸåŒ–å‡¦ç†
 		bool Init(ID3D12Device* _pDevice);
-		// s—ñƒf[ƒ^‚ğXV‚·‚é
+		// è¡Œåˆ—ãƒ‡ãƒ¼ã‚¿ã‚’æ›´æ–°ã™ã‚‹
 		void UpdateMatrix(void* data, UINT size);
 
-		// ’è”ƒoƒbƒtƒ@[‚Ì–{‘Ì‚ğæ“¾‚·‚é
+		// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®æœ¬ä½“ã‚’å–å¾—ã™ã‚‹
 		ID3D12Resource* GetResource() const;
 
-		// ƒoƒbƒtƒ@[‚ÌGPUˆÊ’u‚ğæ“¾
+		// ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®GPUä½ç½®ã‚’å–å¾—
 		D3D12_GPU_VIRTUAL_ADDRESS GetGPUAddress() const;
 	private:
-		// ’è”ƒoƒbƒtƒ@[‚Ì–{‘Ì
+		// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®æœ¬ä½“
 		ComPtr<ID3D12Resource> m_pResource;
 
-		// —Ìˆæƒ}ƒbƒsƒ“ƒO—p‚Ì•Ï”
+		// é ˜åŸŸãƒãƒƒãƒ”ãƒ³ã‚°ç”¨ã®å¤‰æ•°
 		void* m_mappedData = nullptr;
 	};
 }

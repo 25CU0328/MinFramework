@@ -1,9 +1,9 @@
-
+ï»¿
 #include "DescriptorHeap.h"
 using namespace Render;
 
 
-// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 DescriptorHeap::DescriptorHeap()
 	: m_pDescriptorHeap(nullptr)
 	, m_CPU_Handle(D3D12_CPU_DESCRIPTOR_HANDLE())
@@ -13,13 +13,13 @@ DescriptorHeap::DescriptorHeap()
 
 }
 
-// ƒfƒXƒgƒ‰ƒNƒ^
+// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 DescriptorHeap::~DescriptorHeap()
 {
 	
 }
 
-// ‰Šú‰»ˆ—
+// åˆæœŸåŒ–å‡¦ç†
 bool DescriptorHeap::Init(
 	ID3D12Device* _pDevice,
 	D3D12_DESCRIPTOR_HEAP_TYPE _type,
@@ -27,19 +27,19 @@ bool DescriptorHeap::Init(
 	UINT _DescirptorNum
 )
 {
-	// ƒfƒXƒgƒ‰ƒNƒ^[‚Ìİ’è
+	// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ¼ã®è¨­å®š
 	{
-		// í•Êİ’è
+		// ç¨®åˆ¥è¨­å®š
 		m_heapDesc.Type = _type;
-		// ƒtƒ‰ƒOİ’è
+		// ãƒ•ãƒ©ã‚°è¨­å®š
 		m_heapDesc.Flags = _flag;
 		// 
 		m_heapDesc.NodeMask = 0;
-		// ƒfƒXƒgƒ‰ƒNƒ^[”
+		// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ¼æ•°
 		m_heapDesc.NumDescriptors = _DescirptorNum;
 	}
 	
-	// ƒfƒXƒgƒ‰ƒNƒ^[ƒIƒuƒWƒFƒNƒg‚Ì¶¬
+	// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆ
 	HRESULT result = _pDevice->CreateDescriptorHeap(
 		&m_heapDesc,
 		IID_PPV_ARGS(m_pDescriptorHeap.GetAddressOf())
@@ -47,13 +47,13 @@ bool DescriptorHeap::Init(
 
 	if (FAILED(result))
 	{
-		printf("yDescriptorHeapzFFailed to Create DescirptorHeap\n");
+		printf("ã€DescriptorHeapã€‘ï¼šFailed to Create DescirptorHeap\n");
 		return false;
 	}
 
 	m_CPU_Handle = m_pDescriptorHeap->GetCPUDescriptorHandleForHeapStart();
 	
-	// None‚Ìê‡AGPU‚ÌHandle‚ªƒAƒNƒZƒX•s‰Â‚É‚È‚è‚Ü‚·
+	// Noneã®å ´åˆã€GPUã®HandleãŒã‚¢ã‚¯ã‚»ã‚¹ä¸å¯ã«ãªã‚Šã¾ã™
 	if (_flag != D3D12_DESCRIPTOR_HEAP_FLAG_NONE)
 	{
 		m_GPU_Handle = m_pDescriptorHeap->GetGPUDescriptorHandleForHeapStart();
@@ -62,19 +62,19 @@ bool DescriptorHeap::Init(
 	return true;
 }
 
-// Œã•Ğ•t‚¯ˆ—
+// å¾Œç‰‡ä»˜ã‘å‡¦ç†
 void DescriptorHeap::Term()
 {
 	m_pDescriptorHeap->Release();
 }
 
-// ƒq[ƒvã‚ÌV‚µ‚¢—v‘f‚ÌˆÊ’u‚ğæ“¾
+// ãƒ’ãƒ¼ãƒ—ä¸Šã®æ–°ã—ã„è¦ç´ ã®ä½ç½®ã‚’å–å¾—
 D3D12_CPU_DESCRIPTOR_HANDLE DescriptorHeap::GetCPUHeapHandle() const
 {
 	return m_CPU_Handle;
 }
 
-// ƒq[ƒvã‚ÌV‚µ‚¢—v‘f‚ÌˆÊ’u‚ğæ“¾
+// ãƒ’ãƒ¼ãƒ—ä¸Šã®æ–°ã—ã„è¦ç´ ã®ä½ç½®ã‚’å–å¾—
 D3D12_GPU_DESCRIPTOR_HANDLE DescriptorHeap::GetGPUHeapHandle() const
 {
 	return m_GPU_Handle;
@@ -85,21 +85,21 @@ D3D12_DESCRIPTOR_HEAP_DESC DescriptorHeap::GetDesc() const
 	return m_heapDesc;
 }
 
-// ‘Î‰‚·‚éƒTƒCƒY‚Ì—Ìˆæ‚ğƒAƒƒP[ƒg
-// (ƒq[ƒv‚É—v‘f‚ğ’Ç‰Á‚µ‚½ê‡)
+// å¯¾å¿œã™ã‚‹ã‚µã‚¤ã‚ºã®é ˜åŸŸã‚’ã‚¢ãƒ­ã‚±ãƒ¼ãƒˆ
+// (ãƒ’ãƒ¼ãƒ—ã«è¦ç´ ã‚’è¿½åŠ ã—ãŸå ´åˆ)
 void DescriptorHeap::AllocateCPU(const UINT _allocateSize)
 {
 	m_CPU_Handle.ptr += _allocateSize;
 }
 
-// ‘Î‰‚·‚éƒTƒCƒY‚Ì—Ìˆæ‚ğƒAƒƒP[ƒg
-// (ƒq[ƒv‚É—v‘f‚ğ’Ç‰Á‚µ‚½ê‡)
+// å¯¾å¿œã™ã‚‹ã‚µã‚¤ã‚ºã®é ˜åŸŸã‚’ã‚¢ãƒ­ã‚±ãƒ¼ãƒˆ
+// (ãƒ’ãƒ¼ãƒ—ã«è¦ç´ ã‚’è¿½åŠ ã—ãŸå ´åˆ)
 void DescriptorHeap::AllocateGPU(const UINT _allocateSize)
 {
 	m_GPU_Handle.ptr += _allocateSize;
 }
 
-// ƒfƒBƒXƒNƒŠƒvƒ^ƒq[ƒv‚Ì–{‘Ì‚ğæ“¾‚·‚é
+// ãƒ‡ã‚£ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ’ãƒ¼ãƒ—ã®æœ¬ä½“ã‚’å–å¾—ã™ã‚‹
 ID3D12DescriptorHeap* DescriptorHeap::Get()
 {
 	return m_pDescriptorHeap.Get();

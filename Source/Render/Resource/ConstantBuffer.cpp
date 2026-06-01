@@ -1,4 +1,4 @@
-
+ï»¿
 #include "ConstantBuffer.h"
 using namespace Render;
 
@@ -18,12 +18,12 @@ ConstantBuffer::~ConstantBuffer()
 
 }
 
-// ‰Šú‰»ˆ—
+// åˆæœŸåŒ–å‡¦ç†
 bool ConstantBuffer::Init(ID3D12Device* _pDevice)
 {
-	// ƒq[ƒvƒvƒƒpƒeƒB
+	// ãƒ’ãƒ¼ãƒ—ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
 	auto heapProperties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
-	// ƒŠƒ\[ƒXƒfƒBƒXƒNƒŠƒvƒ^
+	// ãƒªã‚½ãƒ¼ã‚¹ãƒ‡ã‚£ã‚¹ã‚¯ãƒªãƒ—ã‚¿
 	auto ResourceDesc = CD3DX12_RESOURCE_DESC::Buffer(256);
 
 	HRESULT result = _pDevice->CreateCommittedResource(
@@ -51,19 +51,19 @@ bool ConstantBuffer::Init(ID3D12Device* _pDevice)
 	return true;
 }
 
-// ƒf[ƒ^‚ÌXV
+// ãƒ‡ãƒ¼ã‚¿ã®æ›´æ–°
 void ConstantBuffer::UpdateMatrix(void* data, UINT size)
 {
 	memcpy(m_mappedData,data,size);
 }
 
-// ’è”ƒoƒbƒtƒ@[‚Ì–{‘Ì‚ðŽæ“¾‚·‚é
+// å®šæ•°ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®æœ¬ä½“ã‚’å–å¾—ã™ã‚‹
 ID3D12Resource* ConstantBuffer::GetResource() const
 {
 	return m_pResource.Get();
 }
 
-// ƒoƒbƒtƒ@[‚ÌGPUˆÊ’u‚ðŽæ“¾
+// ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®GPUä½ç½®ã‚’å–å¾—
 D3D12_GPU_VIRTUAL_ADDRESS ConstantBuffer::GetGPUAddress() const
 {
 	return m_pResource->GetGPUVirtualAddress();

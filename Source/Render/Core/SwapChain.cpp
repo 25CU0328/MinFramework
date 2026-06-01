@@ -1,4 +1,4 @@
-
+﻿
 #include "SwapChain.h"
 using namespace Render;
 

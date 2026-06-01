@@ -1,8 +1,8 @@
-#pragma once
-// ó‚¯æ‚é‚½‚ß‚ÌƒNƒ‰ƒX
+ï»¿#pragma once
+// å—ã‘å–ã‚‹ãŸã‚ã®ã‚¯ãƒ©ã‚¹
 #include <assimp/scene.h>	
-#include <assimp/Importer.hpp>  // “Ç‚İ‚Ş‚½‚ß‚ÌƒCƒ“ƒ|[ƒ^[
-#include <assimp/postprocess.h> // “Ç‚İ‚Ş‚Ìƒtƒ‰ƒOİ’è
+#include <assimp/Importer.hpp>  // èª­ã¿è¾¼ã‚€ãŸã‚ã®ã‚¤ãƒ³ãƒãƒ¼ã‚¿ãƒ¼
+#include <assimp/postprocess.h> // èª­ã¿è¾¼ã‚€æ™‚ã®ãƒ•ãƒ©ã‚°è¨­å®š
 
 #include <iostream>
 #include <vector>
@@ -15,27 +15,27 @@ namespace Assets
 	{
 		class ModleLoader
 		{
-			// ƒRƒs[‚ğ‹Ö~‚·‚é
+			// ã‚³ãƒ”ãƒ¼ã‚’ç¦æ­¢ã™ã‚‹
 			ModleLoader(const ModleLoader&) = delete;
-			// ƒIƒyƒŒ[ƒ^[‚É‚æ‚éƒRƒs[‚ğ‹Ö~‚·‚é
+			// ã‚ªãƒšãƒ¬ãƒ¼ã‚¿ãƒ¼ã«ã‚ˆã‚‹ã‚³ãƒ”ãƒ¼ã‚’ç¦æ­¢ã™ã‚‹
 			void operator = (const ModleLoader&) = delete;
 
 		public:
-			// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+			// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 			ModleLoader();
-			// ƒfƒXƒgƒ‰ƒNƒ^[
+			// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ¼
 			~ModleLoader();
 
 			/// <summary>
-			/// 3Dƒ‚ƒfƒ‹‚ğ“Ç‚İ‚Ş
+			/// 3Dãƒ¢ãƒ‡ãƒ«ã‚’èª­ã¿è¾¼ã‚€
 			/// </summary>
-			/// <param name="_strFileName"> ƒ‚ƒfƒ‹‚Ìƒtƒ@ƒCƒ‹–¼ </param>
-			/// <param name="_outData"> ƒf[ƒ^ó‚¯æ‚é‚½‚ß‚Ì•Ï” </param>
-			/// <returns> ƒ‚ƒfƒ‹‚Ì“Ç‚İ‚İ‚Í¬Œ÷‚µ‚½‚©‚Ç‚¤‚© </returns>
+			/// <param name="_strFileName"> ãƒ¢ãƒ‡ãƒ«ã®ãƒ•ã‚¡ã‚¤ãƒ«å </param>
+			/// <param name="_outData"> ãƒ‡ãƒ¼ã‚¿å—ã‘å–ã‚‹ãŸã‚ã®å¤‰æ•° </param>
+			/// <returns> ãƒ¢ãƒ‡ãƒ«ã®èª­ã¿è¾¼ã¿ã¯æˆåŠŸã—ãŸã‹ã©ã†ã‹ </returns>
 			bool LoadObjModel(const std::string _strFileName, ModelData& _outData);
 
 		private:
-			// Assimp‚ÌƒV[ƒ“ƒf[ƒ^‚©‚çƒƒbƒVƒ…ƒf[ƒ^‚ğæ“¾
+			// Assimpã®ã‚·ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰ãƒ¡ãƒƒã‚·ãƒ¥ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
 			ModelData _parseSceneData(const aiScene* _pScene);
 		};
 	}

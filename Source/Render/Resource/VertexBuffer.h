@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <d3d12.h>
 #include <cstdint>
 #include <vector>
@@ -7,7 +7,7 @@
 #include "Render/ComPtr.h"
 
 /*
-	ƒƒbƒVƒ…‚Ìƒo[ƒeƒbƒNƒXî•ñ‚ðŽ‚Âƒoƒbƒtƒ@[
+	ãƒ¡ãƒƒã‚·ãƒ¥ã®ãƒãƒ¼ãƒ†ãƒƒã‚¯ã‚¹æƒ…å ±ã‚’æŒã¤ãƒãƒƒãƒ•ã‚¡ãƒ¼
 */
 
 
@@ -15,38 +15,38 @@ namespace Render
 {
 	class VertexBuffer
 	{
-		// ƒIƒuƒWƒFƒNƒg‚Ì•¡»‚ð‹ÖŽ~‚·‚é
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®è¤‡è£½ã‚’ç¦æ­¢ã™ã‚‹
 		VertexBuffer(const VertexBuffer&) = delete;
-		// ƒIƒyƒŒ[ƒ^[‚É‚æ‚éƒRƒs[‚ð‹ÖŽ~‚·‚é
+		// ã‚ªãƒšãƒ¬ãƒ¼ã‚¿ãƒ¼ã«ã‚ˆã‚‹ã‚³ãƒ”ãƒ¼ã‚’ç¦æ­¢ã™ã‚‹
 		VertexBuffer operator = (const VertexBuffer&) = delete;
 
 	public:
-		// ƒRƒ“ƒXƒgƒ‰ƒNƒ^E
+		// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ»
 		VertexBuffer();
-		// ƒfƒXƒgƒ‰ƒNƒ^[
+		// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ¼
 		~VertexBuffer();
 
 		/// <summary>
-		/// ƒo[ƒeƒbƒNƒXƒoƒbƒtƒ@[‚Ì‰Šú‰»ˆ—
+		/// ãƒãƒ¼ãƒ†ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
-		/// <param name="_pDevice"> ƒfƒoƒCƒX </param>
-		/// <param name="_dataSize"> ƒo[ƒeƒbƒNƒX”z—ñ(Šm•Û‚µ‚½—Ìˆæ)‚ÌƒTƒCƒY </param>
-		/// <param name="_sizePerVertex"> Šeƒo[ƒeƒbƒNƒXƒf[ƒ^‚ÌƒTƒCƒY </param>
-		/// <param name="vertexData"> ƒo[ƒeƒbƒNƒX”z—ñ‚ÌƒAƒhƒŒƒX </param>
-		/// <returns> (bool)‰Šú‰»ˆ—‚ªŠ®¬‚³‚ê‚½‚© </returns>
+		/// <param name="_pDevice"> ãƒ‡ãƒã‚¤ã‚¹ </param>
+		/// <param name="_dataSize"> ãƒãƒ¼ãƒ†ãƒƒã‚¯ã‚¹é…åˆ—(ç¢ºä¿ã—ãŸé ˜åŸŸ)ã®ã‚µã‚¤ã‚º </param>
+		/// <param name="_sizePerVertex"> å„ãƒãƒ¼ãƒ†ãƒƒã‚¯ã‚¹ãƒ‡ãƒ¼ã‚¿ã®ã‚µã‚¤ã‚º </param>
+		/// <param name="vertexData"> ãƒãƒ¼ãƒ†ãƒƒã‚¯ã‚¹é…åˆ—ã®ã‚¢ãƒ‰ãƒ¬ã‚¹ </param>
+		/// <returns> (bool)åˆæœŸåŒ–å‡¦ç†ãŒå®Œæˆã•ã‚ŒãŸã‹ </returns>
 		bool Init(
-			ID3D12Device* _pDevice,     // ƒfƒoƒCƒX
-			UINT64 _dataSize,           // ƒo[ƒeƒbƒNƒX”z—ñ(Šm•Û‚µ‚½—Ìˆæ)‚ÌƒTƒCƒY
-			UINT _sizePerVertex,        // Šeƒo[ƒeƒbƒNƒXƒf[ƒ^‚ÌƒTƒCƒY
-			void* _pVertexData      // ƒo[ƒeƒbƒNƒX”z—ñ‚ÌƒAƒhƒŒƒX
+			ID3D12Device* _pDevice,     // ãƒ‡ãƒã‚¤ã‚¹
+			UINT64 _dataSize,           // ãƒãƒ¼ãƒ†ãƒƒã‚¯ã‚¹é…åˆ—(ç¢ºä¿ã—ãŸé ˜åŸŸ)ã®ã‚µã‚¤ã‚º
+			UINT _sizePerVertex,        // å„ãƒãƒ¼ãƒ†ãƒƒã‚¯ã‚¹ãƒ‡ãƒ¼ã‚¿ã®ã‚µã‚¤ã‚º
+			void* _pVertexData      // ãƒãƒ¼ãƒ†ãƒƒã‚¯ã‚¹é…åˆ—ã®ã‚¢ãƒ‰ãƒ¬ã‚¹
 		);
 
-		// ƒo[ƒeƒbƒNƒXƒoƒbƒtƒ@[‚Ì‹LqŽq‚ðŽæ“¾‚·‚é
+		// ãƒãƒ¼ãƒ†ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®è¨˜è¿°å­ã‚’å–å¾—ã™ã‚‹
 		D3D12_VERTEX_BUFFER_VIEW& GetView();
 	private:
-		// ƒo[ƒeƒbƒNƒXƒoƒbƒtƒ@[‚Ì–{‘Ì
+		// ãƒãƒ¼ãƒ†ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®æœ¬ä½“
 		ComPtr<ID3D12Resource> m_pBuffer;
-		// ƒo[ƒeƒbƒNƒXƒoƒbƒtƒ@[‚Ì‹LqŽq
+		// ãƒãƒ¼ãƒ†ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®è¨˜è¿°å­
 		D3D12_VERTEX_BUFFER_VIEW m_bufferView;
 	};
 }

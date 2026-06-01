@@ -1,4 +1,4 @@
-
+﻿
 #include "Mesh.h"
 using namespace Runtime;
 
@@ -37,8 +37,8 @@ bool Mesh::Init(ID3D12Device* _pDevice, MeshData& _data)
 
     if (!m_indexBuffer.Init(
         _pDevice,
-        _data.indices.size(),
-        sizeof(uint32_t),
+        (UINT)_data.indices.size(),
+        (UINT)sizeof(uint32_t),
         _data.indices.data())
         )
     {
@@ -76,7 +76,7 @@ void Mesh::Draw(ID3D12GraphicsCommandList* _pCommandList, Camera* _pCamera)
     _pCommandList->IASetVertexBuffers(0, 1, &m_vertexBuffer.GetView());
     _pCommandList->IASetIndexBuffer(&m_indexBuffer.GetView());
     _pCommandList->DrawIndexedInstanced(
-        m_data.indices.size(),
+        (UINT)m_data.indices.size(),
         1,
         0,
         0,

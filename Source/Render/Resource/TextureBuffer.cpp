@@ -1,20 +1,20 @@
-
+ï»¿
 #include "TextureBuffer.h"
 using namespace Render;
 
 
-// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 TextureBuffer::TextureBuffer()
 {
 
 }
-// ƒfƒXƒgƒ‰ƒNƒ^[
+// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ¼
 TextureBuffer::~TextureBuffer()
 {
 
 }
 
-// ‰Šú‰»ˆ—
+// åˆæœŸåŒ–å‡¦ç†
 bool TextureBuffer::Init(
 	ID3D12Device* _pDevice,
 	const ImageData _imageData,
@@ -22,49 +22,49 @@ bool TextureBuffer::Init(
 )
 {
 	// -----------------
-	// ƒeƒNƒXƒ`ƒƒİ’è
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š
 	// -----------------
 	D3D12_HEAP_PROPERTIES texHeapProp = {};
 	{
-		// “Áê‚Èİ’è‚È‚Ì‚ÅA
+		// ç‰¹æ®Šãªè¨­å®šãªã®ã§ã€
 		texHeapProp.Type = D3D12_HEAP_TYPE_CUSTOM;
 		texHeapProp.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_WRITE_BACK;
-		// “]‘—‚ÍL0A‚Â‚Ü‚èCPU‘¤‚©‚ç’¼Ús‚¤
+		// è»¢é€ã¯L0ã€ã¤ã¾ã‚ŠCPUå´ã‹ã‚‰ç›´æ¥è¡Œã†
 		texHeapProp.MemoryPoolPreference = D3D12_MEMORY_POOL_L0;
-		// ’PˆêƒAƒ_ƒvƒ^[‚Ì‚½‚ßA0‚É‚·‚é
+		// å˜ä¸€ã‚¢ãƒ€ãƒ—ã‚¿ãƒ¼ã®ãŸã‚ã€0ã«ã™ã‚‹
 		texHeapProp.CreationNodeMask = 0;
 		texHeapProp.VisibleNodeMask = 0;
 	}
 
-	// ƒŠƒ\[ƒX‚Ìİ’è
+	// ãƒªã‚½ãƒ¼ã‚¹ã®è¨­å®š
 	D3D12_RESOURCE_DESC texResDesc = {};
 	{
 		texResDesc.Format = _imageData.metaData.format;
-		// ƒTƒCƒYw’è
-		texResDesc.Width = _imageData.metaData.width;
-		texResDesc.Height = _imageData.metaData.height;
-		// 2D”z—ñ‚Å‚Í‚È‚¢‚Ì‚Å 1‚É‚·‚é
+		// ã‚µã‚¤ã‚ºæŒ‡å®š
+		texResDesc.Width = (UINT64)_imageData.metaData.width;
+		texResDesc.Height = (UINT)_imageData.metaData.height;
+		// 2Dé…åˆ—ã§ã¯ãªã„ã®ã§ 1ã«ã™ã‚‹
 		texResDesc.DepthOrArraySize = 1;
 		texResDesc.SampleDesc.Count = 1;
 		texResDesc.SampleDesc.Quality = 0;
 
-		// ƒ~ƒbƒvƒ}ƒbƒv‚µ‚È‚¢‚Ì‚Åƒ~ƒbƒv”‚Í1
+		// ãƒŸãƒƒãƒ—ãƒãƒƒãƒ—ã—ãªã„ã®ã§ãƒŸãƒƒãƒ—æ•°ã¯1
 		texResDesc.MipLevels = 1;
-		// 2DƒeƒNƒXƒ`ƒƒ[—p
+		// 2Dãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ç”¨
 		texResDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
-		// ƒŒƒCƒAƒEƒg‚ğŒˆ’è‚µ‚È‚¢
+		// ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆã‚’æ±ºå®šã—ãªã„
 		texResDesc.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN;
-		// “Á‚Éƒtƒ‰ƒO‚È‚µ
+		// ç‰¹ã«ãƒ•ãƒ©ã‚°ãªã—
 		texResDesc.Flags = D3D12_RESOURCE_FLAG_NONE;
 	}
 
-	// ƒeƒNƒXƒ`ƒƒ‚Ìƒoƒbƒtƒ@[
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒãƒƒãƒ•ã‚¡ãƒ¼
 	HRESULT result = _pDevice->CreateCommittedResource(
 		&texHeapProp,
-		// “Á‚Éw’è‚È‚µ
+		// ç‰¹ã«æŒ‡å®šãªã—
 		D3D12_HEAP_FLAG_NONE,
 		&texResDesc,
-		// ƒeƒNƒXƒ`ƒƒ—pw’è
+		// ãƒ†ã‚¯ã‚¹ãƒãƒ£ç”¨æŒ‡å®š
 		D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE,
 		nullptr,
 		IID_PPV_ARGS(m_pResource.GetAddressOf())
@@ -72,48 +72,48 @@ bool TextureBuffer::Init(
 
 	if (FAILED(result))
 	{
-		printf("yTextureResoucezFFailed to Create Texture Buffer\n");
+		printf("ã€TextureResouceã€‘ï¼šFailed to Create Texture Buffer\n");
 		return false;
 	}
 
 	result = m_pResource->WriteToSubresource(
-		0,
+		UINT(0),
 		nullptr,
-		_imageData.image->pixels,		// Œ³ƒf[ƒ^ƒAƒhƒŒƒX
-		_imageData.image->rowPitch,	// 1ƒ‰ƒCƒ“ƒTƒCƒY
-		_imageData.image->slicePitch	// 1–‡ƒTƒCƒY
+		_imageData.image->pixels,		// å…ƒãƒ‡ãƒ¼ã‚¿ã‚¢ãƒ‰ãƒ¬ã‚¹
+		(UINT)_imageData.image->rowPitch,	// 1ãƒ©ã‚¤ãƒ³ã‚µã‚¤ã‚º
+		(UINT)_imageData.image->slicePitch	// 1æšã‚µã‚¤ã‚º
 	);
 
 	if (FAILED(result))
 	{
-		printf("yTextureResoucezFFailed to Write to Subresource\n");
+		printf("ã€TextureResouceã€‘ï¼šFailed to Write to Subresource\n");
 		return false;
 	}
 
-	// ƒfƒBƒXƒNƒŠƒvƒ^‚Ìİ’èî•ñ
+	// ãƒ‡ã‚£ã‚¹ã‚¯ãƒªãƒ—ã‚¿ã®è¨­å®šæƒ…å ±
 	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
 	{
-		// RBGA (0.0f~1.0‚É³‹K‰»)
+		// RBGA (0.0f~1.0ã«æ­£è¦åŒ–)
 		srvDesc.Format = _imageData.metaData.format;
 		srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
-		// 2DƒeƒNƒXƒ`ƒƒ
+		// 2Dãƒ†ã‚¯ã‚¹ãƒãƒ£
 		srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
-		// ƒ~ƒbƒvƒ}ƒbƒv‚Íg—p‚µ‚È‚¢‚Ì‚Å1
+		// ãƒŸãƒƒãƒ—ãƒãƒƒãƒ—ã¯ä½¿ç”¨ã—ãªã„ã®ã§1
 		srvDesc.Texture2D.MipLevels = 1;
 	}
 
 
-	// ƒfƒBƒXƒNƒŠƒvƒ^‚Ì¶¬
+	// ãƒ‡ã‚£ã‚¹ã‚¯ãƒªãƒ—ã‚¿ã®ç”Ÿæˆ
 	_pDevice->CreateShaderResourceView(
-		// ƒrƒ…[‚ÆŠÖ˜A•t‚¯‚éƒoƒbƒtƒ@[
+		// ãƒ“ãƒ¥ãƒ¼ã¨é–¢é€£ä»˜ã‘ã‚‹ãƒãƒƒãƒ•ã‚¡ãƒ¼
 		m_pResource.Get(),
-		// æ‚Ù‚Çİ’è‚µ‚½ƒeƒNƒXƒ`ƒƒİ’èî•ñ
+		// å…ˆã»ã©è¨­å®šã—ãŸãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®šæƒ…å ±
 		&srvDesc,
-		// æ“ªƒAƒhƒŒƒX
+		// å…ˆé ­ã‚¢ãƒ‰ãƒ¬ã‚¹
 		_descriptorHeap.GetCPUHeapHandle()
 	);
 
-	// ƒfƒBƒXƒNƒŠƒvƒ^‚ÌˆÊ’u‚ğˆÚ“®‚·‚é
+	// ãƒ‡ã‚£ã‚¹ã‚¯ãƒªãƒ—ã‚¿ã®ä½ç½®ã‚’ç§»å‹•ã™ã‚‹
 	UINT offset = _pDevice->GetDescriptorHandleIncrementSize(
 		D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV
 	);
@@ -122,13 +122,13 @@ bool TextureBuffer::Init(
 	return true;
 }
 
-// Œã•Ğ•t‚¯ˆ—
+// å¾Œç‰‡ä»˜ã‘å‡¦ç†
 void TextureBuffer::Term()
 {
 
 }
 
-// ƒeƒNƒXƒ`ƒƒƒoƒbƒtƒ@[‚Ì–{‘Ì‚ğæ“¾‚·‚é
+// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®æœ¬ä½“ã‚’å–å¾—ã™ã‚‹
 ID3D12Resource* TextureBuffer::GetResource() const
 {
 	return m_pResource.Get();

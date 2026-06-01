@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "Model/ModleLoader.h"
 #include "Image/ImageLoader.h"
@@ -7,31 +7,31 @@ namespace Assets
 {
 	class AssetsManager
 	{
-		// ƒRƒs[‚ğ‹Ö~‚·‚é
+		// ã‚³ãƒ”ãƒ¼ã‚’ç¦æ­¢ã™ã‚‹
 		AssetsManager(const AssetsManager&) = delete;
-		// ƒIƒyƒŒ[ƒ^[‚É‚æ‚éƒRƒs[‚ğ‹Ö~‚·‚é
+		// ã‚ªãƒšãƒ¬ãƒ¼ã‚¿ãƒ¼ã«ã‚ˆã‚‹ã‚³ãƒ”ãƒ¼ã‚’ç¦æ­¢ã™ã‚‹
 		void operator = (const AssetsManager&) = delete;
 
 	public:
-		// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		AssetsManager();
-		// ƒfƒXƒgƒ‰ƒNƒ^[
+		// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ¼
 		~AssetsManager();
 
 		/// <summary>
-		/// ƒ‚ƒfƒ‹ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+		/// ãƒ¢ãƒ‡ãƒ«ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
 		/// </summary>
-		/// <param name="_strFileName"> ƒtƒ@ƒCƒ‹–¼ </param>
-		/// <param name="_outData"> ƒf[ƒ^‚ğó‚¯æ‚é‚½‚ß‚Ì•Ï” </param>
-		/// <returns> ƒ‚ƒfƒ‹ƒf[ƒ^ </returns>
+		/// <param name="_strFileName"> ãƒ•ã‚¡ã‚¤ãƒ«å </param>
+		/// <param name="_outData"> ãƒ‡ãƒ¼ã‚¿ã‚’å—ã‘å–ã‚‹ãŸã‚ã®å¤‰æ•° </param>
+		/// <returns> ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ </returns>
 		bool LoadModelFile(std::string _strFileName, ModelData& _outData);
 
 		/// <summary>
-		/// ‰æ‘œƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+		/// ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
 		/// </summary>
-		/// <param name="_fileName"> ƒtƒ@ƒCƒ‹–¼ </param>
-		/// <param name="_outData"> ƒf[ƒ^‚ğó‚¯æ‚é‚½‚ß‚Ì•Ï” </param>
-		/// <returns> “Ç‚İ‚İ‚Í¬Œ÷‚µ‚½‚© </returns>
+		/// <param name="_fileName"> ãƒ•ã‚¡ã‚¤ãƒ«å </param>
+		/// <param name="_outData"> ãƒ‡ãƒ¼ã‚¿ã‚’å—ã‘å–ã‚‹ãŸã‚ã®å¤‰æ•° </param>
+		/// <returns> èª­ã¿è¾¼ã¿ã¯æˆåŠŸã—ãŸã‹ </returns>
 		bool LoadImageFile(const wchar_t* _fileName, ImageData& _outData);
 
 	private:

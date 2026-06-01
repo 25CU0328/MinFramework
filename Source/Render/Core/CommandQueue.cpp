@@ -1,4 +1,4 @@
-
+ï»¿
 
 #include "CommandQueue.h"
 using namespace Render;
@@ -6,28 +6,28 @@ using namespace Render;
 
 
 
-// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 CommandQueue::CommandQueue()
 {
 
 }
-// ƒfƒXƒgƒ‰ƒNƒ^[
+// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ¼
 CommandQueue::~CommandQueue()
 {
 
 }
 
-// ‰Šú‰»ˆ—
+// åˆæœŸåŒ–å‡¦ç†
 bool CommandQueue::Init(ID3D12Device* _pDevice)
 {
-	// ƒRƒ}ƒ“ƒhƒLƒ…[‚ÌÝ’è
+	// ã‚³ãƒžãƒ³ãƒ‰ã‚­ãƒ¥ãƒ¼ã®è¨­å®š
 	D3D12_COMMAND_QUEUE_DESC desc = {};
 	desc.Type = D3D12_COMMAND_LIST_TYPE_DIRECT;
 	desc.Priority = D3D12_COMMAND_QUEUE_PRIORITY_NORMAL;
 	desc.Flags = D3D12_COMMAND_QUEUE_FLAG_NONE;
 	desc.NodeMask = 0;
 
-	// ƒRƒ}ƒ“ƒhƒLƒ…[‚Ì¶¬
+	// ã‚³ãƒžãƒ³ãƒ‰ã‚­ãƒ¥ãƒ¼ã®ç”Ÿæˆ
 	HRESULT result = _pDevice->CreateCommandQueue(
 		&desc,
 		IID_PPV_ARGS(m_pCommandQueue.GetAddressOf())
@@ -42,19 +42,19 @@ bool CommandQueue::Init(ID3D12Device* _pDevice)
 	return true;
 }
 
-// Œã•Ð•t‚¯ˆ—
+// å¾Œç‰‡ä»˜ã‘å‡¦ç†
 void CommandQueue::Term()
 {
 	m_pCommandQueue->Release();
 }
 
-// ƒRƒ}ƒ“ƒhƒŠƒXƒg‚ðŽæ“¾‚·‚é‚½‚ß‚Ìƒƒ\ƒbƒh
+// ã‚³ãƒžãƒ³ãƒ‰ãƒªã‚¹ãƒˆã‚’å–å¾—ã™ã‚‹ãŸã‚ã®ãƒ¡ã‚½ãƒƒãƒ‰
 ID3D12CommandQueue* CommandQueue::Get()
 {
 	return m_pCommandQueue.Get();
 }
 
-// ƒRƒ}ƒ“ƒhƒŠƒXƒg‚Ì–½—ß‚ðŽÀs‚·‚é
+// ã‚³ãƒžãƒ³ãƒ‰ãƒªã‚¹ãƒˆã®å‘½ä»¤ã‚’å®Ÿè¡Œã™ã‚‹
 void CommandQueue::Execute(UINT _listNum, ID3D12CommandList** _ppCommandLists)
 {
 	m_pCommandQueue->ExecuteCommandLists(_listNum, _ppCommandLists);

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <d3d12.h>
 #include <cstdint>
 #include <vector>
@@ -7,49 +7,49 @@
 #include "Render/ComPtr.h"
 
 /*
-	ƒƒbƒVƒ…‚ÌƒCƒ“ƒfƒbƒNƒXî•ñ‚ðŽ‚Âƒoƒbƒtƒ@[
+	ãƒ¡ãƒƒã‚·ãƒ¥ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æƒ…å ±ã‚’æŒã¤ãƒãƒƒãƒ•ã‚¡ãƒ¼
 */
 
 namespace Render
 {
 	class IndexBuffer
 	{
-		// ƒIƒuƒWƒFƒNƒg‚Ì•¡»‚ð‹ÖŽ~‚·‚é
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®è¤‡è£½ã‚’ç¦æ­¢ã™ã‚‹
 		IndexBuffer(const IndexBuffer&) = delete;
-		// ƒIƒyƒŒ[ƒ^[‚É‚æ‚éƒRƒs[‚ð‹ÖŽ~‚·‚é
+		// ã‚ªãƒšãƒ¬ãƒ¼ã‚¿ãƒ¼ã«ã‚ˆã‚‹ã‚³ãƒ”ãƒ¼ã‚’ç¦æ­¢ã™ã‚‹
 		IndexBuffer operator = (const IndexBuffer&) = delete;
 
 	public:
-		// ƒRƒ“ƒXƒgƒ‰ƒNƒ^E
+		// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ»
 		IndexBuffer();
-		// ƒfƒXƒgƒ‰ƒNƒ^[
+		// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ¼
 		~IndexBuffer();
 
 		/// <summary>
-		/// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@[‚Ì‰Šú‰»ˆ—
+		/// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®åˆæœŸåŒ–å‡¦ç†
 		/// </summary>
-		/// <param name="_pDevice"> ƒfƒoƒCƒX </param>
-		/// <param name="_dataSize"> ƒCƒ“ƒfƒbƒNƒX”z—ñ(Šm•Û‚µ‚½—Ìˆæ)‚ÌƒTƒCƒY </param>
-		/// <param name="_sizePerVertex"> ŠeƒCƒ“ƒfƒbƒNƒXƒf[ƒ^‚ÌƒTƒCƒY </param>
-		/// <param name="vertexData"> ƒCƒ“ƒfƒbƒNƒX”z—ñ‚ÌƒAƒhƒŒƒX </param>
-		/// <returns> (bool)‰Šú‰»ˆ—‚ªŠ®¬‚³‚ê‚½‚© </returns>
+		/// <param name="_pDevice"> ãƒ‡ãƒã‚¤ã‚¹ </param>
+		/// <param name="_dataSize"> ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹é…åˆ—(ç¢ºä¿ã—ãŸé ˜åŸŸ)ã®ã‚µã‚¤ã‚º </param>
+		/// <param name="_sizePerVertex"> å„ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒ‡ãƒ¼ã‚¿ã®ã‚µã‚¤ã‚º </param>
+		/// <param name="vertexData"> ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹é…åˆ—ã®ã‚¢ãƒ‰ãƒ¬ã‚¹ </param>
+		/// <returns> (bool)åˆæœŸåŒ–å‡¦ç†ãŒå®Œæˆã•ã‚ŒãŸã‹ </returns>
 		bool Init(
-			ID3D12Device* _pDevice,	// ƒfƒoƒCƒX
-			UINT64 _datasSize,				// ƒCƒ“ƒfƒbƒNƒX”z—ñ(Šm•Û‚µ‚½—Ìˆæ)‚ÌƒTƒCƒY
-			UINT _sizePerIndex,				// ŠeƒCƒ“ƒfƒbƒNƒXƒf[ƒ^‚ÌƒTƒCƒY
-			void* _pIndexDatas		// ƒCƒ“ƒfƒbƒNƒX”z—ñ‚ÌƒAƒhƒŒƒX
+			ID3D12Device* _pDevice,	// ãƒ‡ãƒã‚¤ã‚¹
+			UINT _datasSize,				// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹é…åˆ—(ç¢ºä¿ã—ãŸé ˜åŸŸ)ã®ã‚µã‚¤ã‚º
+			UINT _sizePerIndex,				// å„ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒ‡ãƒ¼ã‚¿ã®ã‚µã‚¤ã‚º
+			void* _pIndexDatas		// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹é…åˆ—ã®ã‚¢ãƒ‰ãƒ¬ã‚¹
 		);
 
 		/// <summary>
-		/// ƒCƒ“ƒfƒbƒNƒXƒrƒ…[‚ðŽæ“¾‚·‚é
+		/// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒ“ãƒ¥ãƒ¼ã‚’å–å¾—ã™ã‚‹
 		/// </summary>
-		/// <returns> ƒCƒ“ƒfƒbƒNƒXƒrƒ…[ </returns>
+		/// <returns> ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒ“ãƒ¥ãƒ¼ </returns>
 		D3D12_INDEX_BUFFER_VIEW& GetView();
 
 	private:
-		// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@[‚Ì–{‘Ì
+		// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®æœ¬ä½“
 		ComPtr<ID3D12Resource> m_pBuffer;
-		// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@[‚Ì‹LqŽq
+		// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®è¨˜è¿°å­
 		D3D12_INDEX_BUFFER_VIEW m_bufferView;
 	};
 }

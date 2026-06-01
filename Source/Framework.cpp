@@ -1,4 +1,4 @@
-
+﻿
 #include "Framework.h"
 
 Framework* Framework::s_pInstance = nullptr;

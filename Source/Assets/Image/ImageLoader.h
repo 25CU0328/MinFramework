@@ -1,6 +1,6 @@
-#pragma once
+ï»¿#pragma once
 
-// ImageData‚ğg—p‚·‚é‚½‚ßƒCƒ“ƒNƒ‹[ƒh
+// ImageDataã‚’ä½¿ç”¨ã™ã‚‹ãŸã‚ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 #include "ImageData.h"
 
 namespace Assets
@@ -9,23 +9,23 @@ namespace Assets
 	{
 		class ImageLoader
 		{
-			// ƒRƒs[‚ğ‹Ö~‚·‚é
+			// ã‚³ãƒ”ãƒ¼ã‚’ç¦æ­¢ã™ã‚‹
 			ImageLoader(const ImageLoader&) = delete;
-			// ƒIƒyƒŒ[ƒ^[‚É‚æ‚éƒRƒs[‚ğ‹Ö~‚·‚é
+			// ã‚ªãƒšãƒ¬ãƒ¼ã‚¿ãƒ¼ã«ã‚ˆã‚‹ã‚³ãƒ”ãƒ¼ã‚’ç¦æ­¢ã™ã‚‹
 			void operator = (const ImageLoader&) = delete;
 
 		public:
-			// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+			// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 			ImageLoader();
-			// ƒfƒXƒgƒ‰ƒNƒ^[
+			// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ¼
 			~ImageLoader();
 
 			/// <summary>
-			/// ‰æ‘œƒtƒ@ƒCƒ‹‚ğw’è‚ÌƒpƒX‚©‚ç“Ç‚İ‚Ş
+			/// ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ã‚’æŒ‡å®šã®ãƒ‘ã‚¹ã‹ã‚‰èª­ã¿è¾¼ã‚€
 			/// </summary>
-			/// <param name="_pFilePath"> ƒtƒ@ƒCƒ‹ƒpƒX </param>
-			/// <param name="_outData"> ƒf[ƒ^ó‚¯æ‚é‚½‚ß‚Ì•Ï” </param>
-			/// <returns> “Ç‚İ‚İ‚ÌŒ‹‰Ê </returns>
+			/// <param name="_pFilePath"> ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ </param>
+			/// <param name="_outData"> ãƒ‡ãƒ¼ã‚¿å—ã‘å–ã‚‹ãŸã‚ã®å¤‰æ•° </param>
+			/// <returns> èª­ã¿è¾¼ã¿ã®çµæœ </returns>
 			bool LoadImageFile(
 				const wchar_t* _pFilePath, 
 				ImageData& _outData

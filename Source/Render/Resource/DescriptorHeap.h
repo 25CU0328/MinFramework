@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <d3d12.h>
 #include <cstdint>
@@ -7,7 +7,7 @@
 #include "Render/ComPtr.h"
 
 /*
-	�f�B�X�N���v�^���܂Ƃ߂��q�[�v
+	ディスクリプタをまとめたヒープ
 	
 */
 
@@ -19,44 +19,44 @@ namespace Render
 		void operator = (const DescriptorHeap&) = delete;
 
 	public:
-		// �R���X�g���N�^
+		// コンストラクタ
 		DescriptorHeap();
-		// �f�X�g���N�^�[
+		// デストラクター
 		~DescriptorHeap();
 
-		// ����������
+		// 初期化処理
 		bool Init(
 			ID3D12Device* _pDevice,
 			D3D12_DESCRIPTOR_HEAP_TYPE _type,
 			D3D12_DESCRIPTOR_HEAP_FLAGS _flag,
 			UINT _DescirptorNum
 		);
-		// ��Еt������
+		// 後片付け処理
 		void Term();
 
-		// CPU�n���h�����擾
+		// CPUハンドルを取得
 		D3D12_CPU_DESCRIPTOR_HANDLE GetCPUHeapHandle() const;
-		// GPU��
+		// GPUの
 		D3D12_GPU_DESCRIPTOR_HANDLE GetGPUHeapHandle() const;
 
-		// �f�B�X�N���v�^�q�[�v�̐ݒ�����擾
+		// ディスクリプタヒープの設定情報を取得
 		D3D12_DESCRIPTOR_HEAP_DESC GetDesc() const;
-		// CPU�n���h���ɗ̈�
+		// CPUハンドルに領域
 		void AllocateCPU(const UINT allocateSize);
-		// �q�[�v�ɗv�f��ǉ������ꍇ�A�Ή�����T�C�Y�̗̈���A���P�[�g
+		// ヒープに要素を追加した場合、対応するサイズの領域をアロケート
 		void AllocateGPU(const UINT allocateSize);
-		// �f�B�X�N���v�^�q�[�v�̖{�̂��擾����
+		// ディスクリプタヒープの本体を取得する
 		ID3D12DescriptorHeap* Get();
 
 	private:
-		// �f�B�X�N���v�^�q�[�v�̖{��
+		// ディスクリプタヒープの本体
 		ComPtr<ID3D12DescriptorHeap> m_pDescriptorHeap;
-		// CPU���̃n���h��
+		// CPU側のハンドル
 		D3D12_CPU_DESCRIPTOR_HANDLE m_CPU_Handle;
-		// GPU���̃n���h��
+		// GPU側のハンドル
 		D3D12_GPU_DESCRIPTOR_HANDLE m_GPU_Handle;
 
-		// �f�B�X�N���v�^�q�[�v�̐ݒ�
+		// ディスクリプタヒープの設定
 		D3D12_DESCRIPTOR_HEAP_DESC m_heapDesc;
 	};
 }

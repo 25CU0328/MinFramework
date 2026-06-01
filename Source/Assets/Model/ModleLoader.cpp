@@ -1,39 +1,39 @@
-
+ï»¿
 #include "ModleLoader.h"
 
 
-// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 Assets::Model::ModleLoader::ModleLoader()
 {
 
 }
-// ƒfƒXƒgƒ‰ƒNƒ^
+// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 Assets::Model::ModleLoader::~ModleLoader()
 {
 
 }
 
-// 3Dƒ‚ƒfƒ‹‚ğ“Ç‚İ‚Ş
+// 3Dãƒ¢ãƒ‡ãƒ«ã‚’èª­ã¿è¾¼ã‚€
 bool Assets::Model::ModleLoader::LoadObjModel(const std::string _strFilePath, ModelData& _outData)
 {
 	Assimp::Importer importer;
 	const aiScene* pScene = importer.ReadFile(
 		_strFilePath,
-		aiProcess_Triangulate |	// OŠpŒ`‚¶‚á‚È‚¢ƒtƒFƒX‚ğOŠpŒ`‰»
-		aiProcess_FlipUVs |		// uv‚ÌŒü‚«‚ª”½“]‚µ‚È‚¢‚ğ
-		aiProcess_GenNormals	// ƒm[ƒ}ƒ‹‚Ì‚È‚¢ƒ‚ƒf‚é‚Éƒm[ƒ}ƒ‹‚ğ¶¬
+		aiProcess_Triangulate |	// ä¸‰è§’å½¢ã˜ã‚ƒãªã„ãƒ•ã‚§ã‚¹ã‚’ä¸‰è§’å½¢åŒ–
+		aiProcess_FlipUVs |		// uvã®å‘ããŒåè»¢ã—ãªã„ã‚’
+		aiProcess_GenNormals	// ãƒãƒ¼ãƒãƒ«ã®ãªã„ãƒ¢ãƒ‡ã‚‹ã«ãƒãƒ¼ãƒãƒ«ã‚’ç”Ÿæˆ
 	);
 
 	if (pScene == nullptr)
 	{
-		printf("yModleLoaderzFFailed to Load File\n");
+		printf("ã€ModleLoaderã€‘ï¼šFailed to Load File\n");
 		return false;
 	}
 
-	// ƒ‚ƒfƒ‹‚Ì‰ğÍ
+	// ãƒ¢ãƒ‡ãƒ«ã®è§£æ
 	if (!pScene->HasMeshes())
 	{
-		printf("yModleLoaderzFScene Does not Contain any Mesh\n");
+		printf("ã€ModleLoaderã€‘ï¼šScene Does not Contain any Mesh\n");
 		return false;
 	}
 
@@ -43,8 +43,8 @@ bool Assets::Model::ModleLoader::LoadObjModel(const std::string _strFilePath, Mo
 }
 
 
-// ƒV[ƒ“ƒf[ƒ^‚Ì‰ğÍ
-// ‰ğÍ‚µ‚½ƒf[ƒ^‚ÍModelData‚Æ‚µ‚Ä•Ô‚·
+// ã‚·ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿ã®è§£æ
+// è§£æã—ãŸãƒ‡ãƒ¼ã‚¿ã¯ModelDataã¨ã—ã¦è¿”ã™
 ModelData Assets::Model::ModleLoader::_parseSceneData(const aiScene* _pScene)
 {
 	ModelData modelData;
@@ -55,11 +55,11 @@ ModelData Assets::Model::ModleLoader::_parseSceneData(const aiScene* _pScene)
 		MeshData meshData;
 
 		int meshNum = (int)pMesh->mNumVertices;
-		// ƒ”ƒ@[ƒeƒbƒNƒXƒf[ƒ^‚ÌƒRƒs[
+		// ãƒ´ã‚¡ãƒ¼ãƒ†ãƒƒã‚¯ã‚¹ãƒ‡ãƒ¼ã‚¿ã®ã‚³ãƒ”ãƒ¼
 		for (int j = 0; j < meshNum; ++j)
 		{
 			VertexData vertexData = {};
-			// ’¸“_À•W‚ÌƒRƒs[
+			// é ‚ç‚¹åº§æ¨™ã®ã‚³ãƒ”ãƒ¼
 			auto tempFloat3 = pMesh->mVertices[j];
 			vertexData.position = XMFLOAT3(
 				tempFloat3.x, 
@@ -69,7 +69,7 @@ ModelData Assets::Model::ModleLoader::_parseSceneData(const aiScene* _pScene)
 
 			if (pMesh->HasNormals())
 			{
-				// –@ü‚ÌƒRƒs[
+				// æ³•ç·šã®ã‚³ãƒ”ãƒ¼
 				tempFloat3 = pMesh->mNormals[j];
 				vertexData.normal = XMFLOAT3(
 					tempFloat3.x, 
@@ -90,7 +90,7 @@ ModelData Assets::Model::ModleLoader::_parseSceneData(const aiScene* _pScene)
 		}
 
 		int faceNum = (int)pMesh->mNumFaces;
-		// ƒCƒ“ƒfƒbƒNƒXƒf[ƒ^‚ÌƒRƒs[
+		// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒ‡ãƒ¼ã‚¿ã®ã‚³ãƒ”ãƒ¼
 		for (int faceIndex = 0; faceIndex < faceNum; ++faceIndex)
 		{
 			aiFace face =pMesh->mFaces[faceIndex];
@@ -103,12 +103,12 @@ ModelData Assets::Model::ModleLoader::_parseSceneData(const aiScene* _pScene)
 		}
 
 
-		// ƒƒbƒVƒ…ƒf[ƒ^‚ğ•Û‘¶‚·‚é
+		// ãƒ¡ãƒƒã‚·ãƒ¥ãƒ‡ãƒ¼ã‚¿ã‚’ä¿å­˜ã™ã‚‹
 		modelData.meshDatas.emplace_back(meshData);
 	}
 
 	/*
-	// Debug—p
+	// Debugç”¨
 	for (MeshData meshData : modelData.meshDatas) 
 	{ 
 		for (VertexData vertexData : meshData.vertexDatas) 

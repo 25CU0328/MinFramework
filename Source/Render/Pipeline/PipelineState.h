@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <d3d12.h>
 #include <cstdint>
@@ -10,8 +10,8 @@
 
 
 /*
-	•`‰æ‚Ég—p‚·‚éƒVƒF[ƒ_[‚âƒŒƒ“ƒ_ƒŠƒ“ƒOİ’è‚ğ
-	‚Ü‚Æ‚ß‚éƒIƒuƒWƒFƒNƒg
+	æç”»ã«ä½¿ç”¨ã™ã‚‹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚„ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°è¨­å®šã‚’
+	ã¾ã¨ã‚ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 */
 
 
@@ -26,24 +26,24 @@ namespace Render
 		PipelineState();
 		~PipelineState();
 
-		// ‰Šú‰»ˆ—
+		// åˆæœŸåŒ–å‡¦ç†
 		bool Init(
 			ID3D12Device* _pDevice,							
 			ShaderObject* _pVertexShader,
 			ShaderObject* _pPixelShader,
-			D3D12_INPUT_ELEMENT_DESC _inputElementDescs[],	// ’¸“_‚âƒeƒNƒXƒ`ƒƒ‚Ìƒf[ƒ^
-			UINT _inputElementNum,							// ã‹Lƒf[ƒ^‚Ì”
+			D3D12_INPUT_ELEMENT_DESC _inputElementDescs[],	// é ‚ç‚¹ã‚„ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒ‡ãƒ¼ã‚¿
+			UINT _inputElementNum,							// ä¸Šè¨˜ãƒ‡ãƒ¼ã‚¿ã®æ•°
 			RootSignature* _pRootSignature
 		);
 
-		// Œã•Ğ•t‚¯ˆ—
+		// å¾Œç‰‡ä»˜ã‘å‡¦ç†
 		void Term();
 
-		// ƒpƒCƒvƒ‰ƒCƒ“ƒXƒe[ƒg‚Ì–{‘Ì‚ğæ“¾‚·‚é
+		// ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã‚¹ãƒ†ãƒ¼ãƒˆã®æœ¬ä½“ã‚’å–å¾—ã™ã‚‹
 		ID3D12PipelineState* Get();
 
 	private:
-		// ƒpƒCƒvƒ‰ƒCƒ“ƒXƒe[ƒg‚Ì–{‘Ì
+		// ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã‚¹ãƒ†ãƒ¼ãƒˆã®æœ¬ä½“
 		ComPtr<ID3D12PipelineState> m_pPipelineState;
 
 	};

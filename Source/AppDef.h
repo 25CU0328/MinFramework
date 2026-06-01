@@ -1,8 +1,8 @@
-#pragma once
+ï»¿#pragma once
 
 #define TITLE TEXT("Framework");
 
-//1280 ~ 720‚ ‚½‚è‚Å16:9‚É‚µ‚Ä‚¨‚¢‚½•û‚ª‚¢‚¢‚©‚à‚µ‚ê‚È‚¢
+//1280 Ã— 720ã‚ãŸã‚Šã§16:9ã«ã—ã¦ãŠã„ãŸæ–¹ãŒã„ã„ã‹ã‚‚ã—ã‚Œãªã„
 #define WINDOW_WIDTH 1024
 #define WINDOW_HEIGHT 768
 

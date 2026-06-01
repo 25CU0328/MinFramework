@@ -1,4 +1,4 @@
-
+﻿
 #include "Fence.h"
 using namespace Render;
 

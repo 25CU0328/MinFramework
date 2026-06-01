@@ -1,9 +1,10 @@
-
+﻿
 #include "IndexBuffer.h"
 using namespace Render;
 
 // コンストラクタ・デストラクター
 IndexBuffer::IndexBuffer()
+    : m_bufferView()
 {
 
 }
@@ -23,7 +24,7 @@ IndexBuffer::~IndexBuffer()
 /// <returns> (bool)初期化処理が完成されたか </returns>
 bool IndexBuffer::Init(
 	ID3D12Device* _pDevice,	// デバイス
-	UINT64 _datasSize,				// インデックス配列(確保した領域)のサイズ
+	UINT _datasSize,				// インデックス配列(確保した領域)のサイズ
 	UINT _sizePerIndex,				// 各インデックスデータのサイズ
 	void* _pIndexDatas		// インデックス配列のアドレス
 )

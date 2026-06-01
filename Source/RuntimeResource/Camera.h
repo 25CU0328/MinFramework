@@ -1,38 +1,36 @@
-#pragma once
-
-#include "Render/Resource/ConstantBuffer.h"
+ï»¿#pragma once
 
 #include "DirectXMath.h"
 using namespace DirectX;
 
-// ƒtƒŒ[ƒ€ƒ[ƒNƒ†[ƒT‚ª˜M‚é
+// ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¯ãƒ¼ã‚¯ãƒ¦ãƒ¼ã‚µãŒå¼„ã‚‹
 namespace Runtime
 {
 	enum class ProjectionType
 	{
-		Perspective,	// “§‹“Š‰e
-		Orthographic	// ³“Š‰e
+		Perspective,	// é€è¦–æŠ•å½±
+		Orthographic	// æ­£æŠ•å½±
 	};
 
 	class Camera
 	{
-		// ƒIƒuƒWƒFƒNƒg‚Ì•¡»‚ğ‹Ö~‚·‚é
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®è¤‡è£½ã‚’ç¦æ­¢ã™ã‚‹
 		Camera(const Camera&) = delete;
-		// ƒIƒyƒŒ[ƒ^[‚É‚æ‚éƒRƒs[‚ğ‹Ö~‚·‚é
+		// ã‚ªãƒšãƒ¬ãƒ¼ã‚¿ãƒ¼ã«ã‚ˆã‚‹ã‚³ãƒ”ãƒ¼ã‚’ç¦æ­¢ã™ã‚‹
 		Camera operator = (const Camera&) = delete;
 
 	public:
-		// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		Camera();
-		// ƒfƒXƒgƒ‰ƒNƒ^[
+		// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ¼
 		~Camera();
 
-		// ‰Šú‰»ˆ—
+		// åˆæœŸåŒ–å‡¦ç†
 		void Init();
-		// ˆÊ’u‚ğİ’è‚·‚é
+		// ä½ç½®ã‚’è¨­å®šã™ã‚‹
 		void SetPosition(const DirectX::XMFLOAT3& _position);
 
-		// ‰ñ“]Šp“x‚ğİ’è‚·‚é
+		// å›è»¢è§’åº¦ã‚’è¨­å®šã™ã‚‹
 		void SetRotation(const DirectX::XMFLOAT3& _rotation);
 
 		void SetView(
@@ -41,10 +39,14 @@ namespace Runtime
 			float _nearPlaneDistance,
 			float _farPlaneDistance
 		);
-		// ƒJƒƒ‰ˆÊ’u‚ğæ“¾‚·‚é
+		// ã‚«ãƒ¡ãƒ©ä½ç½®ã‚’å–å¾—ã™ã‚‹
 		XMFLOAT3 GetPosition() const;
-		// ƒJƒƒ‰‚Ì‰ñ“]Šp“x‚ğæ“¾‚·‚é
+		// ã‚«ãƒ¡ãƒ©ã®å›è»¢è§’åº¦ã‚’å–å¾—ã™ã‚‹
 		XMFLOAT3 GetRotation() const;
+		// ã‚«ãƒ¡ãƒ©ã®å‰æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ã‚’å–å¾—ã™ã‚‹
+		XMFLOAT3 GetFront() const;
+		// ã‚«ãƒ¡ãƒ©ã®å³æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ã‚’å–å¾—ã™ã‚‹
+		XMFLOAT3 GetRight() const;
 
 		DirectX::XMMATRIX GetViewMatrix() const;
 
@@ -54,13 +56,13 @@ namespace Runtime
 
 	private:
 
-		float m_fov;	// ‰æŠp
-		float m_aspect;	// ƒAƒXƒyƒNƒg”ä
-		float m_nearZ;	// ‹ßÚ•½–Ê
-		float m_farZ;	// ‰“•û•½–Ê
+		float m_fov;	// ç”»è§’
+		float m_aspect;	// ã‚¢ã‚¹ãƒšã‚¯ãƒˆæ¯”
+		float m_nearZ;	// è¿‘æ¥å¹³é¢
+		float m_farZ;	// é æ–¹å¹³é¢
 
-		XMFLOAT3 m_position; // ƒJƒƒ‰ˆÊ’u
-		XMFLOAT3 m_rotation; // ƒJƒƒ‰‰ñ“]Šp“x
+		XMFLOAT3 m_position; // ã‚«ãƒ¡ãƒ©ä½ç½®
+		XMFLOAT3 m_rotation; // ã‚«ãƒ¡ãƒ©å›è»¢è§’åº¦
 
 		ProjectionType m_projectionType;
 	};

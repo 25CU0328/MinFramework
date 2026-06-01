@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <d3d12.h>
 #include <cstdint>
 #include <vector>
@@ -15,28 +15,28 @@ namespace Render
 {
 	class TextureBuffer
 	{
-		// ƒIƒuƒWƒFƒNƒg‚Ì•¡»‚ğ‹Ö~‚·‚é
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®è¤‡è£½ã‚’ç¦æ­¢ã™ã‚‹
 		TextureBuffer(const TextureBuffer&) = delete;
-		// ƒIƒyƒŒ[ƒ^[‚É‚æ‚éƒRƒs[‚ğ‹Ö~‚·‚é
+		// ã‚ªãƒšãƒ¬ãƒ¼ã‚¿ãƒ¼ã«ã‚ˆã‚‹ã‚³ãƒ”ãƒ¼ã‚’ç¦æ­¢ã™ã‚‹
 		TextureBuffer operator = (const TextureBuffer&) = delete;
 
 	public:
-		// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		TextureBuffer();
-		// ƒfƒXƒgƒ‰ƒNƒ^[
+		// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ¼
 		~TextureBuffer();
 
-		// ‰Šú‰»ˆ—
+		// åˆæœŸåŒ–å‡¦ç†
 		bool Init(
 			ID3D12Device* _pDevice,
 			const ImageData _imageData,
 			DescriptorHeap& _pDescriptorHeap
 		);
 
-		// Œã•Ğ•t‚¯ˆ—
+		// å¾Œç‰‡ä»˜ã‘å‡¦ç†
 		void Term();
 
-		// ƒeƒNƒXƒ`ƒƒ‚ÌƒŠƒ\[ƒX‚ğ•Ô‚·ŠÖ”
+		// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒªã‚½ãƒ¼ã‚¹ã‚’è¿”ã™é–¢æ•°
 		ID3D12Resource* GetResource() const;
 
 

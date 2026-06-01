@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <d3d12.h>
 #include <cstdint>
@@ -7,7 +7,7 @@
 #include "Render/ComPtr.h"
 
 /*
-	CPU‚ÆGPU‚Ì“¯Šú‚ð’S“–‚·‚éƒIƒuƒWƒFƒNƒg
+	CPUã¨GPUã®åŒæœŸã‚’æ‹…å½“ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 */
 
 
@@ -15,39 +15,39 @@ namespace Render
 {
 	class Fence
 	{
-		// ƒIƒuƒWƒFƒNƒg‚Ì•¡»‚ð‹ÖŽ~‚·‚é
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®è¤‡è£½ã‚’ç¦æ­¢ã™ã‚‹
 		Fence(const Fence&) = delete;
-		// ƒIƒyƒŒ[ƒ^[‚É‚æ‚éƒRƒs[‚ð‹ÖŽ~‚·‚é
+		// ã‚ªãƒšãƒ¬ãƒ¼ã‚¿ãƒ¼ã«ã‚ˆã‚‹ã‚³ãƒ”ãƒ¼ã‚’ç¦æ­¢ã™ã‚‹
 		Fence operator = (const Fence&) = delete;
 
 	public:
-		// ƒRƒ“ƒXƒgƒ‰ƒNƒ^EƒfƒXƒgƒ‰ƒNƒ^[
+		// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ»ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ¼
 		Fence();
 		~Fence();
 
-		// ‰Šú‰»ˆ—
+		// åˆæœŸåŒ–å‡¦ç†
 		bool Init(ID3D12Device* _pDevice);
 
-		// Œã•Ð•t‚¯ˆ—
+		// å¾Œç‰‡ä»˜ã‘å‡¦ç†
 		void Term();
 
-		// ƒRƒ}ƒ“ƒhƒŠƒXƒg‚ðŽæ“¾‚·‚é‚½‚ß‚Ìƒƒ\ƒbƒh
+		// ã‚³ãƒžãƒ³ãƒ‰ãƒªã‚¹ãƒˆã‚’å–å¾—ã™ã‚‹ãŸã‚ã®ãƒ¡ã‚½ãƒƒãƒ‰
 		ID3D12Fence* Get();
 
 		/// <summary>
-		/// GPU‚É–½—ß‚ð“n‚·
-		/// GPU‚Ìˆ—‚ªI‚í‚éA–”‚ÍŽžŠÔØ‚ê‚Ü‚Å‘Ò‹@‚·‚é
+		/// GPUã«å‘½ä»¤ã‚’æ¸¡ã™
+		/// GPUã®å‡¦ç†ãŒçµ‚ã‚ã‚‹ã€åˆã¯æ™‚é–“åˆ‡ã‚Œã¾ã§å¾…æ©Ÿã™ã‚‹
 		/// </summary>
-		/// <param name="_pCommandQueue"> “n‚·–½—ß‚ðŽ‚ÂCommandQueue </param>
-		/// <param name="_waitTime"> ‘Ò‚¿ŽžŠÔ </param>
+		/// <param name="_pCommandQueue"> æ¸¡ã™å‘½ä»¤ã‚’æŒã¤CommandQueue </param>
+		/// <param name="_waitTime"> å¾…ã¡æ™‚é–“ </param>
 		void SynAndWait(ID3D12CommandQueue* _pCommandQueue, UINT _waitTime);
 
 	private:
-		// ƒtƒFƒ“ƒX–{‘Ì
+		// ãƒ•ã‚§ãƒ³ã‚¹æœ¬ä½“
 		ComPtr<ID3D12Fence> m_pFence;
-		// “¯Šú—p‚ÌƒJƒEƒ“ƒ^[
+		// åŒæœŸç”¨ã®ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼
 		UINT				m_fenceValue;
-		// GPU‚Ìˆ—‚ªŠ®—¹‚µ‚½‚ÌƒR[ƒ‹ƒoƒbƒNŠÖ”
+		// GPUã®å‡¦ç†ãŒå®Œäº†ã—ãŸã®ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯é–¢æ•°
 		HANDLE m_event;
 	};
 }

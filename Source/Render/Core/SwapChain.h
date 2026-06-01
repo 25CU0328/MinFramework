@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <d3d12.h>
 #include <cstdint>
 #include <vector>
@@ -12,34 +12,34 @@ namespace Render
 {
 	class SwapChain
 	{
-		// ƒIƒuƒWƒFƒNƒg‚Ì•¡»‚ð‹ÖŽ~‚·‚é
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®è¤‡è£½ã‚’ç¦æ­¢ã™ã‚‹
 		SwapChain(const SwapChain&) = delete;
-		// ƒIƒyƒŒ[ƒ^[‚É‚æ‚éƒRƒs[‚ð‹ÖŽ~‚·‚é
+		// ã‚ªãƒšãƒ¬ãƒ¼ã‚¿ãƒ¼ã«ã‚ˆã‚‹ã‚³ãƒ”ãƒ¼ã‚’ç¦æ­¢ã™ã‚‹
 		SwapChain operator = (const SwapChain&) = delete;
 
 	public:
-		// ƒRƒ“ƒXƒgƒ‰ƒNƒ^EƒfƒXƒgƒ‰ƒNƒ^[
+		// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ»ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ¼
 		SwapChain();
 		~SwapChain();
 
-		// ‰Šú‰»ˆ—
+		// åˆæœŸåŒ–å‡¦ç†
 		bool Init(
 			IDXGIFactory6* _pFactory,
 			IUnknown* _pCommandQueue,
 			const HWND* _phwnd
 		);
 
-		// Œã•Ð•t‚¯ˆ—
+		// å¾Œç‰‡ä»˜ã‘å‡¦ç†
 		void Term();
 
-		// ƒXƒƒbƒvƒ`ƒF[ƒ“‚ðŽæ“¾‚·‚é
+		// ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ãƒ¼ãƒ³ã‚’å–å¾—ã™ã‚‹
 		IDXGISwapChain4* Get();
-		// ƒXƒƒbƒvƒ`ƒF[ƒ“‚ÌÝ’è‚ðŽæ“¾‚·‚é
+		// ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ãƒ¼ãƒ³ã®è¨­å®šã‚’å–å¾—ã™ã‚‹
 		DXGI_SWAP_CHAIN_DESC GetDesc();
-		// ¡‘€ì‚µ‚Ä‚¢‚éƒoƒbƒNƒoƒbƒtƒ@[‚Ì”Ô†‚ðŽæ“¾‚·‚é
+		// ä»Šæ“ä½œã—ã¦ã„ã‚‹ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®ç•ªå·ã‚’å–å¾—ã™ã‚‹
 		UINT GetBackBufferIndex();
 	private:
-		// ƒXƒƒbƒvƒ`ƒF[ƒ“‚Ì–{‘Ì
+		// ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ãƒ¼ãƒ³ã®æœ¬ä½“
 		ComPtr<IDXGISwapChain4> m_pSwapChain;
 	};
 }
