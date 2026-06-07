@@ -33,18 +33,25 @@ void Framework::LateUpdate()
 
 }
 
+// 描画処理
+void Framework::Render()
+{
+	// レンダリングマネージャーの描画処理
+	m_renderManager.Render();
+}
+
 // 描画開始の処理
 void Framework::StartRender()
 {
 	// レンダリング開始する前の事前準備
-	m_renderManager.StartRender();
+	m_renderManager.GetGraphics()->BeginFrame();
 }
 
 // 描画が終わった時の処理
 void Framework::EndRender()
 {
 	// レンダリング終わった後の処理
-	m_renderManager.EndRender();
+	m_renderManager.GetGraphics()->EndFrame();
 }
 
 // フレームワークシャットダウンの後片付け

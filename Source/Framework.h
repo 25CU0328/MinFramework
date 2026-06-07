@@ -27,6 +27,9 @@ public:
 	// 物理計算を行うための更新処理
 	void LateUpdate();
 
+	// 描画処理
+	void Render();
+
 	// 描画開始の処理
 	void StartRender();
 	// 描画が終わった後の処理

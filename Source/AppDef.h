@@ -6,8 +6,8 @@
 #define WINDOW_WIDTH 1024
 #define WINDOW_HEIGHT 768
 
-#define WINDOW_CLASS_NAME TEXT("SampleWindowClass")
-#define WINDOW_TITLE TEXT("Game")
+#define WINDOW_CLASS_NAME TEXT("ミンフレームワーク")
+#define WINDOW_TITLE TEXT("ミンフレームワーク")
 
 
 

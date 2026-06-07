@@ -5,77 +5,72 @@
 #include "Framework.h"
 
 
-#include "RuntimeResource/Camera.h"
-#include "RuntimeResource/Model.h"
-Runtime::Model testModel1;
-Runtime::Model testModel2;
+#include "Runtime/Camera.h"
+#include "Runtime/Sprite.h"
 
 Runtime::Camera camera;
-
+Runtime::Sprite sprite;
 // 初期化処理
 void App::Init()
 {
-	ModelData modelData = {};
-	if (!Assets_I->LoadModelFile("Assets/Models/Chair.obj", modelData))
-	{
-		printf("Failed to Load Chair.obj\n");
-		return;
-	}
-	testModel1.Init(modelData);
+	Render_I->SetCamera(&camera);
 
-	if (!Assets_I->LoadModelFile("Assets/Models/Cube.obj", modelData))
-	{
-		printf("Failed to Load Cube.obj\n");
-		return;
-	}
-	testModel2.Init(modelData);
+	
+	sprite.Init(
+		"Assets/Image/Mika.jpg", 
+		Vector2f(100, 100), 
+		Vector2f(0, 0)
+	);
 
-	camera.SetPosition(XMFLOAT3(0, 50, -100));
+	camera.Init(Runtime::ProjectionType::Orthographic);
 }
-
-// 更新処理
-void App::Update()
+void UpdateCamera()
 {
 	const float moveSpeed = 5.0f / 60.0f;
-	const float rotateSpeed = 0.001f / 60.0f;
+	const float rotateSpeed = 0.1f / 60.0f;
 	// -----------
 	// カメラ移動
 	// -----------
 	if (GetAsyncKeyState('W') & 0x8000)
 	{
-		XMFLOAT3 cameraPos = camera.GetPosition();
-		cameraPos.z += moveSpeed;
-		camera.SetPosition(cameraPos);
+		Vector3f cameraPos = camera.GetPosition();
+		Vector3f forwardOffset = camera.GetFront() * moveSpeed;
+
+		camera.SetPosition(cameraPos + forwardOffset);
 	}
 	if (GetAsyncKeyState('S') & 0x8000)
 	{
-		XMFLOAT3 cameraPos = camera.GetPosition();
-		cameraPos.z -= moveSpeed;
-		camera.SetPosition(cameraPos);
+		Vector3f cameraPos = camera.GetPosition();
+		Vector3f forwardOffset = camera.GetFront() * -moveSpeed;
+
+		camera.SetPosition(cameraPos + forwardOffset);
 	}
 	if (GetAsyncKeyState('A') & 0x8000)
 	{
-		XMFLOAT3 cameraPos = camera.GetPosition();
-		cameraPos.x -= moveSpeed;
-		camera.SetPosition(cameraPos);
+		Vector3f cameraPos = camera.GetPosition();
+		Vector3f rightOffset = camera.GetRight() * moveSpeed;
+
+		camera.SetPosition(cameraPos + rightOffset);
 	}
 	if (GetAsyncKeyState('D') & 0x8000)
 	{
-		XMFLOAT3 cameraPos = camera.GetPosition();
-		cameraPos.x += moveSpeed;
-		camera.SetPosition(cameraPos);
+		Vector3f cameraPos = camera.GetPosition();
+		Vector3f rightOffset = camera.GetRight() * -moveSpeed;
+
+		camera.SetPosition(cameraPos + rightOffset);
 	}
 	if (GetAsyncKeyState('Q') & 0x8000)
 	{
-		XMFLOAT3 cameraPos = camera.GetPosition();
+		Vector3f cameraPos = camera.GetPosition();
 		cameraPos.y += moveSpeed;
+
 		camera.SetPosition(cameraPos);
 	}
 	if (GetAsyncKeyState('E') & 0x8000)
 	{
-		XMFLOAT3 cameraPos = camera.GetPosition();
-		
+		Vector3f cameraPos = camera.GetPosition();
 		cameraPos.y -= moveSpeed;
+
 		camera.SetPosition(cameraPos);
 	}
 
@@ -84,35 +79,80 @@ void App::Update()
 	// -----------
 	if (GetAsyncKeyState(VK_UP) & 0x8000)
 	{
-		XMFLOAT3 cameraRot = camera.GetRotation();
+		Vector3f cameraRot = camera.GetRotation();
 		cameraRot.x -= moveSpeed;
+
 		camera.SetRotation(cameraRot);
 	}
 	if (GetAsyncKeyState(VK_DOWN) & 0x8000)
 	{
-		XMFLOAT3 cameraRot = camera.GetRotation();
+		Vector3f cameraRot = camera.GetRotation();
 		cameraRot.x += moveSpeed;
+
 		camera.SetRotation(cameraRot);
 	}
 	if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
 	{
-		XMFLOAT3 cameraRot = camera.GetRotation();
+		Vector3f cameraRot = camera.GetRotation();
 		cameraRot.y += moveSpeed;
+
 		camera.SetRotation(cameraRot);
 	}
 	if (GetAsyncKeyState(VK_LEFT) & 0x8000)
 	{
-		XMFLOAT3 cameraRot = camera.GetRotation();
+		Vector3f cameraRot = camera.GetRotation();
 		cameraRot.y -= moveSpeed;
+
 		camera.SetRotation(cameraRot);
+	}
+}
+// 更新処理
+void App::Update()
+{
+	// UpdateCamera();
+	const float moveSpeed = 5.0f / 60.0f;
+	const int rotateSpeed = 1.0f;
+
+	if (GetAsyncKeyState('W') & 0x8000)
+	{
+		Vector2f spritePos = sprite.GetPosition();
+
+		sprite.SetPosition(spritePos + Vector2f(0.0f, 1.0f) * moveSpeed);
+	}
+	if (GetAsyncKeyState('S') & 0x8000)
+	{
+		Vector2f spritePos = sprite.GetPosition();
+
+		sprite.SetPosition(spritePos + Vector2f(0.0f, 1.0f) * -moveSpeed);
+	}
+	if (GetAsyncKeyState('A') & 0x8000)
+	{
+		Vector2f spritePos = sprite.GetPosition();
+
+		sprite.SetPosition(spritePos + Vector2f(1.0f, 0.0f) * -moveSpeed);
+	}
+	if (GetAsyncKeyState('D') & 0x8000)
+	{
+		Vector2f spritePos = sprite.GetPosition();
+
+		sprite.SetPosition(spritePos + Vector2f(1.0f, 0.0f) * moveSpeed);
+	}
+	if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
+	{
+		float spriteRot = sprite.GetRotation() - rotateSpeed;
+		sprite.SetRotation(spriteRot);
+	}
+	if (GetAsyncKeyState(VK_LEFT) & 0x8000)
+	{
+		float spriteRot = sprite.GetRotation() + rotateSpeed;
+		sprite.SetRotation(spriteRot);
 	}
 }
 
 // 描画処理
 void App::Render()
 {
-	testModel1.Draw(&camera);
-	testModel2.Draw(&camera);
+	sprite.Draw();
 }
 
 // 後片付け
