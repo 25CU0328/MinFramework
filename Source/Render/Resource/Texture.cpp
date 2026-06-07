@@ -1,26 +1,30 @@
 ﻿
-#include "TextureBuffer.h"
+#include "Texture.h"
 using namespace Render;
 
-
+#include "Framework.h"
 // コンストラクタ
-TextureBuffer::TextureBuffer()
+Render::Texture::Texture()
+	: m_pResource()
 {
 
 }
 // デストラクター
-TextureBuffer::~TextureBuffer()
+Render::Texture::~Texture()
 {
 
 }
 
 // 初期化処理
-bool TextureBuffer::Init(
-	ID3D12Device* _pDevice,
-	const ImageData _imageData,
-	DescriptorHeap& _descriptorHeap
-)
+bool Render::Texture::Init(const ImageData& _imageData)
 {
+	// デバイスを取得する
+	ID3D12Device* pDevice = Render_I->GetGraphics()->GetDevice();
+
+	// ディスクリプタを取得する
+	DescriptorHeap& descriptorHeap = Render_I->GetGraphics()->GetDescriptorHeap();
+
+
 	// -----------------
 	// テクスチャ設定
 	// -----------------
@@ -59,7 +63,7 @@ bool TextureBuffer::Init(
 	}
 
 	// テクスチャのバッファー
-	HRESULT result = _pDevice->CreateCommittedResource(
+	HRESULT result = pDevice->CreateCommittedResource(
 		&texHeapProp,
 		// 特に指定なし
 		D3D12_HEAP_FLAG_NONE,
@@ -76,12 +80,13 @@ bool TextureBuffer::Init(
 		return false;
 	}
 
+	auto image = _imageData.scratchImage.GetImage(0, 0, 0);
 	result = m_pResource->WriteToSubresource(
-		UINT(0),
+		0,
 		nullptr,
-		_imageData.image->pixels,		// 元データアドレス
-		(UINT)_imageData.image->rowPitch,	// 1ラインサイズ
-		(UINT)_imageData.image->slicePitch	// 1枚サイズ
+		image->pixels,		// 元データアドレス
+		image->rowPitch,	// 1ラインサイズ
+		image->slicePitch	// 1枚サイズ
 	);
 
 	if (FAILED(result))
@@ -104,32 +109,32 @@ bool TextureBuffer::Init(
 
 
 	// ディスクリプタの生成
-	_pDevice->CreateShaderResourceView(
+	pDevice->CreateShaderResourceView(
 		// ビューと関連付けるバッファー
 		m_pResource.Get(),
 		// 先ほど設定したテクスチャ設定情報
 		&srvDesc,
 		// 先頭アドレス
-		_descriptorHeap.GetCPUHeapHandle()
+		descriptorHeap.GetCPUHeapHandle()
 	);
 
 	// ディスクリプタの位置を移動する
-	UINT offset = _pDevice->GetDescriptorHandleIncrementSize(
+	UINT offset = pDevice->GetDescriptorHandleIncrementSize(
 		D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV
 	);
-	_descriptorHeap.AllocateCPU(offset);
+	descriptorHeap.AllocateCPU(offset);
 
 	return true;
 }
 
 // 後片付け処理
-void TextureBuffer::Term()
+void Render::Texture::Term()
 {
-
+	m_pResource.Reset();
 }
 
 // テクスチャバッファーの本体を取得する
-ID3D12Resource* TextureBuffer::GetResource() const
+ID3D12Resource* Render::Texture::GetResource() const
 {
 	return m_pResource.Get();
 }

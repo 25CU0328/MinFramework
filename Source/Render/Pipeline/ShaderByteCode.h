@@ -8,6 +8,12 @@
 
 #include "Render/ComPtr.h"
 
+/*
+	シェーダーファイル (.hlsl)をコンパイルで転換した
+	バイトコード
+	
+*/
+
 
 namespace Render
 {
@@ -18,13 +24,13 @@ namespace Render
 	};
 
 
-	class ShaderObject
+	class ShaderByteCode
 	{
-		ShaderObject(const ShaderObject&) = delete;
-		void operator = (const ShaderObject&) = delete;
+		ShaderByteCode(const ShaderByteCode&) = delete;
+		void operator = (const ShaderByteCode&) = delete;
 	public:
-		ShaderObject();
-		~ShaderObject();
+		ShaderByteCode();
+		~ShaderByteCode();
 
 		// 初期化処理
 		bool Init(LPCWSTR _filePath, ShaderType _shaderType);
@@ -34,8 +40,10 @@ namespace Render
 		// ルートシグネチャーを取得
 		ID3DBlob* GetBlob() const;
 
-		void* GetShaderByteCode();
-		SIZE_T GetShaderByteCodeLength();
+		// シェーダーバイトコードのバッファーを取得する
+		void* GetBuffer();
+		// バイトコードのサイズを取得する
+		SIZE_T GetSize();
 
 	private:
 		// シェーダーエントリーポイントの文字列を取得する
@@ -44,8 +52,7 @@ namespace Render
 		LPCSTR _getShaderTypeString(ShaderType _shaderType);
 
 	private:
-		// シェーダーオブジェクト(Blob)の本体
+		// シェーダーバイトコード(Blob)の本体
 		ComPtr<ID3DBlob> m_pBlob;
 	};
-
 }

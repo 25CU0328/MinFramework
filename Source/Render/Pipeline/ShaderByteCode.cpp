@@ -1,24 +1,24 @@
 ﻿
 
-#include "ShaderObject.h"
+#include "ShaderByteCode.h"
 using namespace Render;
 
 // シェーダーファイルをコンパイルためにインクルード
 #include<d3dcompiler.h>
 #pragma comment(lib,"d3dcompiler.lib")
 
-ShaderObject::ShaderObject()
+ShaderByteCode::ShaderByteCode()
 {
 
 }
 
-ShaderObject::~ShaderObject()
+ShaderByteCode::~ShaderByteCode()
 {
 
 }
 
 // 初期化処理
-bool ShaderObject::Init(LPCWSTR _filePath, ShaderType _shaderType)
+bool ShaderByteCode::Init(LPCWSTR _filePath, ShaderType _shaderType)
 {
 	ID3DBlob* errorBlob = nullptr;
 
@@ -37,7 +37,7 @@ bool ShaderObject::Init(LPCWSTR _filePath, ShaderType _shaderType)
 
 	if (FAILED(result))
 	{
-		printf("Failed to Create ShaderObject\n");
+		printf("Failed to Create ShaderByteCode\n");
 		return false;
 	}
 
@@ -51,19 +51,19 @@ bool ShaderObject::Init(LPCWSTR _filePath, ShaderType _shaderType)
 }
 
 // 後片付け処理
-void ShaderObject::Term()
+void ShaderByteCode::Term()
 {
 	m_pBlob->Release();
 }
 
 // ルートシグネチャーを取得
-ID3DBlob* ShaderObject::GetBlob() const
+ID3DBlob* ShaderByteCode::GetBlob() const
 {
 	return m_pBlob.Get();
 }
 
 // シェーダーエントリーポイントの文字列を取得する
-LPCSTR ShaderObject::_getEntryString(ShaderType _shaderType)
+LPCSTR ShaderByteCode::_getEntryString(ShaderType _shaderType)
 {
 	switch (_shaderType)
 	{
@@ -78,7 +78,7 @@ LPCSTR ShaderObject::_getEntryString(ShaderType _shaderType)
 }
 
 // シェーダー種類の文字列を取得する
-LPCSTR ShaderObject::_getShaderTypeString(ShaderType _shaderType)
+LPCSTR ShaderByteCode::_getShaderTypeString(ShaderType _shaderType)
 {
 	// ここは全部5.0にする
 	switch (_shaderType)
@@ -94,13 +94,13 @@ LPCSTR ShaderObject::_getShaderTypeString(ShaderType _shaderType)
 }
 
 // シェーダーのデータを取得
-void* ShaderObject::GetShaderByteCode()
+void* ShaderByteCode::GetBuffer()
 {
 	return m_pBlob->GetBufferPointer();
 }
 
 // シェーダーデータのサイズを取得
-SIZE_T ShaderObject::GetShaderByteCodeLength()
+SIZE_T ShaderByteCode::GetSize()
 {
 	return m_pBlob->GetBufferSize();
 }

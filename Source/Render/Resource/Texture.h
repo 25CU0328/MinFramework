@@ -1,37 +1,30 @@
 ﻿#pragma once
-#include <d3d12.h>
-#include <cstdint>
-#include <vector>
 
-#include "Render/ComPtr.h"
+#include <d3d12.h>
 
 #include <DirectXTex.h>
 #pragma comment(lib,"DirectXTex.lib")
 
-#include "Render/Resource/DescriptorHeap.h"
 #include "Assets/Image/ImageData.h"
+#include "Render/ComPtr.h"
 
 namespace Render
 {
-	class TextureBuffer
+	class Texture
 	{
 		// オブジェクトの複製を禁止する
-		TextureBuffer(const TextureBuffer&) = delete;
+		Texture(const Texture&) = delete;
 		// オペレーターによるコピーを禁止する
-		TextureBuffer operator = (const TextureBuffer&) = delete;
+		Texture operator = (const Texture&) = delete;
 
 	public:
 		// コンストラクタ
-		TextureBuffer();
+		Texture();
 		// デストラクター
-		~TextureBuffer();
+		~Texture();
 
 		// 初期化処理
-		bool Init(
-			ID3D12Device* _pDevice,
-			const ImageData _imageData,
-			DescriptorHeap& _pDescriptorHeap
-		);
+		bool Init(const ImageData& _imageData);
 
 		// 後片付け処理
 		void Term();
@@ -39,8 +32,8 @@ namespace Render
 		// テクスチャのリソースを返す関数
 		ID3D12Resource* GetResource() const;
 
-
 	private:
+		// テクスチャのバッファー
 		ComPtr<ID3D12Resource> m_pResource;
 	};
 }

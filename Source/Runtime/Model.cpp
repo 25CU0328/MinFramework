@@ -9,7 +9,7 @@ bool Model::Init(ModelData _data)
 {
 	// レンダリングマネージャーから
 	// デバイスを取得する
-	ID3D12Device* pDevice = Render_I->GetDevice();
+	ID3D12Device* pDevice = Render_I->GetGraphics()->GetDevice();
 
 	for (MeshData meshData : _data.meshDatas)
 	{
@@ -29,7 +29,7 @@ void Model::Draw(Camera* _pCamera)
 {
 	// レンダリングマネージャーから
 	// コマンドリストを取得する
-	ID3D12GraphicsCommandList* pCommandList = Render_I->GetCommandList();
+	ID3D12GraphicsCommandList* pCommandList = Render_I->GetGraphics()->GetCommandList();
 
 	for (Mesh* pMesh : m_pMeshes)
 	{

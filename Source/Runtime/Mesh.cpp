@@ -5,6 +5,7 @@ using namespace Runtime;
 #include "DirectXMath.h"
 using namespace DirectX;
 
+#include "Framework.h"
 
 // コンストラクタ
 Mesh::Mesh()
@@ -51,7 +52,7 @@ bool Mesh::Init(ID3D12Device* _pDevice, MeshData& _data)
         return false;
     }
 
-    m_data = _data;
+    m_meshData = _data;
 
     return true;
 }
@@ -59,31 +60,7 @@ bool Mesh::Init(ID3D12Device* _pDevice, MeshData& _data)
 // メッシュを描画する命令
 void Mesh::Draw(ID3D12GraphicsCommandList* _pCommandList, Camera* _pCamera)
 {
-    _pCommandList->SetGraphicsRootConstantBufferView(
-        1, // rootParameterと同じ(良くないMagic Number)
-        m_constantBuffer.GetResource()->GetGPUVirtualAddress()
-    );
-
-    // 行列計算
-    {
-        XMMATRIX matrix = GetWorldMatrix() * _pCamera->GetViewProjectionMatrix();
-
-        // objとDirectXの座標系が異なるための処理
-        matrix = XMMatrixTranspose(matrix);
-        m_constantBuffer.UpdateMatrix(&matrix, sizeof(matrix));
-    }
-
-    _pCommandList->IASetVertexBuffers(0, 1, &m_vertexBuffer.GetView());
-    _pCommandList->IASetIndexBuffer(&m_indexBuffer.GetView());
-    _pCommandList->DrawIndexedInstanced(
-        (UINT)m_data.indices.size(),
-        1,
-        0,
-        0,
-        0
-    );
-
-
+    Render_I->QueueRender(this);
 }
 
 // ワールド座標を取得する
@@ -95,7 +72,7 @@ XMMATRIX Mesh::GetWorldMatrix() const
         m_scale.z
     );
 
-    XMMATRIX rotationMatrix =XMMatrixRotationRollPitchYaw(
+    XMMATRIX rotationMatrix = XMMatrixRotationRollPitchYaw(
         m_rotation.x,
         m_rotation.y,
         m_rotation.z
@@ -108,4 +85,16 @@ XMMATRIX Mesh::GetWorldMatrix() const
     );
 
     return scaleMatrix * rotationMatrix * translateMatrix;
+}
+
+// レンダリング用のデータを取得する
+RenderData Mesh::GetData()
+{
+    RenderData renderData = {};
+    renderData.vertexBufferView = m_vertexBuffer.GetView();
+    renderData.indexBufferView = m_indexBuffer.GetView();
+    renderData.pConstantBuffer = &m_constantBuffer;
+    renderData.indexNum = (UINT)m_meshData.indices.size();
+
+    return renderData;
 }
