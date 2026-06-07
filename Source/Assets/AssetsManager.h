@@ -1,7 +1,11 @@
 ﻿#pragma once
 
+#include <unordered_map>
+
 #include "Model/ModleLoader.h"
 #include "Image/ImageLoader.h"
+
+#include "Render/Resource/Texture.h"
 
 namespace Assets
 {
@@ -32,10 +36,20 @@ namespace Assets
 		/// <param name="_fileName"> ファイル名 </param>
 		/// <param name="_outData"> データを受け取るための変数 </param>
 		/// <returns> 読み込みは成功したか </returns>
-		bool LoadImageFile(const wchar_t* _fileName, ImageData& _outData);
+		bool LoadImageFile(std::string _strFileName, ImageData& _outData);
+
+		/// <summary>
+		/// テクスチャを取得する
+		/// </summary>
+		/// <param name="_filePath"></param>
+		/// <returns></returns>
+		Render::Texture* LoadTexture(std::string _filePath);
 
 	private:
 		Image::ImageLoader m_imageLoader;
 		Model::ModleLoader m_modelLoader;
+
+		// テクスチャデータを管理するマップ
+		std::unordered_map<std::string, Render::Texture*> m_textureMap;
 	};
 }

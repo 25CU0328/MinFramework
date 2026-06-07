@@ -6,5 +6,5 @@
 struct ImageData
 {
 	DirectX::TexMetadata metaData;
-	const DirectX::Image* image;
+	DirectX::ScratchImage scratchImage;
 };

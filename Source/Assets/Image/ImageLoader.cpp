@@ -19,13 +19,12 @@ bool Assets::Image::ImageLoader::LoadImageFile(
 	ImageData& _outData
 )
 {
-	DirectX::ScratchImage scratchImage;
 	// ファイルの読み込み(DirectXTex使用)
 	HRESULT result = LoadFromWICFile(
 		_pFilePath,
 		DirectX::WIC_FLAGS_NONE,
 		&_outData.metaData,
-		scratchImage
+		_outData.scratchImage
 	);
 
 	if (FAILED(result))
@@ -33,8 +32,6 @@ bool Assets::Image::ImageLoader::LoadImageFile(
 		printf("【ImageLoader】Failed to Load Image\n");
 		return false;
 	}
-
-	_outData.image = scratchImage.GetImage(0, 0, 0);
 
 	return true;
 }
