@@ -1,8 +1,6 @@
 ﻿#pragma once
 
 #include <d3d12.h>
-#include <cstdint>
-#include <vector>
 
 #include "Render/ComPtr.h"
 
@@ -28,7 +26,7 @@ namespace Render
 		~RootSignature();
 
 		// 初期化処理
-		bool Init(ID3D12Device* _pDevice, UINT samplerNum);
+		bool Init(UINT _samplerNum);
 		// 後片付け処理
 		void Term();
 

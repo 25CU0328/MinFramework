@@ -2,6 +2,8 @@
 #include "RootSignature.h"
 using namespace Render;
 
+#include "Framework.h"
+
 #include <vector>
 RootSignature::RootSignature()
 {
@@ -14,7 +16,7 @@ RootSignature::~RootSignature()
 }
 
 // 初期化処理
-bool RootSignature::Init(ID3D12Device* _pDevice, UINT _samplerNum)
+bool RootSignature::Init(UINT _samplerNum)
 {
 	// ------------------------
 	// ディスクリプタのレンジ
@@ -150,7 +152,7 @@ bool RootSignature::Init(ID3D12Device* _pDevice, UINT _samplerNum)
 	}
 
 	// ルートシグネチャーの作成(オブジェクト化)
-	result = _pDevice->CreateRootSignature(
+	result = Render_I->GetGraphics()->GetDevice()->CreateRootSignature(
 		0,
 		pRootSigBlob->GetBufferPointer(),
 		pRootSigBlob->GetBufferSize(),

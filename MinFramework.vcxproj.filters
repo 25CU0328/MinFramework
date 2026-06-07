@@ -22,9 +22,6 @@
     <Filter Include="ソース ファイル\Assets\Model">
       <UniqueIdentifier>{0ccbe0f3-248d-422d-99cb-5d55792613a3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\RuntimeResource">
-      <UniqueIdentifier>{cf5c0aab-d159-4851-a190-91cfd200739c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Assets\Image">
       <UniqueIdentifier>{9ee8ed95-c94c-42f3-aea8-d05305b7f0ce}</UniqueIdentifier>
     </Filter>
@@ -39,6 +36,12 @@
     </Filter>
     <Filter Include="リソース ファイル\Shader">
       <UniqueIdentifier>{f3fac0b5-bb49-4023-bad8-c6196b6262ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Runtime">
+      <UniqueIdentifier>{cf5c0aab-d159-4851-a190-91cfd200739c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Math">
+      <UniqueIdentifier>{8437f03c-ce74-4cdd-a6bb-61f613f8d77e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -72,7 +75,7 @@
     <ClCompile Include="Source\Render\Pipeline\RootSignature.cpp">
       <Filter>ソース ファイル\Render\Pipeline</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Render\Pipeline\ShaderObject.cpp">
+    <ClCompile Include="Source\Render\Pipeline\ShaderByteCode.cpp">
       <Filter>ソース ファイル\Render\Pipeline</Filter>
     </ClCompile>
     <ClCompile Include="Source\Render\Resource\ConstantBuffer.cpp">
@@ -84,7 +87,7 @@
     <ClCompile Include="Source\Render\Resource\IndexBuffer.cpp">
       <Filter>ソース ファイル\Render\Resource</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Render\Resource\TextureBuffer.cpp">
+    <ClCompile Include="Source\Render\Resource\Texture.cpp">
       <Filter>ソース ファイル\Render\Resource</Filter>
     </ClCompile>
     <ClCompile Include="Source\Render\Resource\VertexBuffer.cpp">
@@ -96,29 +99,35 @@
     <ClCompile Include="Source\Framework.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Source\RuntimeResource\Camera.cpp">
-      <Filter>ソース ファイル\RuntimeResource</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\RuntimeResource\Material.cpp">
-      <Filter>ソース ファイル\RuntimeResource</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\RuntimeResource\Mesh.cpp">
-      <Filter>ソース ファイル\RuntimeResource</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\RuntimeResource\Model.cpp">
-      <Filter>ソース ファイル\RuntimeResource</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\RuntimeResource\Sprite.cpp">
-      <Filter>ソース ファイル\RuntimeResource</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\RuntimeResource\Texture.cpp">
-      <Filter>ソース ファイル\RuntimeResource</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Render\Resource\DepthStencilBuffer.cpp">
       <Filter>ソース ファイル\Render\Resource</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Render\Graphics.cpp">
+      <Filter>ソース ファイル\Render</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Render\RenderManager.cpp">
       <Filter>ソース ファイル\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Camera.cpp">
+      <Filter>ソース ファイル\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Material.cpp">
+      <Filter>ソース ファイル\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Mesh.cpp">
+      <Filter>ソース ファイル\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Model.cpp">
+      <Filter>ソース ファイル\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\RenderObject.cpp">
+      <Filter>ソース ファイル\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Sprite.cpp">
+      <Filter>ソース ファイル\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Shader.cpp">
+      <Filter>ソース ファイル\Runtime</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,7 +164,7 @@
     <ClInclude Include="Source\Render\Pipeline\RootSignature.h">
       <Filter>ソース ファイル\Render\Pipeline</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Render\Pipeline\ShaderObject.h">
+    <ClInclude Include="Source\Render\Pipeline\ShaderByteCode.h">
       <Filter>ソース ファイル\Render\Pipeline</Filter>
     </ClInclude>
     <ClInclude Include="Source\Render\Resource\ConstantBuffer.h">
@@ -167,7 +176,7 @@
     <ClInclude Include="Source\Render\Resource\IndexBuffer.h">
       <Filter>ソース ファイル\Render\Resource</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Render\Resource\TextureBuffer.h">
+    <ClInclude Include="Source\Render\Resource\Texture.h">
       <Filter>ソース ファイル\Render\Resource</Filter>
     </ClInclude>
     <ClInclude Include="Source\Render\Resource\VertexBuffer.h">
@@ -179,25 +188,7 @@
     <ClInclude Include="Source\Render\d3dx12.h">
       <Filter>ソース ファイル\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Source\RuntimeResource\Camera.h">
-      <Filter>ソース ファイル\RuntimeResource</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\RuntimeResource\Sprite.h">
-      <Filter>ソース ファイル\RuntimeResource</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\RuntimeResource\Texture.h">
-      <Filter>ソース ファイル\RuntimeResource</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\RuntimeResource\Material.h">
-      <Filter>ソース ファイル\RuntimeResource</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\RuntimeResource\Mesh.h">
-      <Filter>ソース ファイル\RuntimeResource</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\RuntimeResource\Model.h">
-      <Filter>ソース ファイル\RuntimeResource</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Render\RenderManager.h">
+    <ClInclude Include="Source\Render\Graphics.h">
       <Filter>ソース ファイル\Render</Filter>
     </ClInclude>
     <ClInclude Include="Source\Render\Resource\DepthStencilBuffer.h">
@@ -211,6 +202,45 @@
     </ClInclude>
     <ClInclude Include="Source\Assets\Image\ImageData.h">
       <Filter>ソース ファイル\Assets\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\RenderManager.h">
+      <Filter>ソース ファイル\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\RenderData.h">
+      <Filter>ソース ファイル\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Camera.h">
+      <Filter>ソース ファイル\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Material.h">
+      <Filter>ソース ファイル\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Mesh.h">
+      <Filter>ソース ファイル\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Model.h">
+      <Filter>ソース ファイル\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\RenderObject.h">
+      <Filter>ソース ファイル\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Sprite.h">
+      <Filter>ソース ファイル\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Shader.h">
+      <Filter>ソース ファイル\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Math\Math.h">
+      <Filter>ソース ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Math\Vector.h">
+      <Filter>ソース ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Math\Vector2.h">
+      <Filter>ソース ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Math\Vector3.h">
+      <Filter>ソース ファイル\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

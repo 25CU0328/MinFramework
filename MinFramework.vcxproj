@@ -108,14 +108,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)External\assimp\include;$(ProjectDir)External\DirectXTex\Include;$(ProjectDir)Source</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)External\assimp\include;$(ProjectDir)External\DirectXTex\Include;$(ProjectDir)Source;$(ProjectDir)External</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)External\assimp\lib;$(ProjectDir)External\DirectXTex\lib\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>assimp-vc145-mtd.lib;DirectXTex.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc145-mtd.lib;DirectXTex.lib;d3d12.lib;dxgi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>copy /Y "$(SolutionDir)External\assimp\bin\assimp-vc145-mtd.dll" "$(OutDir)"</Command>
@@ -153,20 +153,22 @@
     <ClCompile Include="Source\Render\Core\SwapChain.cpp" />
     <ClCompile Include="Source\Render\Pipeline\PipelineState.cpp" />
     <ClCompile Include="Source\Render\Pipeline\RootSignature.cpp" />
-    <ClCompile Include="Source\Render\Pipeline\ShaderObject.cpp" />
+    <ClCompile Include="Source\Render\Pipeline\ShaderByteCode.cpp" />
+    <ClCompile Include="Source\Render\Graphics.cpp" />
     <ClCompile Include="Source\Render\RenderManager.cpp" />
     <ClCompile Include="Source\Render\Resource\ConstantBuffer.cpp" />
     <ClCompile Include="Source\Render\Resource\DepthStencilBuffer.cpp" />
     <ClCompile Include="Source\Render\Resource\DescriptorHeap.cpp" />
     <ClCompile Include="Source\Render\Resource\IndexBuffer.cpp" />
-    <ClCompile Include="Source\Render\Resource\TextureBuffer.cpp" />
+    <ClCompile Include="Source\Render\Resource\Texture.cpp" />
     <ClCompile Include="Source\Render\Resource\VertexBuffer.cpp" />
-    <ClCompile Include="Source\RuntimeResource\Camera.cpp" />
-    <ClCompile Include="Source\RuntimeResource\Material.cpp" />
-    <ClCompile Include="Source\RuntimeResource\Mesh.cpp" />
-    <ClCompile Include="Source\RuntimeResource\Model.cpp" />
-    <ClCompile Include="Source\RuntimeResource\Sprite.cpp" />
-    <ClCompile Include="Source\RuntimeResource\Texture.cpp" />
+    <ClCompile Include="Source\Runtime\Camera.cpp" />
+    <ClCompile Include="Source\Runtime\Material.cpp" />
+    <ClCompile Include="Source\Runtime\Mesh.cpp" />
+    <ClCompile Include="Source\Runtime\Model.cpp" />
+    <ClCompile Include="Source\Runtime\RenderObject.cpp" />
+    <ClCompile Include="Source\Runtime\Shader.cpp" />
+    <ClCompile Include="Source\Runtime\Sprite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\App.h" />
@@ -177,6 +179,10 @@
     <ClInclude Include="Source\Assets\Model\ModelData.h" />
     <ClInclude Include="Source\Assets\Model\ModleLoader.h" />
     <ClInclude Include="Source\Framework.h" />
+    <ClInclude Include="Source\Math\Math.h" />
+    <ClInclude Include="Source\Math\Vector.h" />
+    <ClInclude Include="Source\Math\Vector2.h" />
+    <ClInclude Include="Source\Math\Vector3.h" />
     <ClInclude Include="Source\Render\ComPtr.h" />
     <ClInclude Include="Source\Render\Core\CommandList.h" />
     <ClInclude Include="Source\Render\Core\CommandQueue.h" />
@@ -185,20 +191,23 @@
     <ClInclude Include="Source\Render\d3dx12.h" />
     <ClInclude Include="Source\Render\Pipeline\PipelineState.h" />
     <ClInclude Include="Source\Render\Pipeline\RootSignature.h" />
-    <ClInclude Include="Source\Render\Pipeline\ShaderObject.h" />
+    <ClInclude Include="Source\Render\Pipeline\ShaderByteCode.h" />
+    <ClInclude Include="Source\Render\Graphics.h" />
+    <ClInclude Include="Source\Render\RenderData.h" />
     <ClInclude Include="Source\Render\RenderManager.h" />
     <ClInclude Include="Source\Render\Resource\ConstantBuffer.h" />
     <ClInclude Include="Source\Render\Resource\DepthStencilBuffer.h" />
     <ClInclude Include="Source\Render\Resource\DescriptorHeap.h" />
     <ClInclude Include="Source\Render\Resource\IndexBuffer.h" />
-    <ClInclude Include="Source\Render\Resource\TextureBuffer.h" />
+    <ClInclude Include="Source\Render\Resource\Texture.h" />
     <ClInclude Include="Source\Render\Resource\VertexBuffer.h" />
-    <ClInclude Include="Source\RuntimeResource\Camera.h" />
-    <ClInclude Include="Source\RuntimeResource\Material.h" />
-    <ClInclude Include="Source\RuntimeResource\Mesh.h" />
-    <ClInclude Include="Source\RuntimeResource\Model.h" />
-    <ClInclude Include="Source\RuntimeResource\Sprite.h" />
-    <ClInclude Include="Source\RuntimeResource\Texture.h" />
+    <ClInclude Include="Source\Runtime\Camera.h" />
+    <ClInclude Include="Source\Runtime\Material.h" />
+    <ClInclude Include="Source\Runtime\Mesh.h" />
+    <ClInclude Include="Source\Runtime\Model.h" />
+    <ClInclude Include="Source\Runtime\RenderObject.h" />
+    <ClInclude Include="Source\Runtime\Shader.h" />
+    <ClInclude Include="Source\Runtime\Sprite.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shader\BasicShaderHeader.hlsli" />

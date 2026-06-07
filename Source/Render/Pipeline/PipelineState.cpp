@@ -16,27 +16,25 @@ PipelineState::~PipelineState()
 // 初期化処理
 bool PipelineState::Init(
 	ID3D12Device* _pDevice,
-	ShaderObject* _pVertexShader,
-	ShaderObject* _pPixelShader,
+	ShaderByteCode* _pVertexShader,
+	ShaderByteCode* _pPixelShader,
 	D3D12_INPUT_ELEMENT_DESC _inputElementDescs[],
 	UINT _inputElementNum,
 	RootSignature* _pRootSignature
 )
 {
-	// パイプラインステートの設定情報
-	D3D12_GRAPHICS_PIPELINE_STATE_DESC pipelineDesc = {};
-
 	// シェーダーの設定
-	pipelineDesc.VS.pShaderBytecode = _pVertexShader->GetShaderByteCode();
-	pipelineDesc.VS.BytecodeLength = _pVertexShader->GetShaderByteCodeLength();
-	pipelineDesc.PS.pShaderBytecode = _pPixelShader->GetShaderByteCode();
-	pipelineDesc.PS.BytecodeLength = _pPixelShader->GetShaderByteCodeLength();
+	m_desc.VS.pShaderBytecode = _pVertexShader->GetBuffer();
+	m_desc.VS.BytecodeLength = _pVertexShader->GetSize();
 
-	pipelineDesc.SampleMask = D3D12_DEFAULT_SAMPLE_MASK;//中身は0xffffffff
+	m_desc.PS.pShaderBytecode = _pPixelShader->GetBuffer();
+	m_desc.PS.BytecodeLength = _pPixelShader->GetSize();
+
+	m_desc.SampleMask = D3D12_DEFAULT_SAMPLE_MASK;//中身は0xffffffff
 
 	// ブランド設定
-	pipelineDesc.BlendState.AlphaToCoverageEnable = false;
-	pipelineDesc.BlendState.IndependentBlendEnable = false;
+	m_desc.BlendState.AlphaToCoverageEnable = false;
+	m_desc.BlendState.IndependentBlendEnable = false;
 
 	// レンダーターゲットのブランド設定
 	D3D12_RENDER_TARGET_BLEND_DESC renderTargetBlendDesc = {};
@@ -48,7 +46,7 @@ bool PipelineState::Init(
 		//ひとまず論理演算は使用しない
 		renderTargetBlendDesc.LogicOpEnable = false;
 	}
-	pipelineDesc.BlendState.RenderTarget[0] = renderTargetBlendDesc;
+	m_desc.BlendState.RenderTarget[0] = renderTargetBlendDesc;
 
 	// ラストライザ設定
 	D3D12_RASTERIZER_DESC rasterizerDesc = {};
@@ -74,7 +72,7 @@ bool PipelineState::Init(
 
 		rasterizerDesc.ConservativeRaster = D3D12_CONSERVATIVE_RASTERIZATION_MODE_OFF;
 	}
-	pipelineDesc.RasterizerState = rasterizerDesc;
+	m_desc.RasterizerState = rasterizerDesc;
 
 	// デプスステンシルの設定
 	D3D12_DEPTH_STENCIL_DESC depthDesc = {};
@@ -86,29 +84,29 @@ bool PipelineState::Init(
 		depthDesc.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ALL;
 		depthDesc.DepthFunc = D3D12_COMPARISON_FUNC_LESS;
 	}
-	pipelineDesc.DepthStencilState = depthDesc;
+	m_desc.DepthStencilState = depthDesc;
 
-	pipelineDesc.InputLayout.pInputElementDescs = _inputElementDescs;	//レイアウト先頭アドレス
-	pipelineDesc.InputLayout.NumElements = _inputElementNum;			//レイアウト配列数
+	m_desc.InputLayout.pInputElementDescs = _inputElementDescs;	//レイアウト先頭アドレス
+	m_desc.InputLayout.NumElements = _inputElementNum;			//レイアウト配列数
 
 	//ストリップ時のカットなし
-	pipelineDesc.IBStripCutValue = D3D12_INDEX_BUFFER_STRIP_CUT_VALUE_DISABLED;
-	pipelineDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;//三角形で構成
+	m_desc.IBStripCutValue = D3D12_INDEX_BUFFER_STRIP_CUT_VALUE_DISABLED;
+	m_desc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;//三角形で構成
 
 	//今は１つのみ
-	pipelineDesc.NumRenderTargets = 1;
+	m_desc.NumRenderTargets = 1;
 	//0～1に正規化されたRGBA
-	pipelineDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
-	pipelineDesc.DSVFormat = DXGI_FORMAT_D32_FLOAT;
+	m_desc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
+	m_desc.DSVFormat = DXGI_FORMAT_D32_FLOAT;
 
-	pipelineDesc.SampleDesc.Count = 1;//サンプリングは1ピクセルにつき１
-	pipelineDesc.SampleDesc.Quality = 0;//クオリティは最低
+	m_desc.SampleDesc.Count = 1;//サンプリングは1ピクセルにつき１
+	m_desc.SampleDesc.Quality = 0;//クオリティは最低
 
-	pipelineDesc.pRootSignature = _pRootSignature->Get();
+	m_desc.pRootSignature = _pRootSignature->Get();
 
 	// パイプラインステートの生成
 	HRESULT result = _pDevice->CreateGraphicsPipelineState(
-		&pipelineDesc, 
+		&m_desc, 
 		IID_PPV_ARGS(m_pPipelineState.GetAddressOf())
 	);
 
@@ -134,4 +132,37 @@ void PipelineState::Term()
 ID3D12PipelineState* PipelineState::Get()
 {
 	return m_pPipelineState.Get();
+}
+
+// 深度テストを行うかどうかを設定する
+void PipelineState::EnableDepthTest(bool _enable)
+{
+	if (_enable)
+	{
+		// デプスステンシルの設定
+		D3D12_DEPTH_STENCIL_DESC depthDesc = {};
+		{
+			// 暫くTRUEにする
+			depthDesc.DepthEnable = true;
+			depthDesc.StencilEnable = false;
+
+			depthDesc.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ALL;
+			depthDesc.DepthFunc = D3D12_COMPARISON_FUNC_LESS;
+		}
+		m_desc.DepthStencilState = depthDesc;
+	}
+	else
+	{
+		// デプスステンシルの設定
+		D3D12_DEPTH_STENCIL_DESC depthDesc = {};
+		{
+			// 暫くTRUEにする
+			depthDesc.DepthEnable = false;
+			depthDesc.StencilEnable = false;
+
+			depthDesc.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ZERO;
+			depthDesc.DepthFunc = D3D12_COMPARISON_FUNC_NONE;
+		}
+		m_desc.DepthStencilState = depthDesc;
+	}
 }

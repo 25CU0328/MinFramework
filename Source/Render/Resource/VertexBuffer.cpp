@@ -80,6 +80,7 @@ bool VertexBuffer::Init(
         result = m_pBuffer->Map(0, nullptr, &mappedPtr);
         if (FAILED(result))
         {
+            printf("【VertexBuffer】: Faied to Map Buffer\n");
             return false;
         }
         memcpy(mappedPtr, _pVertexData, _dataSize * _sizePerVertex);
