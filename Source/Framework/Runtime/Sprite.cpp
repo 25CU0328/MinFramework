@@ -1,10 +1,11 @@
 ﻿
 #include "Sprite.h"
 
-#include "Framework.h"
+#include "Framework/Framework.h"
 
 // コンストラクタ
 Runtime::Sprite::Sprite()
+	: m_rotation(0)
 {
 
 }
@@ -132,7 +133,7 @@ DirectX::XMMATRIX Runtime::Sprite::GetWorldMatrix()
 	);
 
 	XMMATRIX rotateMatrix = DirectX::XMMatrixRotationZ(
-		DegToRad(m_rotation)
+		DegToRad((float)m_rotation)
 	);
 
 	XMMATRIX translateMatrix = DirectX::XMMatrixTranslation(

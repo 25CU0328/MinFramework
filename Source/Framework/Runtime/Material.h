@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "Render/Resource/Texture.h"
+#include "Framework/Render/Resource/Texture.h"
 #include "string"
 namespace Runtime
 {

@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#include "Assets/Model/ModelData.h"
+#include "Framework/Assets/Model/ModelData.h"
 #include "RenderObject.h"
-#include "Math/Vector3.h"
+#include "Framework/Math/Vector3.h"
 
 #include "Camera.h"
 

@@ -5,19 +5,19 @@
 #include<dxgi1_6.h>
 
 // 描画命令関連の基本コンポーネント
-#include "Render/Core/CommandList.h"
-#include "Render/Core/CommandQueue.h"
-#include "Render/Core/SwapChain.h"
-#include "Render/Core/Fence.h"
+#include "Framework/Render/Core/CommandList.h"
+#include "Framework/Render/Core/CommandQueue.h"
+#include "Framework/Render/Core/SwapChain.h"
+#include "Framework/Render/Core/Fence.h"
 
 // パイプライン関連のクラス
-#include "Render/Pipeline/RootSignature.h"
-#include "Render/Pipeline/PipelineState.h"
-#include "Render/Pipeline/ShaderByteCode.h"
+#include "Framework/Render/Pipeline/RootSignature.h"
+#include "Framework/Render/Pipeline/PipelineState.h"
+#include "Framework/Render/Pipeline/ShaderByteCode.h"
 
 // 
-#include "Render/Resource/DescriptorHeap.h"
-#include "Render/Resource/DepthStencilBuffer.h"
+#include "Framework/Render/Resource/DescriptorHeap.h"
+#include "Framework/Render/Resource/DepthStencilBuffer.h"
 
 namespace Render
 {

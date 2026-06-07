@@ -1,9 +1,9 @@
 ﻿#pragma once
 
-#include "Render/Resource/VertexBuffer.h"
-#include "Render/Resource/IndexBuffer.h"
-#include "Render/Resource/ConstantBuffer.h"
-#include "Render/RenderData.h"
+#include "Framework/Render/Resource/VertexBuffer.h"
+#include "Framework/Render/Resource/IndexBuffer.h"
+#include "Framework/Render/Resource/ConstantBuffer.h"
+#include "Framework/Render/RenderData.h"
 
 #include <DirectXMath.h>
 

@@ -2,8 +2,8 @@
 
 #include "d3d12.h"
 #include "DirectXMath.h"
-#include "Render/Resource/ConstantBuffer.h"
-#include "Runtime/Material.h"
+#include "Framework/Render/Resource/ConstantBuffer.h"
+#include "Framework/Runtime/Material.h"
 
 struct RenderData
 {

@@ -5,7 +5,7 @@ using namespace Runtime;
 #include "DirectXMath.h"
 using namespace DirectX;
 
-#include "Framework.h"
+#include "Framework/Framework.h"
 
 // コンストラクタ
 Mesh::Mesh()

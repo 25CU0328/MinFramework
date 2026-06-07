@@ -2,9 +2,9 @@
 
 #include "Graphics.h"
 
-#include "Render/RenderData.h"
-#include "Runtime/RenderObject.h"
-#include "Runtime/Camera.h"
+#include "Framework/Render/RenderData.h"
+#include "Framework/Runtime/RenderObject.h"
+#include "Framework/Runtime/Camera.h"
 /*
 	フレーム使用者としての描画責任者
 

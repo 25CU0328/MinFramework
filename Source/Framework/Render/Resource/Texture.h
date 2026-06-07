@@ -5,8 +5,8 @@
 #include <DirectXTex.h>
 #pragma comment(lib,"DirectXTex.lib")
 
-#include "Assets/Image/ImageData.h"
-#include "Render/ComPtr.h"
+#include "Framework/Assets/Image/ImageData.h"
+#include "Framework/Render/ComPtr.h"
 
 namespace Render
 {

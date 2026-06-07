@@ -3,7 +3,7 @@
 #include "DirectXMath.h"
 using namespace DirectX;
 
-#include "Math/Vector.h"
+#include "Framework/Math/Vector.h"
 
 // フレームワークユーサが弄る
 namespace Runtime

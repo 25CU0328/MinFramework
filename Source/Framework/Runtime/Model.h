@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "Mesh.h"
-#include "Assets/Model/ModelData.h"
+#include "Framework/Assets/Model/ModelData.h"
 
 namespace Runtime
 {

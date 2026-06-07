@@ -2,7 +2,7 @@
 #include "Model.h"
 using namespace Runtime;
 
-#include "Framework.h"
+#include "Framework/Framework.h"
 
 // 初期化処理
 bool Model::Init(ModelData _data)

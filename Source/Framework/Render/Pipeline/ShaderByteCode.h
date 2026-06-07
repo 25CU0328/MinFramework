@@ -6,7 +6,7 @@
 #include <vector>
 #include <string>
 
-#include "Render/ComPtr.h"
+#include "Framework/Render/ComPtr.h"
 
 /*
 	シェーダーファイル (.hlsl)をコンパイルで転換した

@@ -1,7 +1,7 @@
-
+﻿
 #include "Material.h"
 
-#include "Framework.h"
+#include "Framework/Framework.h"
 
 // 初期化処理
 bool Runtime::Material::Init(std::string _filePath)

@@ -2,7 +2,7 @@
 #include "Texture.h"
 using namespace Render;
 
-#include "Framework.h"
+#include "Framework/Framework.h"
 // コンストラクタ
 Render::Texture::Texture()
 	: m_pResource()
