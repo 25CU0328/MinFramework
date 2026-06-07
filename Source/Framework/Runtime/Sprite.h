@@ -2,10 +2,10 @@
 
 #include <DirectXMath.h>
 
-#include "Assets/Image/ImageData.h"
+#include "Framework/Assets/Image/ImageData.h"
 #include "RenderObject.h"
 
-#include "Math/Vector2.h"
+#include "Framework/Math/Vector2.h"
 
 namespace Runtime
 {

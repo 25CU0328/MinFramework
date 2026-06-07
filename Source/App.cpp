@@ -2,11 +2,11 @@
 #include "App.h"
 
 // マネージャーを取得するためインクルード
-#include "Framework.h"
+#include "Framework/Framework.h"
 
 
-#include "Runtime/Camera.h"
-#include "Runtime/Sprite.h"
+#include "Framework/Runtime/Camera.h"
+#include "Framework/Runtime/Sprite.h"
 
 Runtime::Camera camera;
 Runtime::Sprite sprite;
