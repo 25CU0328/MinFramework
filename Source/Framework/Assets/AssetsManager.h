@@ -1,11 +1,18 @@
 ﻿#pragma once
 
 #include <unordered_map>
+#include <fstream>
+
 
 #include "Model/ModleLoader.h"
 #include "Image/ImageLoader.h"
+#include "Json/JsonLoader.h"
 
-#include "Render/Resource/Texture.h"
+#include "Framework/Render/Resource/Texture.h"
+
+// nlohmannライブラリを使うためインクルード
+#include "nlohmann/json.hpp"
+
 
 namespace Assets
 {
@@ -36,7 +43,7 @@ namespace Assets
 		/// <param name="_fileName"> ファイル名 </param>
 		/// <param name="_outData"> データを受け取るための変数 </param>
 		/// <returns> 読み込みは成功したか </returns>
-		bool LoadImageFile(std::string _strFileName, ImageData& _outData);
+		bool LoadImageFile(std::string _filePath, ImageData& _outData);
 
 		/// <summary>
 		/// テクスチャを取得する
@@ -45,10 +52,22 @@ namespace Assets
 		/// <returns></returns>
 		Render::Texture* LoadTexture(std::string _filePath);
 
+		/// <summary>
+		/// Jsonファイルから構造体のデータを読み込む
+		/// </summary>
+		/// <typeparam name="T"> 指定されたデータ型 </typeparam>
+		/// <param name="_strFileName"> ファイルパス </param>
+		/// <returns> 構造体のデータ </returns>
+		template<typename T>
+		T FromJson(std::string _filePath)
+		{
+			return m_jsonLoader.LoadJson<T>(_filePath);
+		}
+
 	private:
 		Image::ImageLoader m_imageLoader;
 		Model::ModleLoader m_modelLoader;
-
+		JsonLoader m_jsonLoader;
 		// テクスチャデータを管理するマップ
 		std::unordered_map<std::string, Render::Texture*> m_textureMap;
 	};
