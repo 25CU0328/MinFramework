@@ -20,12 +20,14 @@ bool Framework::Init(const HWND* _hwnd)
 		return false;
 	}
 
+	m_timeManager.Init();
+
 	return true;
 }
 // 更新処理
 void Framework::Update()
 {
-	
+	m_timeManager.Update();
 }
 // 物理計算を行うための更新処理
 void Framework::LateUpdate()
@@ -80,4 +82,10 @@ Assets::AssetsManager* Framework::GetAssetsManager()
 Render::RenderManager* Framework::GetRenderManager()
 {
 	return &m_renderManager;
+}
+
+// 時間のマネージャーを取得する
+TimeManager* Framework::GetTimeManager()
+{
+	return &m_timeManager;
 }

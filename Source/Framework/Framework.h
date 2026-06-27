@@ -2,6 +2,7 @@
 
 #include "Render/RenderManager.h"
 #include "Assets/AssetsManager.h"
+#include "TimeManager.h"
 
 #include "App.h"
 
@@ -9,10 +10,10 @@
 #define Framework_I Framework::GetInstance()
 #define Render_I Framework_I->GetRenderManager()
 #define Assets_I Framework_I->GetAssetsManager()
-
+#define Time_I Framework_I->GetTimeManager()
 /*
 	フレームワークの重要機能を管理するためのクラス
-	
+
 	また、それらの更新を行います
 */
 class Framework
@@ -44,9 +45,12 @@ public:
 	Assets::AssetsManager* GetAssetsManager();
 	// レンダーマネージャーを取得する
 	Render::RenderManager* GetRenderManager();
+
+	// 時間のマネージャーを取得する
+	TimeManager* GetTimeManager();
 private:
 
 	Render::RenderManager m_renderManager;
 	Assets::AssetsManager m_assetsManager;
-
+	TimeManager m_timeManager;
 };
