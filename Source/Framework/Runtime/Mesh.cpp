@@ -6,7 +6,7 @@ using namespace Runtime;
 using namespace DirectX;
 
 #include "Framework/Framework.h"
-
+#include <string>
 // コンストラクタ
 Mesh::Mesh()
     : m_position(0, 0, 0)
@@ -23,7 +23,11 @@ Mesh::~Mesh()
 }
 
 // 初期化処理
-bool Mesh::Init(ID3D12Device* _pDevice, MeshData& _data)
+bool Mesh::Init(
+    ID3D12Device* _pDevice, 
+    MeshData& _data,
+    std::string _materialName
+)
 {
     if (!m_vertexBuffer.Init(
         _pDevice,
@@ -52,13 +56,26 @@ bool Mesh::Init(ID3D12Device* _pDevice, MeshData& _data)
         return false;
     }
 
+   
+    // メッシュデータを受け取る
     m_meshData = _data;
+
+    _materialName = _materialName == ""
+        ? "Assets/Materials/SpriteDefaultMaterial.txt"
+        : _materialName;
+
+    if (!m_material.Init(_materialName))
+    {
+        printf("【Mesh】：Failed to Init Material\n");
+        return false;
+    }
+   
 
     return true;
 }
 
 // メッシュを描画する命令
-void Mesh::Draw(ID3D12GraphicsCommandList* _pCommandList, Camera* _pCamera)
+void Mesh::Draw()
 {
     Render_I->QueueRender(this);
 }
@@ -95,6 +112,7 @@ RenderData Mesh::GetData()
     renderData.indexBufferView = m_indexBuffer.GetView();
     renderData.pConstantBuffer = &m_constantBuffer;
     renderData.indexNum = (UINT)m_meshData.indices.size();
+    renderData.pMaterial = &m_material;
 
     return renderData;
 }

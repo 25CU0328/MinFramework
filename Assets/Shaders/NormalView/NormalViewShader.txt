@@ -1,0 +1,5 @@
+{
+    "vertexShaderName":"Assets/Shaders/NormalView/NormalViewVS.hlsl",
+
+    "pixelShaderName":"Assets/Shaders/NormalView/NormalViewPS.hlsl"
+}

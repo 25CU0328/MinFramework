@@ -10,10 +10,13 @@ namespace Runtime
 	public:
 
 		// 初期化処理
-		bool Init(ModelData _data);
+		bool Init(
+			ModelData _data, 
+			std::string _materialName = ""
+		);
 
 		// メッシュを描画する
-		void Draw(Camera* _pCamera);
+		void Draw();
 
 	private:
 		std::vector<Mesh*> m_pMeshes;

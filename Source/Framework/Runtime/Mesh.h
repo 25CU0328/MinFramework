@@ -17,10 +17,14 @@ namespace Runtime
 		~Mesh();
 
 		// 初期化処理
-		bool Init(ID3D12Device* _pDevice, MeshData& _data);
+		bool Init(
+			ID3D12Device* _pDevice, 
+			MeshData& _data, 
+			std::string _materialName = ""
+		);
 
 		// メッシュを描画する
-		void Draw(ID3D12GraphicsCommandList* _pCommandList, Camera* _pCamera);
+		void Draw();
 
 		// ワールド行列を取得する
 		XMMATRIX GetWorldMatrix() const;

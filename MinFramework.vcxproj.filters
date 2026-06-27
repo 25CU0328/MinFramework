@@ -49,6 +49,9 @@
     <Filter Include="Framework\Assets\Json">
       <UniqueIdentifier>{30bebfef-498d-479f-b8d0-b4e3d1901ecb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Assets\AssetData">
+      <UniqueIdentifier>{24661425-f03d-4e6f-9408-e9a7d380a5aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\App.cpp">
@@ -133,6 +136,9 @@
       <Filter>Framework</Filter>
     </ClCompile>
     <ClCompile Include="Source\Framework\main.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\TimeManager.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
   </ItemGroup>
@@ -251,8 +257,14 @@
     <ClInclude Include="Source\Framework\Assets\Json\JsonLoader.h">
       <Filter>Framework\Assets\Json</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Framework\Assets\MaterialAssets.h">
-      <Filter>Framework\Assets</Filter>
+    <ClInclude Include="Source\Framework\TimeManager.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Assets\AssetData\MaterialData.h">
+      <Filter>Framework\Assets\AssetData</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Assets\AssetData\ShaderData.h">
+      <Filter>Framework\Assets\AssetData</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

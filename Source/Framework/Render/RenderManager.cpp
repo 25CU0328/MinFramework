@@ -37,28 +37,42 @@ void Render::RenderManager::Render()
 
 	// 
 	ID3D12GraphicsCommandList* pCommandList = m_graphics.GetCommandList();
+	
+	// 使われたシェーダーが同じかどうかを確認するための変数
+	Runtime::Shader* pCurrentShader = nullptr;
 	for (Runtime::RenderObject* pObject : m_RenderObjects)
 	{
 		RenderData data = pObject->GetData();
 
+		// 適応されたマテリアルと前回のオブジェクトが
+		// 同じシェーダーを使っているかをチェックする
+		Runtime::Shader* pShader = data.pMaterial->GetShader();
+		if (pCurrentShader != pShader)
+		{
+			// ルートシグネチャーを設定する
+			pCommandList->SetGraphicsRootSignature(
+				pShader->GetRootSignature()
+			);
+
+			// パイプラインステートを設定する
+			pCommandList->SetPipelineState(
+				pShader->GetPipelineState()
+			);
+
+			// ディスクリプタテーブルの設定
+			pCommandList->SetGraphicsRootDescriptorTable(
+				0, // ルートパラメーターインデックス
+				m_graphics.GetDescriptorHeap().GetGPUHeapHandle()
+			);
+			pCurrentShader = pShader;
+		}
+		
 		// 定数バッファーを設定する
 		pCommandList->SetGraphicsRootConstantBufferView(
 			1,
 			data.pConstantBuffer->GetResource()->GetGPUVirtualAddress()
 		);
 
-		// 既にテクスチャデータを取得した場合
-		if (data.pMaterial->GetTexture() != nullptr)
-		{
-			pCommandList->SetGraphicsRootDescriptorTable(
-				0,
-				m_graphics.GetDescriptorHeap().GetGPUHeapHandle()
-			);
-
-			UINT allocateSize = m_graphics.GetDevice()
-				->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-			m_graphics.GetDescriptorHeap().AllocateCPU(allocateSize);
-		}
 		// 行列計算
 		{
 			// 計算結果

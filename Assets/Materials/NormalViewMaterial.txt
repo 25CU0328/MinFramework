@@ -1,0 +1,7 @@
+{
+    "shaderName":"Assets/Shaders/NormalView/NormalViewShader.txt",
+
+    "textureName":"Assets/Image/Default.jpg",
+
+    "enableZTest":false
+}

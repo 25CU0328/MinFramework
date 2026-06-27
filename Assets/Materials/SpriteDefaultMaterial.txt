@@ -1,0 +1,7 @@
+{
+    "shaderName":"Assets/Shaders/SpriteDefault/SpriteDefaultShader.txt",
+
+    "textureName":"Assets/Image/Default.jpg",
+
+    "enableZTest":false
+}

@@ -5,7 +5,10 @@ using namespace Runtime;
 #include "Framework/Framework.h"
 
 // 初期化処理
-bool Model::Init(ModelData _data)
+bool Model::Init(
+	ModelData _data,
+	std::string _materialName
+)
 {
 	// レンダリングマネージャーから
 	// デバイスを取得する
@@ -15,7 +18,7 @@ bool Model::Init(ModelData _data)
 	{
 		m_pMeshes.emplace_back(new Mesh());
 
-		if (!m_pMeshes.back()->Init(pDevice, meshData))
+		if (!m_pMeshes.back()->Init(pDevice, meshData, _materialName))
 		{
 			return false;
 		}
@@ -25,14 +28,11 @@ bool Model::Init(ModelData _data)
 }
 
 // メッシュを描画する
-void Model::Draw(Camera* _pCamera)
+void Model::Draw()
 {
-	// レンダリングマネージャーから
-	// コマンドリストを取得する
-	ID3D12GraphicsCommandList* pCommandList = Render_I->GetGraphics()->GetCommandList();
-
+	// モデルが持つメッシュを描画する
 	for (Mesh* pMesh : m_pMeshes)
 	{
-		pMesh->Draw(pCommandList, _pCamera);
+		pMesh->Draw();
 	}
 }

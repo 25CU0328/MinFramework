@@ -12,25 +12,32 @@ Runtime::Sprite::Sprite()
 // デストラクター
 Runtime::Sprite::~Sprite()
 {
-	
+
 }
 
 // 初期化処理
 void Runtime::Sprite::Init(
-	const std::string _filePath, 
-	const Vector2f _size, 
-	const Vector2f _position
+	const Vector2f _size,
+	const Vector2f _position,
+	const std::string _texturePath,
+	const std::string _materialPath
 )
 {
-	if (!m_material.Init(_filePath))
+	if (!m_material.Init(_materialPath))
 	{
 		printf("[Sprite]：マテリアルの初期化が失敗しました！\n");
 		return;
 	}
-	if (m_material.GetTexture() == nullptr)
+
+	if (_texturePath != "")
 	{
-		printf("Fuck Null Pointers\n");
+		Render::Texture* pTempTexture = Assets_I->GetTexture(_texturePath);
+		if (pTempTexture)
+		{
+			m_material.SetTexture(pTempTexture);
+		}
 	}
+
 	m_size = _size;
 	m_position = _position;
 	m_rotation = 0.0f;
@@ -39,14 +46,15 @@ void Runtime::Sprite::Init(
 }
 // 初期化処理
 void Runtime::Sprite::Init(
-	const std::string _filePath,
 	const float _sizeX,
 	const float _sizeY,
 	const float _positionX,
-	const float _positionY
+	const float _positionY,
+	const std::string _texturePath,
+	const std::string _materialPath
 )
 {
-	if (!m_material.Init(_filePath))
+	if (!m_material.Init(_materialPath))
 	{
 		printf("[Sprite]：マテリアルの初期化が失敗しました！\n");
 		return;
@@ -64,6 +72,12 @@ void Runtime::Sprite::Draw()
 {
 	// レンダリングを要求する
 	Render_I->QueueRender(this);
+}
+
+// テクスチャを設定する
+void Runtime::Sprite::SetTexture(Render::Texture* const _pNewTexture)
+{
+	m_material.SetTexture(_pNewTexture);
 }
 
 // 位置を設定する
@@ -182,7 +196,7 @@ void Runtime::Sprite::_initBuffers()
 	}
 
 	ID3D12Device* pDevice = Render_I->GetGraphics()->GetDevice();
-	if(!m_vertexBuffer.Init(
+	if (!m_vertexBuffer.Init(
 		pDevice,
 		meshData.vertexDatas.size(),
 		sizeof(VertexData),

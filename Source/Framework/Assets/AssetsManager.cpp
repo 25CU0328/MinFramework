@@ -39,7 +39,7 @@ bool AssetsManager::LoadImageFile(std::string _strFileName, ImageData& _outData)
 }
 
 // テクスチャを読み込み、又はマップから取得する
-Render::Texture* AssetsManager::LoadTexture(std::string _filePath)
+Render::Texture* AssetsManager::GetTexture(std::string _filePath)
 {
 	Render::Texture* pTexture = nullptr;
 	// 既に読み込んだTextureから、同じファイル名のテクスチャを取得する
@@ -73,4 +73,36 @@ Render::Texture* AssetsManager::LoadTexture(std::string _filePath)
 	}
 
 	return pTexture;
+}
+
+// シェーダーを読み込む、又はマップから取得する
+Runtime::Shader* AssetsManager::GetShader(std::string _filePath)
+{
+	Runtime::Shader* pShader;
+
+	// 既に読み込んだTextureから、同じファイル名のテクスチャを取得する
+	auto iterator = m_shaderMap.find(_filePath);
+
+	// 同じファイル名が存在する場合、名前に対応するシェーダーを返す
+	if (iterator != m_shaderMap.end())
+	{
+		pShader = iterator->second;
+		return pShader;
+	}
+	// ファイル名が存在しない場合、ファイルを読み込む
+	else
+	{
+		// ファイルに書いてあるデータを読み込む
+		ShaderData shaderData = FromJson<ShaderData>(_filePath);
+		
+		pShader = new Runtime::Shader();
+		// もし初期化が失敗したら
+		if (!pShader->Init(shaderData))
+		{
+			printf("[AssetsManager]：Failed to Initialize Shader\n");
+			return nullptr;
+		}
+
+		return pShader;
+	}
 }

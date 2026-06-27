@@ -1,7 +1,9 @@
 ﻿#pragma once
 
 #include "Framework/Render/Resource/Texture.h"
-#include "string"
+#include "Shader.h"
+
+#include <string>
 namespace Runtime
 {
 	class Material
@@ -13,8 +15,14 @@ namespace Runtime
 		// テクスチャを取得する
 		Render::Texture* GetTexture() const;
 
+		// メインテクスチャを設定する
+		void SetTexture(Render::Texture* const _pNewTexture);
 
-	private:
-		Render::Texture* m_pTexture;
+		// シェーダーを取得する
+		Shader* GetShader() const;
+		
+	protected:
+		Render::Texture* m_pMainTexture;
+		Shader* m_pShader;
 	};
 }

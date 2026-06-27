@@ -5,6 +5,7 @@
 #include "Framework/Assets/Image/ImageData.h"
 #include "RenderObject.h"
 
+
 #include "Framework/Math/Vector2.h"
 
 namespace Runtime
@@ -24,23 +25,28 @@ namespace Runtime
 
 		// 初期化処理
 		void Init(
-			const std::string _filePath, 
-			const Vector2f _size, 
-			const Vector2f _position
+			const Vector2f _size,
+			const Vector2f _position,
+			const std::string _texturePath = "",
+			const std::string _materialPath = "Assets/Materials/DefaultSpriteMaterial.txt"
 		);
 
 		// 初期化処理
 		void Init(
-			const std::string _filePath,
 			const float _sizeX,
 			const float _sizeY,
 			const float _positionX,
-			const float _positionY
+			const float _positionY,
+			const std::string _texturePath = "",
+			const std::string _materialPath = "Assets/Materials/DefaultSpriteMaterial.txt"
 		);
 
 
 		// スプライトを描画する
 		void Draw();
+
+		// テクスチャを設定する
+		void SetTexture(Render::Texture* const _pNewTexture);
 
 		// 位置を設定する
 		void SetPosition(const Vector2f& _position);
@@ -64,9 +70,13 @@ namespace Runtime
 		RenderData GetData();
 		// ワールド行列を取得する
 		DirectX::XMMATRIX GetWorldMatrix();
+
+
 	private:
 		// バッファーの初期化 (RenderObjectから継承した)
 		void _initBuffers();
+
+	private:
 
 		// 位置
 		Vector2f m_position;

@@ -216,10 +216,6 @@ void Graphics::BeginFrame()
 		pCommandList->ResourceBarrier(1, &barrier);
 	}
 
-	// パイプラインス情報を設定する
-	pCommandList->SetPipelineState(m_pipelineState.Get());
-
-
 	//レンダーターゲットを指定
 	D3D12_CPU_DESCRIPTOR_HANDLE pCPUHandle = m_rtvHeap.GetCPUHeapHandle();
 
@@ -229,6 +225,7 @@ void Graphics::BeginFrame()
 	// デプスステンシルの位置を取得
 	D3D12_CPU_DESCRIPTOR_HANDLE dsvHandle = m_dsBuffer.GetHandle();
 
+	// 出力統合段階の描画対象を設定
 	pCommandList->OMSetRenderTargets(1, &pCPUHandle, false, &dsvHandle);
 
 	// デプスステンシル値のリセット
@@ -254,18 +251,10 @@ void Graphics::BeginFrame()
 	pCommandList->RSSetScissorRects(1, &m_scissorRect);
 
 	pCommandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	// ルートパラメーターインデックス
-	pCommandList->SetGraphicsRootSignature(m_rootSignature.Get());
 
 	// ディスクリプタヒープの指定
 	ID3D12DescriptorHeap* pDescriptorHeap = m_mainHeap.Get();
 	pCommandList->SetDescriptorHeaps(1, &pDescriptorHeap);
-
-	// ディスクリプタテーブルの設定
-	pCommandList->SetGraphicsRootDescriptorTable(
-		0, // ルートパラメーターインデックス
-		m_mainHeap.GetGPUHeapHandle()
-	);
 }
 
 // 現在フレームの描画を終わる
@@ -370,7 +359,9 @@ HRESULT Graphics::_initBackBuffer()
 			rtvHandle
 		);
 
-		UINT allocateSize = m_pDevice.Get()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
+		UINT allocateSize = m_pDevice.Get()->GetDescriptorHandleIncrementSize(
+			D3D12_DESCRIPTOR_HEAP_TYPE_RTV
+		);
 		rtvHandle.ptr += allocateSize;
 	}
 
