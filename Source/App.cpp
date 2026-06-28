@@ -15,12 +15,25 @@ Runtime::Model chairModel;
 Runtime::Model cubeModel;
 Runtime::Camera camera;
 Runtime::Sprite sprite;
+Runtime::Sprite sprite2;
 // 初期化処理
 void App::Init()
 {
 	Render_I->SetCamera(&camera);
+	
+	sprite.Init(
+		Vector2f(500.0f, 500.0f),
+		Vector2f(0.0f, 0.0f),
+		"Assets/Images/Mika.jpg"
+	);
 
-	ModelData modelData;
+	sprite.SetTextureRange(0.0f, 0.0f, 0.5f, 0.5f);
+
+	sprite2.Init(
+		Vector2f(500.0f, 500.0f),
+		Vector2f(0.0f, 0.0f)
+	);
+	/*ModelData modelData;
 	if (Assets_I->LoadModelFile("Assets/Models/Chair.obj", modelData))
 	{
 		chairModel.Init(modelData, "Assets/Materials/NormalViewMaterial.txt");
@@ -29,11 +42,11 @@ void App::Init()
 	if (Assets_I->LoadModelFile("Assets/Models/Cube.obj", modelData))
 	{
 		cubeModel.Init(modelData);
-	}
+	}*/
 
-	camera.Init(Runtime::ProjectionType::Perspective);
+	camera.Init(Runtime::ProjectionType::Orthographic);
 
-	camera.SetPosition(Vector3f(0.0f, 50.0f, -100.0f));
+	//camera.SetPosition(Vector3f(0.0f, 50.0f, -100.0f));
 }
 void UpdateCamera()
 {
@@ -167,16 +180,17 @@ void UpdateImage()
 // 更新処理
 void App::Update()
 {
-	UpdateCamera();
-	
+	// UpdateCamera();
+	UpdateImage();
 }
 
 // 描画処理
 void App::Render()
 {
-	//sprite.Draw();
-	chairModel.Draw();
-	cubeModel.Draw();
+	sprite.Draw();
+	sprite2.Draw();
+	//chairModel.Draw();
+	//cubeModel.Draw();
 }
 
 // 後片付け
