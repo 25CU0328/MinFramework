@@ -125,6 +125,31 @@ int Runtime::Sprite::GetRotation() const
 	return m_rotation;
 }
 
+// テクスチャの表示範囲を指定する
+void Runtime::Sprite::SetTextureRange(
+	const float _x,
+	const float _y,
+	const float _width,
+	const float _height
+)
+{
+	// 左上
+	m_meshData.vertexDatas[0].uv = XMFLOAT2(_x, _y);
+	// 右上
+	m_meshData.vertexDatas[1].uv = XMFLOAT2(_x + _width, _y);
+	// 左下
+	m_meshData.vertexDatas[2].uv = XMFLOAT2(_x, _y + _height);
+	// 右下
+	m_meshData.vertexDatas[3].uv = XMFLOAT2(_x + _width, _y + _height);
+
+	// ヴァーテックスバッファー上にデータを更新する
+	m_vertexBuffer.UpdateVertex(
+		m_meshData.vertexDatas.data(), 
+		m_meshData.vertexDatas.size(), 
+		sizeof(VertexData)
+	);
+}
+
 // レンダリング用のデータを取得する
 RenderData Runtime::Sprite::GetData()
 {
@@ -162,45 +187,48 @@ DirectX::XMMATRIX Runtime::Sprite::GetWorldMatrix()
 void Runtime::Sprite::_initBuffers()
 {
 	// メッシュデータ(Quad)の初期化
-	MeshData meshData;
+	m_meshData.vertexDatas =
 	{
-		meshData.vertexDatas =
+		// 左上
 		{
-			{
-				XMFLOAT3(-0.5f,  0.5f, 0.0f),
-				XMFLOAT3(0.0f, 0.0f, -1.0f),
-				XMFLOAT2(0.0f, 0.0f)
-			},
-			{
-				XMFLOAT3(0.5f,  0.5f, 0.0f),
-				XMFLOAT3(0.0f, 0.0f, -1.0f),
-				XMFLOAT2(1.0f, 0.0f)
-			},
-			{
-				XMFLOAT3(-0.5f, -0.5f, 0.0f),
-				XMFLOAT3(0.0f, 0.0f, -1.0f),
-				XMFLOAT2(0.0f, 1.0f)
-			},
-			{
-				XMFLOAT3(0.5f, -0.5f, 0.0f),
-				XMFLOAT3(0.0f, 0.0f, -1.0f),
-				XMFLOAT2(1.0f, 1.0f)
-			}
-		};
+			XMFLOAT3(-0.5f,  0.5f, 0.0f),
+			XMFLOAT3(0.0f, 0.0f, -1.0f),
+			XMFLOAT2(0.0f, 0.0f)
+		},
+		// 右上
+		{
+			XMFLOAT3(0.5f,  0.5f, 0.0f),
+			XMFLOAT3(0.0f, 0.0f, -1.0f),
+			XMFLOAT2(1.0f, 0.0f)
+		},
+		// 左下
+		{
+			XMFLOAT3(-0.5f, -0.5f, 0.0f),
+			XMFLOAT3(0.0f, 0.0f, -1.0f),
+			XMFLOAT2(0.0f, 1.0f)
+		},
+		// 右下
+		{
+			XMFLOAT3(0.5f, -0.5f, 0.0f),
+			XMFLOAT3(0.0f, 0.0f, -1.0f),
+			XMFLOAT2(1.0f, 1.0f)
+		}
+	};
 
-		meshData.indices =
-		{
-			0, 1, 2,
-			2, 1, 3
-		};
-	}
+	// インデクスデータを設定
+	m_meshData.indices =
+	{
+		0, 1, 2,
+		2, 1, 3
+	};
+	
 
 	ID3D12Device* pDevice = Render_I->GetGraphics()->GetDevice();
 	if (!m_vertexBuffer.Init(
 		pDevice,
-		meshData.vertexDatas.size(),
+		m_meshData.vertexDatas.size(),
 		sizeof(VertexData),
-		meshData.vertexDatas.data()
+		m_meshData.vertexDatas.data()
 	))
 	{
 		printf("【Sprite】：Failed to Init VertexBuffer\n");
@@ -209,9 +237,9 @@ void Runtime::Sprite::_initBuffers()
 
 	if (!m_indexBuffer.Init(
 		pDevice,
-		meshData.indices.size(),
+		m_meshData.indices.size(),
 		sizeof(uint32_t),
-		meshData.indices.data()
+		m_meshData.indices.data()
 	))
 	{
 		printf("【Sprite】：Failed to Init IndexBuffer\n");

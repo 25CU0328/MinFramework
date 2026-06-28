@@ -107,7 +107,8 @@ bool Render::Texture::Init(const ImageData& _imageData)
 		srvDesc.Texture2D.MipLevels = 1;
 	}
 
-
+	m_CpuHandle = descriptorHeap.GetCPUHeapHandle();
+	m_GpuHandle = descriptorHeap.GetGPUHeapHandle();
 	// ディスクリプタの生成
 	pDevice->CreateShaderResourceView(
 		// ビューと関連付けるバッファー
@@ -115,7 +116,7 @@ bool Render::Texture::Init(const ImageData& _imageData)
 		// 先ほど設定したテクスチャ設定情報
 		&srvDesc,
 		// 先頭アドレス
-		descriptorHeap.GetCPUHeapHandle()
+		m_CpuHandle
 	);
 
 	// ディスクリプタの位置を移動する
@@ -123,6 +124,7 @@ bool Render::Texture::Init(const ImageData& _imageData)
 		D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV
 	);
 	descriptorHeap.AllocateCPU(offset);
+	descriptorHeap.AllocateGPU(offset);
 
 	return true;
 }
@@ -137,4 +139,17 @@ void Render::Texture::Term()
 ID3D12Resource* Render::Texture::GetResource() const
 {
 	return m_pResource.Get();
+}
+
+
+// バッファーのCPUハンドルを取得する
+D3D12_CPU_DESCRIPTOR_HANDLE Render::Texture::GetCPUHandle()
+{
+	return m_CpuHandle;
+}
+
+// バッファーのGPUハンドルを取得する
+D3D12_GPU_DESCRIPTOR_HANDLE Render::Texture::GetGPUHandle()
+{
+	return m_GpuHandle;
 }

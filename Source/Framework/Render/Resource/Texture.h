@@ -32,8 +32,15 @@ namespace Render
 		// テクスチャのリソースを返す関数
 		ID3D12Resource* GetResource() const;
 
+		// バッファーのCPUハンドルを取得する
+		D3D12_CPU_DESCRIPTOR_HANDLE GetCPUHandle();
+		// バッファーのGPUハンドルを取得する
+		D3D12_GPU_DESCRIPTOR_HANDLE GetGPUHandle();
 	private:
 		// テクスチャのバッファー
 		ComPtr<ID3D12Resource> m_pResource;
+
+		D3D12_CPU_DESCRIPTOR_HANDLE m_CpuHandle;
+		D3D12_GPU_DESCRIPTOR_HANDLE m_GpuHandle;
 	};
 }

@@ -3,6 +3,7 @@
 #include <DirectXMath.h>
 
 #include "Framework/Assets/Image/ImageData.h"
+#include "Framework/Assets/Model/ModelData.h"
 #include "RenderObject.h"
 
 
@@ -28,7 +29,7 @@ namespace Runtime
 			const Vector2f _size,
 			const Vector2f _position,
 			const std::string _texturePath = "",
-			const std::string _materialPath = "Assets/Materials/DefaultSpriteMaterial.txt"
+			const std::string _materialPath = "Assets/Materials/SpriteDefaultMaterial.txt"
 		);
 
 		// 初期化処理
@@ -66,6 +67,20 @@ namespace Runtime
 		// 回転角度(逆時計回り)を取得する
 		int GetRotation() const;
 
+		/// <summary>
+		/// テクスチャの表示範囲を指定する
+		/// </summary>
+		/// <param name="_x"> 左上位置のx座標 </param>
+		/// <param name="_y"> 左上位置のy座標 </param>
+		/// <param name="_width"> 幅 </param>
+		/// <param name="_height"> 高さ </param>
+		void SetTextureRange(
+			const float _x,
+			const float _y,
+			const float _width,
+			const float _height
+		);
+
 		// レンダリング用のデータを取得する
 		RenderData GetData();
 		// ワールド行列を取得する
@@ -77,12 +92,14 @@ namespace Runtime
 		void _initBuffers();
 
 	private:
-
 		// 位置
 		Vector2f m_position;
 		// サイズ
 		Vector2f m_size;
 		// 回転角度(逆時計回り) (Degree)
 		int m_rotation;
+
+		// スプライトを描画する時のメッシュデータ
+		MeshData m_meshData;
 	};
 }

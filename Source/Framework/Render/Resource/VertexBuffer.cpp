@@ -99,7 +99,24 @@ bool VertexBuffer::Init(
     return true;
 }
 
+// バーテックスデータを更新する
+void VertexBuffer::UpdateVertex(void* _pVertexData, UINT64 _dataSize, UINT _sizePerVertex)
+{
+    // 複製するための一時ポインター
+    void* mappedPtr = nullptr;
 
+    HRESULT result = m_pBuffer->Map(0, nullptr, &mappedPtr);
+    if (FAILED(result))
+    {
+        printf("【VertexBuffer】: Faied to Map Buffer when UpdateVertex\n");
+        return;
+    }
+    memcpy(mappedPtr, _pVertexData, _dataSize * _sizePerVertex);
+
+    m_pBuffer->Unmap(0, nullptr);
+}
+
+// バーテックスバッファーの記述子を取得する
 D3D12_VERTEX_BUFFER_VIEW& VertexBuffer::GetView()
 {
 	return m_bufferView;

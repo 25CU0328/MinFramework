@@ -59,14 +59,19 @@ void Render::RenderManager::Render()
 				pShader->GetPipelineState()
 			);
 
-			// ディスクリプタテーブルの設定
-			pCommandList->SetGraphicsRootDescriptorTable(
-				0, // ルートパラメーターインデックス
-				m_graphics.GetDescriptorHeap().GetGPUHeapHandle()
-			);
+			
 			pCurrentShader = pShader;
 		}
 		
+		Render::Texture* pTexture = data.pMaterial->GetTexture();
+		if (pTexture) 
+		{
+			// ディスクリプタテーブルの設定
+			pCommandList->SetGraphicsRootDescriptorTable(
+				0, // ルートパラメーターインデックス
+				pTexture->GetGPUHandle()
+			);
+		}
 		// 定数バッファーを設定する
 		pCommandList->SetGraphicsRootConstantBufferView(
 			1,
@@ -83,6 +88,7 @@ void Render::RenderManager::Render()
 			matrix = XMMatrixTranspose(matrix);
 			data.pConstantBuffer->UpdateMatrix(&matrix, sizeof(matrix));
 		}
+
 
 		// バーテックスバッファーを設定する
 		pCommandList->IASetVertexBuffers(0, 1, &data.vertexBufferView);

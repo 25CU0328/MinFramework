@@ -35,14 +35,23 @@ namespace Render
 		/// <param name="vertexData"> バーテックス配列のアドレス </param>
 		/// <returns> (bool)初期化処理が完成されたか </returns>
 		bool Init(
-			ID3D12Device* _pDevice,     // デバイス
-			UINT64 _dataSize,           // バーテックス配列(確保した領域)のサイズ
-			UINT _sizePerVertex,        // 各バーテックスデータのサイズ
-			void* _pVertexData      // バーテックス配列のアドレス
+			ID3D12Device* _pDevice,     
+			UINT64 _dataSize,           
+			UINT _sizePerVertex,        
+			void* _pVertexData
 		);
+
+		/// <summary>
+		/// バーテックスデータを更新する
+		/// </summary>
+		/// <param name="_pVertexData"> 新しいデータのアドレス </param>
+		/// <param name="_dataSize"> バーテックス配列のサイズ </param>
+		/// <param name="_sizePerVertex"> 各バーテックスデータのサイズ </param>
+		void UpdateVertex(void* _pVertexData, UINT64 _dataSize, UINT _sizePerVertex);
 
 		// バーテックスバッファーの記述子を取得する
 		D3D12_VERTEX_BUFFER_VIEW& GetView();
+
 	private:
 		// バーテックスバッファーの本体
 		ComPtr<ID3D12Resource> m_pBuffer;
