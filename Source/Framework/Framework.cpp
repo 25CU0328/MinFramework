@@ -4,7 +4,7 @@
 Framework* Framework::s_pInstance = nullptr;
 
 // 初期化処理
-bool Framework::Init(const HWND* _hwnd)
+bool Framework::Init(HWND* _hwnd)
 {
 	// WICファイルを使うための初期化処理
 	HRESULT result = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
@@ -27,12 +27,16 @@ bool Framework::Init(const HWND* _hwnd)
 // 更新処理
 void Framework::Update()
 {
+	// 時間マネージャーの更新処理
 	m_timeManager.Update();
+
+	// 入力マネージャーの更新処理
+	m_inputManager.Update();
 }
 // 物理計算を行うための更新処理
 void Framework::LateUpdate()
 {
-
+	m_collisionManager.Update();
 }
 
 // 描画処理
@@ -88,4 +92,16 @@ Render::RenderManager* Framework::GetRenderManager()
 TimeManager* Framework::GetTimeManager()
 {
 	return &m_timeManager;
+}
+
+// 入力関連処理のマネージャーを取得する
+InputManager* Framework::GetInputManager()
+{
+	return &m_inputManager;
+}
+
+// 衝突判定のマネージャーを取得する
+CollisionManager* Framework::GetCollisionManager()
+{
+	return &m_collisionManager;
 }

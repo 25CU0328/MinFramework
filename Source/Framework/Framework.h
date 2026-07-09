@@ -3,6 +3,8 @@
 #include "Render/RenderManager.h"
 #include "Assets/AssetsManager.h"
 #include "TimeManager.h"
+#include "Input/InputManager.h"
+#include "Collision/CollisionManager.h"
 
 #include "App.h"
 
@@ -11,6 +13,8 @@
 #define Render_I Framework_I->GetRenderManager()
 #define Assets_I Framework_I->GetAssetsManager()
 #define Time_I Framework_I->GetTimeManager()
+#define Input_I Framework_I->GetInputManager()
+#define Collision_I Framework_I->GetCollisionManager()
 /*
 	フレームワークの重要機能を管理するためのクラス
 
@@ -22,7 +26,7 @@ class Framework
 
 public:
 	// 初期化処理
-	bool Init(const HWND* _pHWND);
+	bool Init(HWND* _pHWND);
 	// 更新処理
 	void Update();
 	// 物理計算を行うための更新処理
@@ -48,9 +52,17 @@ public:
 
 	// 時間のマネージャーを取得する
 	TimeManager* GetTimeManager();
+
+	// 入力関連処理のマネージャーを取得する
+	InputManager* GetInputManager();
+
+	// 衝突判定のマネージャーを取得する
+	CollisionManager* GetCollisionManager();
 private:
 
 	Render::RenderManager m_renderManager;
 	Assets::AssetsManager m_assetsManager;
 	TimeManager m_timeManager;
+	InputManager m_inputManager;
+	CollisionManager m_collisionManager;
 };

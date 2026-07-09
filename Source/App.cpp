@@ -10,29 +10,39 @@
 #include "Framework/Runtime/Model.h"
 
 #include "Framework/Assets/AssetData/MaterialData.h"
-
+#include "imgui.h"
 Runtime::Model chairModel;
 Runtime::Model cubeModel;
 Runtime::Camera camera;
 Runtime::Sprite sprite;
 Runtime::Sprite sprite2;
+BoxCollider boxCollider1;
+BoxCollider boxCollider2;
+void OnCollision(CollisionEvent _event);
 // 初期化処理
 void App::Init()
 {
 	Render_I->SetCamera(&camera);
 	
 	sprite.Init(
-		Vector2f(500.0f, 500.0f),
+		Vector2f(50.0f, 50.0f),
 		Vector2f(0.0f, 0.0f),
 		"Assets/Images/Mika.jpg"
 	);
+	boxCollider1.SetSize(Vector2f(50.0f, 50.0f));
+	boxCollider1.SetPosition(Vector2f(0.0f, 0.0f));
+	boxCollider1.SetCallback(OnCollision);
+	Collision_I->Register(&boxCollider1);
 
 	sprite.SetTextureRange(0.0f, 0.0f, 0.5f, 0.5f);
 
 	sprite2.Init(
-		Vector2f(500.0f, 500.0f),
+		Vector2f(50.0f, 50.0f),
 		Vector2f(0.0f, 0.0f)
 	);
+	boxCollider2.SetSize(Vector2f(50.0f, 50.0f));
+	boxCollider2.SetPosition(Vector2f(0.0f, 0.0f));
+	Collision_I->Register(&boxCollider2);
 	/*ModelData modelData;
 	if (Assets_I->LoadModelFile("Assets/Models/Chair.obj", modelData))
 	{
@@ -58,42 +68,42 @@ void UpdateCamera()
 	// -----------
 	// カメラ移動
 	// -----------
-	if (GetAsyncKeyState('W') & 0x8000)
+	if (Input_I->GetKeyPressed('W'))
 	{
 		Vector3f cameraPos = camera.GetPosition();
 		Vector3f forwardOffset = camera.GetFront() * moveSpeed;
 
 		camera.SetPosition(cameraPos + forwardOffset);
 	}
-	if (GetAsyncKeyState('S') & 0x8000)
+	if (Input_I->GetKeyPressed('S'))
 	{
 		Vector3f cameraPos = camera.GetPosition();
 		Vector3f forwardOffset = camera.GetFront() * -moveSpeed;
 
 		camera.SetPosition(cameraPos + forwardOffset);
 	}
-	if (GetAsyncKeyState('A') & 0x8000)
+	if (Input_I->GetKeyPressed('A'))
 	{
 		Vector3f cameraPos = camera.GetPosition();
 		Vector3f rightOffset = camera.GetRight() * moveSpeed;
 
 		camera.SetPosition(cameraPos + rightOffset);
 	}
-	if (GetAsyncKeyState('D') & 0x8000)
+	if (Input_I->GetKeyPressed('D'))
 	{
 		Vector3f cameraPos = camera.GetPosition();
 		Vector3f rightOffset = camera.GetRight() * -moveSpeed;
 
 		camera.SetPosition(cameraPos + rightOffset);
 	}
-	if (GetAsyncKeyState('Q') & 0x8000)
+	if (Input_I->GetKeyPressed('Q'))
 	{
 		Vector3f cameraPos = camera.GetPosition();
 		cameraPos.y += moveSpeed;
 
 		camera.SetPosition(cameraPos);
 	}
-	if (GetAsyncKeyState('E') & 0x8000)
+	if (Input_I->GetKeyPressed('E'))
 	{
 		Vector3f cameraPos = camera.GetPosition();
 		cameraPos.y -= moveSpeed;
@@ -142,39 +152,59 @@ void UpdateImage()
 	const float DegToRad = (float)DirectX::XM_PI / 180.0f;
 	const float rotateSpeed = 45.0f * DegToRad * (float)Time_I->GetDeltaTime();
 
-	if (GetAsyncKeyState('W') & 0x8000)
+	if (Input_I->GetKeyPressed('W'))
 	{
 		Vector2f spritePos = sprite.GetPosition();
 
 		sprite.SetPosition(spritePos + Vector2f(0.0f, 1.0f) * moveSpeed);
+		boxCollider1.SetPosition(spritePos + Vector2f(0.0f, 1.0f) * moveSpeed);
 	}
-	if (GetAsyncKeyState('S') & 0x8000)
+	if (Input_I->GetKeyPressed('S'))
 	{
 		Vector2f spritePos = sprite.GetPosition();
 
 		sprite.SetPosition(spritePos + Vector2f(0.0f, 1.0f) * -moveSpeed);
+		boxCollider1.SetPosition(spritePos + Vector2f(0.0f, 1.0f) * -moveSpeed);
 	}
-	if (GetAsyncKeyState('A') & 0x8000)
+	if (Input_I->GetKeyPressed('A'))
 	{
 		Vector2f spritePos = sprite.GetPosition();
 
 		sprite.SetPosition(spritePos + Vector2f(1.0f, 0.0f) * -moveSpeed);
+		boxCollider1.SetPosition(spritePos + Vector2f(1.0f, 0.0f) * -moveSpeed);
 	}
-	if (GetAsyncKeyState('D') & 0x8000)
+	if (Input_I->GetKeyPressed('D'))
 	{
 		Vector2f spritePos = sprite.GetPosition();
 
 		sprite.SetPosition(spritePos + Vector2f(1.0f, 0.0f) * moveSpeed);
+		boxCollider1.SetPosition(spritePos + Vector2f(1.0f, 0.0f) * moveSpeed);
 	}
-	if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
+	if (Input_I->GetKeyPressed(VK_RIGHT))
 	{
 		float spriteRot = sprite.GetRotation() - rotateSpeed;
 		sprite.SetRotation(spriteRot);
 	}
-	if (GetAsyncKeyState(VK_LEFT) & 0x8000)
+	if (Input_I->GetKeyPressed(VK_LEFT))
 	{
 		float spriteRot = sprite.GetRotation() + rotateSpeed;
 		sprite.SetRotation(spriteRot);
+	}
+}
+
+void OnCollision(CollisionEvent _event)
+{
+	if (_event.type == CollisionEventType::Enter)
+	{
+		printf("Enterrrr\n");
+	}
+	if (_event.type == CollisionEventType::Stay)
+	{
+		printf("Stayyyyy\n");
+	}
+	if (_event.type == CollisionEventType::Exit)
+	{
+		printf("Exitttt\n");
 	}
 }
 // 更新処理

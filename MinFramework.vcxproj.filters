@@ -52,6 +52,24 @@
     <Filter Include="Framework\Assets\AssetData">
       <UniqueIdentifier>{24661425-f03d-4e6f-9408-e9a7d380a5aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\GUI">
+      <UniqueIdentifier>{f977470b-ac6c-4c64-a09a-5c5966397842}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImGui">
+      <UniqueIdentifier>{4c4804a7-1063-40e9-a774-250d03671cc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImGui\Backends">
+      <UniqueIdentifier>{ccfcb5ea-294e-4e22-8e71-80027d0d1da5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Input">
+      <UniqueIdentifier>{829824dc-c096-4709-840f-e7b7ceeda055}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Collision">
+      <UniqueIdentifier>{c473281c-fbd1-475d-8077-796ccb27226f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Collision\Collider">
+      <UniqueIdentifier>{2ed8e8b8-dff2-4505-8248-80e59297feec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\App.cpp">
@@ -140,6 +158,39 @@
     </ClCompile>
     <ClCompile Include="Source\Framework\TimeManager.cpp">
       <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\ImGui\FrameworkImGui.cpp">
+      <Filter>Framework\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="External\imGui\imgui.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="External\imGui\imgui_demo.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="External\imGui\imgui_draw.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="External\imGui\imgui_tables.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="External\imGui\imgui_widgets.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="External\imGui\imgui_impl_dx12.cpp">
+      <Filter>ImGui\Backends</Filter>
+    </ClCompile>
+    <ClCompile Include="External\imGui\imgui_impl_win32.cpp">
+      <Filter>ImGui\Backends</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Input\InputManager.cpp">
+      <Filter>Framework\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Collision\CollisionManager.cpp">
+      <Filter>Framework\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Collision\Collider\BoxCollider.cpp">
+      <Filter>Framework\Collision\Collider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -265,6 +316,54 @@
     </ClInclude>
     <ClInclude Include="Source\Framework\Assets\AssetData\ShaderData.h">
       <Filter>Framework\Assets\AssetData</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\UI\FrameworkImgUI.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\ImGui\FrameworkImGui.h">
+      <Filter>Framework\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="External\imGui\imconfig.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="External\imGui\imgui.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="External\imGui\imgui_internal.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="External\imGui\imstb_rectpack.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="External\imGui\imstb_textedit.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="External\imGui\imstb_truetype.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="External\imGui\imgui_impl_dx12.h">
+      <Filter>ImGui\Backends</Filter>
+    </ClInclude>
+    <ClInclude Include="External\imGui\imgui_impl_win32.h">
+      <Filter>ImGui\Backends</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Input\InputManager.h">
+      <Filter>Framework\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Collision\CollisionManager.h">
+      <Filter>Framework\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Collision\Collider\Collider.h">
+      <Filter>Framework\Collision\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Collision\Collider\ColliderType.h">
+      <Filter>Framework\Collision\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Collision\Collider\BoxCollider.h">
+      <Filter>Framework\Collision\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Collision\CollisionEvent.h">
+      <Filter>Framework\Collision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -108,7 +108,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)External\assimp\include;$(ProjectDir)External\DirectXTex\Include;$(ProjectDir)Source;$(ProjectDir)External</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)External\assimp\include;$(ProjectDir)External\DirectXTex\Include;$(ProjectDir)Source;$(ProjectDir)External;$(ProjectDir)External\imGui</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -141,11 +141,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="External\imGui\imgui.cpp" />
+    <ClCompile Include="External\imGui\imgui_demo.cpp" />
+    <ClCompile Include="External\imGui\imgui_draw.cpp" />
+    <ClCompile Include="External\imGui\imgui_impl_dx12.cpp" />
+    <ClCompile Include="External\imGui\imgui_impl_win32.cpp" />
+    <ClCompile Include="External\imGui\imgui_tables.cpp" />
+    <ClCompile Include="External\imGui\imgui_widgets.cpp" />
     <ClCompile Include="Source\App.cpp" />
     <ClCompile Include="Source\Framework\Assets\AssetsManager.cpp" />
     <ClCompile Include="Source\Framework\Assets\Image\ImageLoader.cpp" />
     <ClCompile Include="Source\Framework\Assets\Model\ModleLoader.cpp" />
+    <ClCompile Include="Source\Framework\Collision\Collider\BoxCollider.cpp" />
+    <ClCompile Include="Source\Framework\Collision\CollisionManager.cpp" />
     <ClCompile Include="Source\Framework\Framework.cpp" />
+    <ClCompile Include="Source\Framework\ImGui\FrameworkImGui.cpp" />
+    <ClCompile Include="Source\Framework\Input\InputManager.cpp" />
     <ClCompile Include="Source\Framework\main.cpp" />
     <ClCompile Include="Source\Framework\Render\Core\CommandList.cpp" />
     <ClCompile Include="Source\Framework\Render\Core\CommandQueue.cpp" />
@@ -172,6 +183,14 @@
     <ClCompile Include="Source\Framework\TimeManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="External\imGui\imconfig.h" />
+    <ClInclude Include="External\imGui\imgui.h" />
+    <ClInclude Include="External\imGui\imgui_impl_dx12.h" />
+    <ClInclude Include="External\imGui\imgui_impl_win32.h" />
+    <ClInclude Include="External\imGui\imgui_internal.h" />
+    <ClInclude Include="External\imGui\imstb_rectpack.h" />
+    <ClInclude Include="External\imGui\imstb_textedit.h" />
+    <ClInclude Include="External\imGui\imstb_truetype.h" />
     <ClInclude Include="Source\App.h" />
     <ClInclude Include="Source\AppDef.h" />
     <ClInclude Include="Source\Framework\Assets\AssetData\MaterialData.h" />
@@ -182,7 +201,14 @@
     <ClInclude Include="Source\Framework\Assets\Json\JsonLoader.h" />
     <ClInclude Include="Source\Framework\Assets\Model\ModelData.h" />
     <ClInclude Include="Source\Framework\Assets\Model\ModleLoader.h" />
+    <ClInclude Include="Source\Framework\Collision\Collider\BoxCollider.h" />
+    <ClInclude Include="Source\Framework\Collision\Collider\Collider.h" />
+    <ClInclude Include="Source\Framework\Collision\Collider\ColliderType.h" />
+    <ClInclude Include="Source\Framework\Collision\CollisionEvent.h" />
+    <ClInclude Include="Source\Framework\Collision\CollisionManager.h" />
     <ClInclude Include="Source\Framework\Framework.h" />
+    <ClInclude Include="Source\Framework\ImGui\FrameworkImGui.h" />
+    <ClInclude Include="Source\Framework\Input\InputManager.h" />
     <ClInclude Include="Source\Framework\Math\Math.h" />
     <ClInclude Include="Source\Framework\Math\Vector.h" />
     <ClInclude Include="Source\Framework\Math\Vector2.h" />
@@ -213,6 +239,7 @@
     <ClInclude Include="Source\Framework\Runtime\Shader.h" />
     <ClInclude Include="Source\Framework\Runtime\Sprite.h" />
     <ClInclude Include="Source\Framework\TimeManager.h" />
+    <ClInclude Include="Source\Framework\UI\FrameworkImgUI.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shader\BasicShaderHeader.hlsli" />
