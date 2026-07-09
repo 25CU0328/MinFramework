@@ -36,39 +36,30 @@ namespace Render
 		/// <summary>
 		/// レンダリングマネージャーの初期化処理
 		/// </summary>
-		/// <param name="_hwnd"> ウィンドウズの </param>
-
-		/// <summary>
-		/// レンダリングマネージャーの初期化処理
-		/// </summary>
-		/// <param name="_hwnd"> ウィンドウズの </param>
+		/// <param name="_hwnd"> ウィンドウのハンドル </param>
 		/// <returns> 初期化は成功したか </returns>
-		bool Init(const HWND* _hwnd);
+		bool Init(HWND* _hwnd);
 
-		/// <summary>
-		/// 現在フレームの描画を開始する
-		/// </summary>
+		// 現在フレームの描画を開始する
 		void BeginFrame();
 
-		/// <summary>
-		/// 現在フレームの描画を終わる
-		/// </summary>
+		// 現在フレームの描画を終わる
 		void EndFrame();
 
-		/// <summary>
-		/// デバイスを取得する
-		/// </summary>
-		/// <returns> デバイスのポインター </returns>
+		// デバイスを取得する
 		ID3D12Device* GetDevice();
 
-		/// <summary>
-		/// ディスクリプタを取得する
-		/// </summary>
-		/// <returns> ディスクリプタクラス </returns>
+		// ディスクリプタを取得する
 		DescriptorHeap& GetDescriptorHeap();
 
+		// コマンドリストを取得する
 		ID3D12GraphicsCommandList* GetCommandList();
 
+		// コマンドキューを取得する
+		ID3D12CommandQueue* GetCommandQueue();
+
+		// ウィンドウハンドルを取得する
+		HWND* GetHWND();
 	private:
 		HRESULT _initDevice();
 		HRESULT _initBackBuffer();
@@ -76,6 +67,8 @@ namespace Render
 
 		ComPtr<ID3D12Device>		m_pDevice;	// デバイス
 		IDXGIFactory6* m_pFactory;	// デバイスを生成するための工場
+
+		HWND* m_pHwnd;								// ウィンドウのハンドル
 
 		Render::CommandList			m_commandList;	// コマンドリスト
 		Render::CommandQueue		m_commandQueue;	// コマンドキュー
@@ -93,11 +86,13 @@ namespace Render
 		Render::DescriptorHeap		m_rtvHeap;
 
 		D3D12_VIEWPORT				m_viewport;		//ビューポート
-		D3D12_RECT					m_scissorRect;		//シザー矩形
+		D3D12_RECT					m_scissorRect;	//シザー矩形
 
+		// バックバッファー
 		std::vector<ComPtr<ID3D12Resource>> m_backBuffers;
 		UINT						m_backBufferIndex;
 
+		// 深度とステンシルバッファー
 		Render::Resource::DepthStencilBuffer m_dsBuffer;
 	};
 }

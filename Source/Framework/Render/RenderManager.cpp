@@ -17,7 +17,7 @@ Render::RenderManager::~RenderManager()
 
 
 // 初期化処理
-bool Render::RenderManager::Init(const HWND* _hwnd)
+bool Render::RenderManager::Init(HWND* _hwnd)
 {
 	return m_graphics.Init(_hwnd);
 }

@@ -30,7 +30,7 @@ namespace Render
 		Graphics* GetGraphics();
 
 		// 初期化処理
-		bool Init(const HWND* _hwnd);
+		bool Init(HWND* _hwnd);
 
 		void QueueRender(Runtime::RenderObject* _pRenderObject);
 

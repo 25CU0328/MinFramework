@@ -12,13 +12,12 @@ Graphics::Graphics()
 	, m_commandQueue()
 	, m_swapChain()
 	, m_fence()
-	, m_rootSignature()
-	, m_pipelineState()
 	, m_viewport()
 	, m_scissorRect()
 	, m_backBuffers()
 	, m_backBufferIndex(0)
 	, m_dsBuffer()
+	, m_pHwnd()
 {
 
 }
@@ -33,8 +32,10 @@ Graphics::~Graphics()
 /// </summary>
 /// <param name="_hwnd"> ウィンドウズの </param>
 
-bool Graphics::Init(const HWND* _pHwnd)
+bool Graphics::Init(HWND* _pHwnd)
 {
+	m_pHwnd = _pHwnd;
+
 	HRESULT result = _initDevice();
 	if (FAILED(result))
 	{
@@ -97,75 +98,6 @@ bool Graphics::Init(const HWND* _pHwnd)
 		return false;
 	}
 	if (!m_dsBuffer.Init(m_pDevice.Get()))
-	{
-		return false;
-	}
-
-	// ヴァーテックスシェーダーバイトコードの生成
-	if (!m_VSByteCode.Init(
-		L"Assets/Shader/VertexShader.hlsl",
-		ShaderType::VertexShader
-	))
-	{
-		printf("Failed to Create VertexShader\n");
-		return false;
-	}
-
-	// ピクセルシェーダーのバイトコードの生成
-	if (!m_PSByteCode.Init(
-		L"Assets/Shader/PixelShader.hlsl",
-		ShaderType::PixelShader
-	))
-	{
-		printf("Failed to Create PixelShader\n");
-		return false;
-	}
-
-	// ヴァーテックスシェーダーのインプットを定義する
-	D3D12_INPUT_ELEMENT_DESC inputLayout[] = {
-		{
-			"POSITION",
-			0,
-			DXGI_FORMAT_R32G32B32_FLOAT,
-			0,
-			D3D12_APPEND_ALIGNED_ELEMENT,
-			D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,
-			0
-		},
-		{
-			"NORMAL",
-			0,
-			DXGI_FORMAT_R32G32B32_FLOAT,
-			0,
-			D3D12_APPEND_ALIGNED_ELEMENT,
-			D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,
-			0
-		},
-		// 今回追加されたUV項目
-		{
-			"TEXCOORD",
-			0,
-			DXGI_FORMAT_R32G32_FLOAT,
-			0,
-			D3D12_APPEND_ALIGNED_ELEMENT,
-			D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,
-			0
-		},
-	};
-
-	if (!m_rootSignature.Init(1))
-	{
-		return false;
-	}
-
-	if (!m_pipelineState.Init(
-		m_pDevice.Get(),
-		&m_VSByteCode,
-		&m_PSByteCode,
-		inputLayout,
-		_countof(inputLayout),
-		&m_rootSignature
-	))
 	{
 		return false;
 	}
@@ -381,7 +313,20 @@ DescriptorHeap& Graphics::GetDescriptorHeap()
 	return m_mainHeap;
 }
 
+// コマンドリストを取得する
 ID3D12GraphicsCommandList* Graphics::GetCommandList()
 {
 	return m_commandList.Get();
+}
+
+// コマンドキューを取得する
+ID3D12CommandQueue* Graphics::GetCommandQueue()
+{
+	return m_commandQueue.Get();
+}
+
+// ウィンドウハンドルを取得する
+HWND* Graphics::GetHWND()
+{
+	return m_pHwnd;
 }
