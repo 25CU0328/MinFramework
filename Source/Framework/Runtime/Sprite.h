@@ -26,18 +26,18 @@ namespace Runtime
 
 		// 初期化処理
 		void Init(
-			const Vector2f _size,
-			const Vector2f _position,
+			const Vector2f _size = Vector2f(0.0f, 0.0f),
+			const Vector2f _position = Vector2f(0.0f, 0.0f),
 			const std::string _texturePath = "",
 			const std::string _materialPath = "Assets/Materials/SpriteDefaultMaterial.txt"
 		);
 
 		// 初期化処理
 		void Init(
-			const float _sizeX,
-			const float _sizeY,
-			const float _positionX,
-			const float _positionY,
+			const float _sizeX = 0,
+			const float _sizeY = 0,
+			const float _positionX = 0,
+			const float _positionY = 0,
 			const std::string _texturePath = "",
 			const std::string _materialPath = "Assets/Materials/DefaultSpriteMaterial.txt"
 		);

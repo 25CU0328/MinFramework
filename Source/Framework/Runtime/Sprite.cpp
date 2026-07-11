@@ -5,7 +5,9 @@
 
 // コンストラクタ
 Runtime::Sprite::Sprite()
-	: m_rotation(0)
+	: m_position(Vector2(0.0f, 0.0f))
+	, m_size(Vector2f(0.0f, 0.0f))
+	, m_rotation(0)
 {
 
 }
@@ -40,7 +42,7 @@ void Runtime::Sprite::Init(
 
 	m_size = _size;
 	m_position = _position;
-	m_rotation = 0.0f;
+	m_rotation = 0;
 
 	_initBuffers();
 }
@@ -62,7 +64,7 @@ void Runtime::Sprite::Init(
 
 	m_size = Vector2f(_sizeX, _sizeY);
 	m_position = Vector2f(_positionX, _positionY);
-	m_rotation = 0.0f;
+	m_rotation = 0;
 
 	_initBuffers();
 }
@@ -237,7 +239,7 @@ void Runtime::Sprite::_initBuffers()
 
 	if (!m_indexBuffer.Init(
 		pDevice,
-		m_meshData.indices.size(),
+		(UINT)m_meshData.indices.size(),
 		sizeof(uint32_t),
 		m_meshData.indices.data()
 	))

@@ -24,15 +24,26 @@ void CollisionManager::Update()
 	{
 		for (int j = i+1; j < m_colliders.size(); ++j)
 		{
+
+			int iLayer = m_colliders[i]->GetLayer();
+			int iHitLayer = m_colliders[i]->GetHitLayer();
+
+			int jLayer = m_colliders[j]->GetLayer();
+			int jHitLayer = m_colliders[j]->GetHitLayer();
+
+			// レイヤーが衝突レイヤーの設定に含まれない場合、処理しない
+			if (!(iLayer & jHitLayer || jLayer & iHitLayer))
+				continue;
+
 			// コライダーの種類は全部バックスの場合
-			if (m_colliders[i]->GetColliderType() == ColliderType::Box &&
-				m_colliders[j]->GetColliderType() == ColliderType::Box
+			if (m_colliders[i]->GetColliderType() == ColliderType::Rect &&
+				m_colliders[j]->GetColliderType() == ColliderType::Rect
 			)
 			{
 				// ボックスコライダーの判定を行う
-				_checkBoxBox(
-					static_cast<BoxCollider*>(m_colliders[i]), 
-					static_cast<BoxCollider*>(m_colliders[j])
+				_checkRectRect(
+					static_cast<RectCollider*>(m_colliders[i]),
+					static_cast<RectCollider*>(m_colliders[j])
 				);
 			}
 		}
@@ -66,32 +77,33 @@ void CollisionManager::Unregister(Collider* _pCollider)
 }
 
 // 二つのボックスコライダーの衝突を判定する
-void CollisionManager::_checkBoxBox(BoxCollider* pBox1, BoxCollider* pBox2)
+void CollisionManager::_checkRectRect(RectCollider* pRect1, RectCollider* pRect2)
 {
 	// ポインターはnullptrの場合、処理しない
-	if (pBox1 == nullptr || pBox2 == nullptr)
+	if (pRect1 == nullptr || pRect2 == nullptr)
 		return;
 
-    Vector2f box1Pos = pBox1->GetPosition();
-    Vector2f box1HalfSize = pBox1->GetSize() * 0.5f;
+    Vector2f rect1Pos = pRect1->GetPosition();
+    Vector2f rect1HalfSize = pRect1->GetSize() * 0.5f;
 
-    Vector2f box2Pos = pBox2->GetPosition();
-    Vector2f box2HalfSize = pBox2->GetSize() * 0.5f;
+    Vector2f rect2Pos = pRect2->GetPosition();
+    Vector2f rect2HalfSize = pRect2->GetSize() * 0.5f;
 
 	// X座標から見ると重ねたかどうか
 	bool isOverlappedX =
-		((box1Pos.x - box1HalfSize.x) <= (box2Pos.x + box2HalfSize.x)) &&
-		((box1Pos.x + box1HalfSize.x) >= (box2Pos.x - box2HalfSize.x));
+		((rect1Pos.x - rect1HalfSize.x) <= (rect2Pos.x + rect2HalfSize.x)) &&
+		((rect1Pos.x + rect1HalfSize.x) >= (rect2Pos.x - rect2HalfSize.x));
 	
 	// Y座標から見ると重ねたかどうか
 	bool isOverlappedY =
-		((box1Pos.y - box1HalfSize.y) < (box2Pos.y + box2HalfSize.y)) &&
-		((box1Pos.y + box1HalfSize.y) > (box2Pos.y - box2HalfSize.y));
+		((rect1Pos.y - rect1HalfSize.y) < (rect2Pos.y + rect2HalfSize.y)) &&
+		((rect1Pos.y + rect1HalfSize.y) > (rect2Pos.y - rect2HalfSize.y));
 
+	// 
 	CollisionEvent event =
 	{
-		pBox1,
-		pBox2
+		pRect1,
+		pRect2
 	};
 	
 	// もしX座標とY座標から見ても重なっていたら
@@ -118,8 +130,8 @@ void CollisionManager::_checkBoxBox(BoxCollider* pBox1, BoxCollider* pBox2)
 		// ベクターに保存する
 		m_currentCollisions.emplace_back(event);
 
-		pBox1->OnCollision(event);
-		pBox2->OnCollision(event);
+		pRect1->OnCollision(event);
+		pRect2->OnCollision(event);
 	}
 	// 衝突が発生していない場合、前回の記録をチェック
 	else
@@ -136,8 +148,8 @@ void CollisionManager::_checkBoxBox(BoxCollider* pBox1, BoxCollider* pBox2)
 			event.type = CollisionEventType::Exit;
 
 			// Exitのためベクターに保存しない
-			pBox1->OnCollision(event);
-			pBox2->OnCollision(event);
+			pRect1->OnCollision(event);
+			pRect2->OnCollision(event);
 		}
 	}
 }

@@ -152,7 +152,8 @@
     <ClCompile Include="Source\Framework\Assets\AssetsManager.cpp" />
     <ClCompile Include="Source\Framework\Assets\Image\ImageLoader.cpp" />
     <ClCompile Include="Source\Framework\Assets\Model\ModleLoader.cpp" />
-    <ClCompile Include="Source\Framework\Collision\Collider\BoxCollider.cpp" />
+    <ClCompile Include="Source\Framework\Collision\Collider\RectCollider.cpp" />
+    <ClCompile Include="Source\Framework\Collision\Collider\Collider.cpp" />
     <ClCompile Include="Source\Framework\Collision\CollisionManager.cpp" />
     <ClCompile Include="Source\Framework\Framework.cpp" />
     <ClCompile Include="Source\Framework\ImGui\FrameworkImGui.cpp" />
@@ -201,7 +202,7 @@
     <ClInclude Include="Source\Framework\Assets\Json\JsonLoader.h" />
     <ClInclude Include="Source\Framework\Assets\Model\ModelData.h" />
     <ClInclude Include="Source\Framework\Assets\Model\ModleLoader.h" />
-    <ClInclude Include="Source\Framework\Collision\Collider\BoxCollider.h" />
+    <ClInclude Include="Source\Framework\Collision\Collider\RectCollider.h" />
     <ClInclude Include="Source\Framework\Collision\Collider\Collider.h" />
     <ClInclude Include="Source\Framework\Collision\Collider\ColliderType.h" />
     <ClInclude Include="Source\Framework\Collision\CollisionEvent.h" />

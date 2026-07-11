@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "CollisionEvent.h"
-#include "Collider/BoxCollider.h"
+#include "Collider/RectCollider.h"
 #include <vector>
 
 class CollisionManager
@@ -27,7 +27,7 @@ public:
 	
 private:
 	// 二つのボックスコライダーの衝突を判定する
-	void _checkBoxBox(BoxCollider* pBox1, BoxCollider* pBox2);
+	void _checkRectRect(RectCollider* pRect1, RectCollider* pRect2);
 
 private:
 	std::vector<Collider*> m_colliders;

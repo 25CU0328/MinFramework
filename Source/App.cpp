@@ -16,8 +16,8 @@ Runtime::Model cubeModel;
 Runtime::Camera camera;
 Runtime::Sprite sprite;
 Runtime::Sprite sprite2;
-BoxCollider boxCollider1;
-BoxCollider boxCollider2;
+RectCollider boxCollider1;
+RectCollider boxCollider2;
 void OnCollision(CollisionEvent _event);
 // 初期化処理
 void App::Init()
@@ -32,6 +32,8 @@ void App::Init()
 	boxCollider1.SetSize(Vector2f(50.0f, 50.0f));
 	boxCollider1.SetPosition(Vector2f(0.0f, 0.0f));
 	boxCollider1.SetCallback(OnCollision);
+	boxCollider1.SetLayer(1);
+	boxCollider1.AddHitLayer(2);
 	Collision_I->Register(&boxCollider1);
 
 	sprite.SetTextureRange(0.0f, 0.0f, 0.5f, 0.5f);
@@ -42,6 +44,7 @@ void App::Init()
 	);
 	boxCollider2.SetSize(Vector2f(50.0f, 50.0f));
 	boxCollider2.SetPosition(Vector2f(0.0f, 0.0f));
+	boxCollider2.SetLayer(2);
 	Collision_I->Register(&boxCollider2);
 	/*ModelData modelData;
 	if (Assets_I->LoadModelFile("Assets/Models/Chair.obj", modelData))

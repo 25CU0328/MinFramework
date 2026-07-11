@@ -189,7 +189,10 @@
     <ClCompile Include="Source\Framework\Collision\CollisionManager.cpp">
       <Filter>Framework\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Framework\Collision\Collider\BoxCollider.cpp">
+    <ClCompile Include="Source\Framework\Collision\Collider\RectCollider.cpp">
+      <Filter>Framework\Collision\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Collision\Collider\Collider.cpp">
       <Filter>Framework\Collision\Collider</Filter>
     </ClCompile>
   </ItemGroup>
@@ -359,7 +362,7 @@
     <ClInclude Include="Source\Framework\Collision\Collider\ColliderType.h">
       <Filter>Framework\Collision\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Framework\Collision\Collider\BoxCollider.h">
+    <ClInclude Include="Source\Framework\Collision\Collider\RectCollider.h">
       <Filter>Framework\Collision\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Source\Framework\Collision\CollisionEvent.h">
