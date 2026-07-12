@@ -40,6 +40,15 @@ void Render::RenderManager::Render()
 	
 	// 使われたシェーダーが同じかどうかを確認するための変数
 	Runtime::Shader* pCurrentShader = nullptr;
+
+	// 描画の優先順位によって整列する
+	std::sort(
+		m_RenderObjects.begin(), 
+		m_RenderObjects.end(), 
+		[](Runtime::RenderObject* pObject1, Runtime::RenderObject* pObject2) {
+			return pObject1->GetRenderPriority() < pObject2->GetRenderPriority();
+		}
+	);
 	for (Runtime::RenderObject* pObject : m_RenderObjects)
 	{
 		RenderData data = pObject->GetData();

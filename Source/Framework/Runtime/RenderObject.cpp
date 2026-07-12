@@ -6,6 +6,7 @@ Runtime::RenderObject::RenderObject()
 	: m_vertexBuffer()
 	, m_indexBuffer()
 	, m_constantBuffer()
+	, m_renderPriority(INT_MAX)
 {
 
 }
@@ -25,4 +26,17 @@ RenderData Runtime::RenderObject::GetData()
 DirectX::XMMATRIX Runtime::RenderObject::GetWorldMatrix()
 {
 	return DirectX::XMMatrixIdentity();
+}
+
+
+// 描画の優先順位を設定する
+void Runtime::RenderObject::SetRenderPriority(const int _priority)
+{
+	m_renderPriority = _priority;
+}
+
+// 描画の優先順位を取得する
+int Runtime::RenderObject::GetRenderPriority() const
+{
+	return m_renderPriority;
 }

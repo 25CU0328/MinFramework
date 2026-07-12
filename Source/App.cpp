@@ -29,6 +29,8 @@ void App::Init()
 		Vector2f(0.0f, 0.0f),
 		"Assets/Images/Mika.jpg"
 	);
+	sprite.SetRenderPriority(2);
+
 	boxCollider1.SetSize(Vector2f(50.0f, 50.0f));
 	boxCollider1.SetPosition(Vector2f(0.0f, 0.0f));
 	boxCollider1.SetCallback(OnCollision);
@@ -42,6 +44,8 @@ void App::Init()
 		Vector2f(50.0f, 50.0f),
 		Vector2f(0.0f, 0.0f)
 	);
+	sprite2.SetRenderPriority(5);
+
 	boxCollider2.SetSize(Vector2f(50.0f, 50.0f));
 	boxCollider2.SetPosition(Vector2f(0.0f, 0.0f));
 	boxCollider2.SetLayer(2);

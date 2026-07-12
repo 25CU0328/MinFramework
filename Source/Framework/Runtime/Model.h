@@ -18,7 +18,14 @@ namespace Runtime
 		// メッシュを描画する
 		void Draw();
 
+		// 描画の優先順位を設定する
+		void SetRenderPriority(const int _priority);
+		// 描画の優先順位を取得する
+		int GetRenderPriority() const;
+
 	private:
 		std::vector<Mesh*> m_pMeshes;
+
+		int m_renderPriority;	// 描画の優先順位
 	};
 }

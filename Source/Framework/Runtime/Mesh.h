@@ -8,7 +8,7 @@
 
 namespace Runtime
 {
-	class Mesh : RenderObject
+	class Mesh : public RenderObject
 	{
 	public:
 		// コンストラクタ

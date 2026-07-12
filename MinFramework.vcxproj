@@ -156,7 +156,7 @@
     <ClCompile Include="Source\Framework\Collision\Collider\Collider.cpp" />
     <ClCompile Include="Source\Framework\Collision\CollisionManager.cpp" />
     <ClCompile Include="Source\Framework\Framework.cpp" />
-    <ClCompile Include="Source\Framework\ImGui\FrameworkImGui.cpp" />
+    <ClCompile Include="Source\Framework\ImGui\ImGuiManager.cpp" />
     <ClCompile Include="Source\Framework\Input\InputManager.cpp" />
     <ClCompile Include="Source\Framework\main.cpp" />
     <ClCompile Include="Source\Framework\Render\Core\CommandList.cpp" />
@@ -208,7 +208,7 @@
     <ClInclude Include="Source\Framework\Collision\CollisionEvent.h" />
     <ClInclude Include="Source\Framework\Collision\CollisionManager.h" />
     <ClInclude Include="Source\Framework\Framework.h" />
-    <ClInclude Include="Source\Framework\ImGui\FrameworkImGui.h" />
+    <ClInclude Include="Source\Framework\ImGui\ImGuiManager.h" />
     <ClInclude Include="Source\Framework\Input\InputManager.h" />
     <ClInclude Include="Source\Framework\Math\Math.h" />
     <ClInclude Include="Source\Framework\Math\Vector.h" />

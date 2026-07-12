@@ -11,7 +11,7 @@
 
 namespace Runtime
 {
-	class Sprite : RenderObject
+	class Sprite : public RenderObject
 	{
 		// コピーを禁止する
 		Sprite(const Sprite&) = delete;

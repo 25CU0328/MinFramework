@@ -25,9 +25,12 @@ namespace Runtime
 		virtual RenderData GetData();
 		// ワールド行列を取得する
 		virtual DirectX::XMMATRIX GetWorldMatrix();
-	protected:
-		
 
+		// 描画の優先順位を設定する
+		void SetRenderPriority(const int _priority);
+		// 描画の優先順位を取得する
+		int GetRenderPriority() const;
+	protected:
 		// ---------------------------
 		// バッファー
 		// ---------------------------
@@ -36,5 +39,9 @@ namespace Runtime
 		Render::ConstantBuffer	m_constantBuffer;	// 定数バッファー
 
 		Runtime::Material		m_material;			// マテリアル
+
+	private:
+
+		int m_renderPriority;	// 描画の優先順位
 	};
 }

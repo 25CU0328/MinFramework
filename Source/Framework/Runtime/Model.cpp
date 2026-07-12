@@ -24,6 +24,8 @@ bool Model::Init(
 		}
 	}
 
+	
+
 	return true;
 }
 
@@ -35,4 +37,21 @@ void Model::Draw()
 	{
 		pMesh->Draw();
 	}
+}
+
+// 描画の優先順位を設定する
+void Model::SetRenderPriority(const int _priority)
+{
+	m_renderPriority = _priority;
+
+	for (Mesh* pMesh : m_pMeshes)
+	{
+		pMesh->SetRenderPriority(m_renderPriority);
+	}
+}
+
+// 描画の優先順位を取得する
+int Model::GetRenderPriority() const
+{
+	return m_renderPriority;
 }
