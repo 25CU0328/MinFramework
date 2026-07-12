@@ -5,6 +5,7 @@
 #include "TimeManager.h"
 #include "Input/InputManager.h"
 #include "Collision/CollisionManager.h"
+#include "ImGui/ImGuiManager.h"
 
 #include "App.h"
 
@@ -15,6 +16,8 @@
 #define Time_I Framework_I->GetTimeManager()
 #define Input_I Framework_I->GetInputManager()
 #define Collision_I Framework_I->GetCollisionManager()
+#define ImGui_I Framework_I->GetImGuiManager()
+
 /*
 	フレームワークの重要機能を管理するためのクラス
 
@@ -58,11 +61,24 @@ public:
 
 	// 衝突判定のマネージャーを取得する
 	CollisionManager* GetCollisionManager();
-private:
 
+	// ImGuiマネージャーを取得する
+	ImGuiManager* GetImGuiManager();
+private:
+	// 描画関連処理のマネージャー
 	Render::RenderManager m_renderManager;
+	// アセットのマネージャー
 	Assets::AssetsManager m_assetsManager;
+
+	// 時間マネージャー
 	TimeManager m_timeManager;
+
+	// 入力マネージャー
 	InputManager m_inputManager;
+
+	// 衝突判定のマネージャー
 	CollisionManager m_collisionManager;
+	
+	// ImGui関連処理のマネージャー
+	ImGuiManager m_ImGuiManager;
 };

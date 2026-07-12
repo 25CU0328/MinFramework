@@ -1,6 +1,9 @@
 ﻿
 #include "RenderManager.h"
 
+// ImGuiマネージャーの処理を呼び出すため
+#include "Framework/Framework.h"
+
 // コンストラクタ
 Render::RenderManager::RenderManager()
 	: m_graphics()
@@ -106,6 +109,12 @@ void Render::RenderManager::Render()
 		// 
 		pCommandList->DrawIndexedInstanced(data.indexNum, 1, 0, 0, 0);
 	}
+	
+	ImGui_I->BeginFrame();
+
+	ImGui_I->Render();
+
+	ImGui_I->EndFrame();
 
 	// フレーム終了の処理
 	m_graphics.EndFrame();

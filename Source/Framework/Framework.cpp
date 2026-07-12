@@ -22,6 +22,9 @@ bool Framework::Init(HWND* _hwnd)
 
 	m_timeManager.Init();
 
+	// ImGuiマネージャーの初期化
+	m_ImGuiManager.Init();
+
 	return true;
 }
 // 更新処理
@@ -104,4 +107,10 @@ InputManager* Framework::GetInputManager()
 CollisionManager* Framework::GetCollisionManager()
 {
 	return &m_collisionManager;
+}
+
+// ImGuiマネージャーを取得する
+ImGuiManager* Framework::GetImGuiManager()
+{
+	return &m_ImGuiManager;
 }

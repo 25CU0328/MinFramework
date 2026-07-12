@@ -3,18 +3,20 @@
 
 #include "Framework/Render/Resource/DescriptorHeap.h"
 
-class FrameworkImGui
+class ImGuiManager
 {
-
 public:
 	// 初期化処理
 	void Init();
 
-	// 更新処理
-	void CreateUIs();
+	// フレーム開始時の処理
+	void BeginFrame();
 
-	// 描画処理
+	// 更新処理
 	void Render();
+
+	// フレーム終了時の処理
+	void EndFrame();
 
 	void Term();
 

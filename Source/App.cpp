@@ -201,6 +201,7 @@ void UpdateImage()
 
 void OnCollision(CollisionEvent _event)
 {
+	/*
 	if (_event.type == CollisionEventType::Enter)
 	{
 		printf("Enterrrr\n");
@@ -212,7 +213,7 @@ void OnCollision(CollisionEvent _event)
 	if (_event.type == CollisionEventType::Exit)
 	{
 		printf("Exitttt\n");
-	}
+	}*/
 }
 // 更新処理
 void App::Update()

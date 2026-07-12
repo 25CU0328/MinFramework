@@ -11,6 +11,8 @@
 #include "Framework.h"
 #include "AppDef.h"
 
+#include "imgui_impl_win32.h"
+
 ///@brief コンソール画面にフォーマット付き文字列を表示
 ///@param format フォーマット(%dとか%fとかの)
 ///@param 可変長引数
@@ -23,9 +25,14 @@ void DebugOutputFormatString(const char* format, ...) {
 	va_end(valist);
 #endif
 }
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-//面倒だけど書かなあかんやつ
+// ウィンドウに関する操作が行われた時のコールバック関数
 LRESULT WindowProcedure(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) {
+	
+	if (ImGui_ImplWin32_WndProcHandler(hwnd,msg,wparam,lparam))
+		return true;
+	
 	if (msg == WM_DESTROY) {//ウィンドウが破棄されたら呼ばれます
 		PostQuitMessage(0);//OSに対して「もうこのアプリは終わるんや」と伝える
 		return 0;
