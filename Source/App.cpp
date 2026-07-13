@@ -10,7 +10,8 @@
 #include "Framework/Runtime/Model.h"
 
 #include "Framework/Assets/AssetData/MaterialData.h"
-#include "imgui.h"
+#include "Panels/ImageControlPanel.h"
+
 Runtime::Model chairModel;
 Runtime::Model cubeModel;
 Runtime::Camera camera;
@@ -18,12 +19,12 @@ Runtime::Sprite sprite;
 Runtime::Sprite sprite2;
 RectCollider boxCollider1;
 RectCollider boxCollider2;
+ImageControlPanel imageControlPanel;
 void OnCollision(CollisionEvent _event);
 // 初期化処理
 void App::Init()
 {
 	Render_I->SetCamera(&camera);
-	
 	sprite.Init(
 		Vector2f(50.0f, 50.0f),
 		Vector2f(0.0f, 0.0f),
@@ -64,6 +65,8 @@ void App::Init()
 	camera.Init(Runtime::ProjectionType::Orthographic);
 
 	//camera.SetPosition(Vector3f(0.0f, 50.0f, -100.0f));
+
+	imageControlPanel.Init("Test Panel", &sprite);
 }
 void UpdateCamera()
 {
@@ -201,19 +204,15 @@ void UpdateImage()
 
 void OnCollision(CollisionEvent _event)
 {
-	/*
+	
 	if (_event.type == CollisionEventType::Enter)
 	{
 		printf("Enterrrr\n");
 	}
-	if (_event.type == CollisionEventType::Stay)
-	{
-		printf("Stayyyyy\n");
-	}
 	if (_event.type == CollisionEventType::Exit)
 	{
 		printf("Exitttt\n");
-	}*/
+	}
 }
 // 更新処理
 void App::Update()

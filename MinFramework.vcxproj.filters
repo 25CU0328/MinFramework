@@ -70,6 +70,9 @@
     <Filter Include="Framework\ImGui">
       <UniqueIdentifier>{f977470b-ac6c-4c64-a09a-5c5966397842}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Panels">
+      <UniqueIdentifier>{01bad01c-c82e-4253-bac8-0304c48ef194}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\App.cpp">
@@ -194,6 +197,12 @@
     </ClCompile>
     <ClCompile Include="Source\Framework\Collision\Collider\Collider.cpp">
       <Filter>Framework\Collision\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Panels\ImageControlPanel.cpp">
+      <Filter>ソース ファイル\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\ImGui\ImGuiPanel.cpp">
+      <Filter>Framework\ImGui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -367,6 +376,12 @@
     </ClInclude>
     <ClInclude Include="Source\Framework\Collision\CollisionEvent.h">
       <Filter>Framework\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\ImGui\ImGuiPanel.h">
+      <Filter>Framework\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Panels\ImageControlPanel.h">
+      <Filter>ソース ファイル\Panels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

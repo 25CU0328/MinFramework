@@ -2,6 +2,9 @@
 #pragma once
 
 #include "Framework/Render/Resource/DescriptorHeap.h"
+#include "ImGuiPanel.h"
+
+#include <vector>
 
 class ImGuiManager
 {
@@ -20,7 +23,15 @@ public:
 
 	void Term();
 
-
+	// パネルを登録する
+	void RegistPanel(ImGuiPanel* _newPanel);
+	// パネルの登録を解除する
+	void UnregistPanel(ImGuiPanel* _newPanel);
 private:
 	Render::DescriptorHeap m_descriptorHeap;
+
+	// ImGuiパネルを管理するベクトル
+	std::vector<ImGuiPanel*> m_panels;
+
+
 };

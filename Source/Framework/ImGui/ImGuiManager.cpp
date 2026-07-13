@@ -20,6 +20,14 @@ void ImGuiManager::Init()
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 	// Setup Platform/Renderer backends
 
+	// 日本語フォントを追加する
+	io.Fonts->AddFontFromFileTTF(
+		"Assets/Fonts/static/NotoSansJP-SemiBold.ttf", 
+		20.0f, 
+		nullptr, 
+		io.Fonts->GetGlyphRangesJapanese()
+	);
+
 	Render::Graphics* const pGraphics = Render_I->GetGraphics();
 	m_descriptorHeap.Init(
 		pGraphics->GetDevice(),
@@ -66,24 +74,11 @@ void ImGuiManager::BeginFrame()
 // 更新処理
 void ImGuiManager::Render()
 {
-	ImGui::ShowDemoWindow();
-	
-	// UIパネル要素の追加
-	ImGui::SetNextWindowSize(ImVec2(400, 800),ImGuiCond_Always);
-	ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
-
-	ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-
-	ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-
-
-	if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-		counter++;
-
-	ImGui::SameLine();
-	ImGui::Text("counter = %d", counter);
-
-	ImGui::End();
+	// 登録されたパネルを描画する
+	for (ImGuiPanel* pPanel : m_panels)
+	{
+		pPanel->Render();
+	}
 }
 
 // フレーム終了時の処理
@@ -111,4 +106,28 @@ void ImGuiManager::Term()
 	ImGui_ImplDX12_Shutdown();
 	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();
+}
+
+// パネルを登録する
+void ImGuiManager::RegistPanel(ImGuiPanel* _newPanel)
+{
+	// 既に登録された場合、処理しない
+	auto iterator = std::find(m_panels.begin(), m_panels.end(), _newPanel);
+	if (iterator != m_panels.end())
+		return;
+
+	// ベクターに入れる
+	m_panels.emplace_back(_newPanel);
+}
+
+// パネルの登録を解除する
+void ImGuiManager::UnregistPanel(ImGuiPanel* _newPanel)
+{
+	// 登録されていない場合、処理しない
+	auto iterator = std::find(m_panels.begin(), m_panels.end(), _newPanel);
+	if (iterator == m_panels.end())
+		return;
+
+	// 見つけたパネルをベクターから削除
+	m_panels.erase(iterator);
 }
