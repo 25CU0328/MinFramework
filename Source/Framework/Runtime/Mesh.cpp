@@ -80,28 +80,16 @@ void Mesh::Draw()
     Render_I->QueueRender(this);
 }
 
-// ワールド座標を取得する
-XMMATRIX Mesh::GetWorldMatrix() const
+// 座標変換用の行列を設定する
+void Mesh::SetTransformMatrix(const XMMATRIX _matrix)
 {
-    XMMATRIX scaleMatrix =XMMatrixScaling(
-        m_scale.x,
-        m_scale.y,
-        m_scale.z
-    );
+    m_transformMatrix = _matrix;
+}
 
-    XMMATRIX rotationMatrix = XMMatrixRotationRollPitchYaw(
-        m_rotation.x,
-        m_rotation.y,
-        m_rotation.z
-    );
-
-    XMMATRIX translateMatrix = XMMatrixTranslation(
-        m_position.x,
-        m_position.y,
-        m_position.z
-    );
-
-    return scaleMatrix * rotationMatrix * translateMatrix;
+// 座標変換用の行列を取得する
+XMMATRIX Mesh::GetTransformMatrix() const
+{
+    return m_transformMatrix;
 }
 
 // レンダリング用のデータを取得する

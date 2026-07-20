@@ -85,7 +85,7 @@ bool Graphics::Init(HWND* _pHwnd)
 		m_pDevice.Get(),
 		D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV,
 		D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE,
-		2
+		1024
 	))
 	{
 		return false;

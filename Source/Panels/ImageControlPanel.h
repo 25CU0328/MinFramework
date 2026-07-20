@@ -16,9 +16,11 @@ public:
 
 private:
 	// スプライトの位置
-	Vector2f m_position;
+	Vector2f m_spritePosition;
 	// スプライトのサイズ
-	Vector2f m_size;
+	Vector2f m_spriteSize;
+	// 回転
+	int m_spriteRotation;
 
 	// コントロール対象となるスプライト
 	Runtime::Sprite* m_pSprite;

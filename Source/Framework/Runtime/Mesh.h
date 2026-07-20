@@ -26,8 +26,10 @@ namespace Runtime
 		// メッシュを描画する
 		void Draw();
 
-		// ワールド行列を取得する
-		XMMATRIX GetWorldMatrix() const;
+		// 座標変換用の行列を設定する
+		void SetTransformMatrix(const XMMATRIX _matrix);
+		// 座標変換用の行列を取得する
+		XMMATRIX GetTransformMatrix() const;
 
 		// レンダリング用のデータを取得する
 		RenderData GetData();
@@ -36,6 +38,8 @@ namespace Runtime
 
 		Vector3f m_position;	// 位置
 		Vector3f m_rotation;	// 回転角度
-		Vector3f m_scale;		// サイズスケイル
+		Vector3f m_scale;		// スケール
+
+		XMMATRIX m_transformMatrix;		// 座標変換用の行列
 	};
 }

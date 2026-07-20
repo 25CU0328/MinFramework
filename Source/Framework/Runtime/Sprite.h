@@ -84,7 +84,7 @@ namespace Runtime
 		// レンダリング用のデータを取得する
 		RenderData GetData();
 		// ワールド行列を取得する
-		DirectX::XMMATRIX GetWorldMatrix();
+		DirectX::XMMATRIX GetTransformMatrix() const;
 
 
 	private:

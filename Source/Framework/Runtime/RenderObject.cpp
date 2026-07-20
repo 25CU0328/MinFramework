@@ -23,7 +23,7 @@ RenderData Runtime::RenderObject::GetData()
 }
 
 // ワールド行列を取得する
-DirectX::XMMATRIX Runtime::RenderObject::GetWorldMatrix()
+DirectX::XMMATRIX Runtime::RenderObject::GetTransformMatrix() const
 {
 	return DirectX::XMMatrixIdentity();
 }

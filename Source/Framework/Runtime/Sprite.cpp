@@ -165,7 +165,7 @@ RenderData Runtime::Sprite::GetData()
 	return data;
 }
 
-DirectX::XMMATRIX Runtime::Sprite::GetWorldMatrix()
+DirectX::XMMATRIX Runtime::Sprite::GetTransformMatrix() const
 {
 	XMMATRIX scaleMatrix = DirectX::XMMatrixScaling(
 		m_size.x,

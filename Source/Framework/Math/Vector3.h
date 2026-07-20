@@ -67,12 +67,18 @@ inline Vector3<T> Vector3<T>::GetNormalized()const noexcept {
 
 	// ※FLT_EPSILONはfloatの最小限
 	if (len > FLT_EPSILON) {
-		x = static_cast<T>(x / len);
-		y = static_cast<T>(y / len);
-		z = static_cast<T>(z / len);
+		return Vector3<T>(
+			static_cast<T>(x / len),
+			static_cast<T>(y / len),
+			static_cast<T>(z / len)
+		);
 	}
 	else {
-		x = y = z = static_cast<T>(0);
+		return Vector3<T>(
+			static_cast<T>(0), 
+			static_cast<T>(0), 
+			static_cast<T>(0)
+		);
 	}
 }
 // 内積

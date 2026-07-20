@@ -3,11 +3,12 @@
 using namespace Runtime;
 
 #include "AppDef.h"
+using namespace DirectX;
 
 // コンストラクタ
 Camera::Camera()
     : m_position(0, 0, 0)
-    , m_rotation(0, 0, 0)
+    , m_rotation(Quaternion::Identity())
     , m_fov(XM_PIDIV4)
     , m_aspect(static_cast<float>(WINDOW_WIDTH) / static_cast<float>(WINDOW_HEIGHT))
     , m_nearZ(0.1f)
@@ -31,8 +32,6 @@ void Camera::Init(ProjectionType _type)
         m_aspect = (static_cast<float>(WINDOW_WIDTH) / static_cast<float>(WINDOW_HEIGHT));
         m_nearZ = 0.1f;
         m_farZ = 1000.0f;
-
-        
     }
     else
     {
@@ -56,7 +55,7 @@ void Camera::SetPosition(const Vector3f& _position)
 // 回転角度を設定する
 void Camera::SetRotation(const Vector3f& _rotation)
 {
-    m_rotation = _rotation;
+    m_rotation = Quaternion::FromEuler(_rotation);
 }
 
 // カメラ位置を取得する
@@ -68,58 +67,19 @@ Vector3f Camera::GetPosition() const
 // カメラの回転角度を取得する
 Vector3f Camera::GetRotation() const
 {
-    return m_rotation;
+    return m_rotation.ToEuler();
 }
 
 // カメラの前方向ベクトルを取得する
-Vector3f Camera::GetFront() const
+Vector3f Camera::GetForward() const
 {
-    XMVECTOR forwardVector = XMVectorSet(0, 0, 1, 0);
-
-    XMMATRIX rotateMatrix = XMMatrixRotationRollPitchYaw(
-        m_rotation.x,
-        m_rotation.y,
-        m_rotation.z
-    );
-
-    forwardVector = XMVector3TransformNormal(
-        forwardVector,
-        rotateMatrix
-    );
-    forwardVector = XMVector3Normalize(forwardVector);
-
-    // XMStoreFLoat3の結果を受け取るための変数
-    XMFLOAT3 outFloat;
-    XMStoreFloat3(&outFloat, forwardVector);
-
-    return Vector3f(outFloat.x, outFloat.y, outFloat.z);
+    return m_rotation.GetForward();
 }
 
 // カメラの右方向ベクトルを取得する
 Vector3f Camera::GetRight() const
 {
-    XMVECTOR forwardVector = XMVectorSet(0, 0, 1, 0);
-
-    XMMATRIX rotateMatrix = XMMatrixRotationRollPitchYaw(
-        m_rotation.x,
-        m_rotation.y,
-        m_rotation.z
-    );
-
-    forwardVector = XMVector3TransformNormal(
-        forwardVector,
-        rotateMatrix
-    );
-    // 前方向とy軸正方向ベクトルの外積で
-    // 右方向ベクトルを取得する
-    forwardVector = XMVector3Cross(forwardVector, XMVectorSet(0, 1, 0, 0));
-    forwardVector = XMVector3Normalize(forwardVector);
-
-    // XMStoreFLoat3の結果を受け取るための変数
-    XMFLOAT3 outFloat;
-    XMStoreFloat3(&outFloat, forwardVector);
-
-    return Vector3f(outFloat.x, outFloat.y, outFloat.z);
+    return m_rotation.GetRight();
 }
 
 // カメラの投影方式を透視投影に設定する
@@ -161,26 +121,24 @@ DirectX::XMMATRIX Camera::GetViewMatrix() const
         m_position.y,
         m_position.z
     );
-    XMVECTOR eyePosition = XMLoadFloat3(&position);
+    // カメラ位置を表すベクトル
+    XMVECTOR cameraPosition = XMLoadFloat3(&position);
+    // 前方向ベクトル
+    XMVECTOR forwardVector = XMVectorSet(0, 0, 1, 0);
+    // 回転行列
+    XMMATRIX rotationMatrix = m_rotation.GetMatrix();
 
-    XMVECTOR forward = XMVectorSet(0, 0, 1, 0);
+    forwardVector = XMVector3TransformNormal(forwardVector, rotationMatrix);
 
-    XMMATRIX rotation = XMMatrixRotationRollPitchYaw(
-        m_rotation.x,
-        m_rotation.y,
-        m_rotation.z
-    );
+    XMVECTOR targetVector = cameraPosition + forwardVector;
 
-    forward = XMVector3TransformNormal(forward, rotation);
-
-    XMVECTOR target = eyePosition + forward;
-
-    XMVECTOR up = XMVectorSet(0, 1, 0, 0);
+    // 上方向ベクトル
+    XMVECTOR upVector = XMVectorSet(0, 1, 0, 0);
 
     return XMMatrixLookAtLH(
-        eyePosition,
-        target,
-        up
+        cameraPosition,
+        targetVector,
+        upVector
     );
 }
 
@@ -188,6 +146,7 @@ XMMATRIX Camera::GetProjectionMatrix() const
 {
     switch (m_projectionType)
     {
+        // 透視投影の場合
     case ProjectionType::Perspective:
         return XMMatrixPerspectiveFovLH(
             m_fov,
@@ -196,6 +155,7 @@ XMMATRIX Camera::GetProjectionMatrix() const
             m_farZ
         );
 
+        // 正投影の場合
     case ProjectionType::Orthographic:
         return XMMatrixOrthographicLH(
             m_viewWidth,
@@ -205,6 +165,7 @@ XMMATRIX Camera::GetProjectionMatrix() const
         );
     }
 
+    // 同じ設定がない場合、単位行列を返す
     return XMMatrixIdentity();
 }
 

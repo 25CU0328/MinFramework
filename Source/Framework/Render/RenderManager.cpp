@@ -93,7 +93,7 @@ void Render::RenderManager::Render()
 		// 行列計算
 		{
 			// 計算結果
-			XMMATRIX matrix = pObject->GetWorldMatrix() 
+			XMMATRIX matrix = pObject->GetTransformMatrix() 
 				* m_pCamera->GetViewProjectionMatrix();
 
 			// objとDirectXの座標系が異なるための処理

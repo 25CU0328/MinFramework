@@ -73,6 +73,9 @@
     <Filter Include="ソース ファイル\Panels">
       <UniqueIdentifier>{01bad01c-c82e-4253-bac8-0304c48ef194}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\CameraController">
+      <UniqueIdentifier>{27de8f6e-5f03-4463-9701-c2ffbffc33ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\App.cpp">
@@ -203,6 +206,18 @@
     </ClCompile>
     <ClCompile Include="Source\Framework\ImGui\ImGuiPanel.cpp">
       <Filter>Framework\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Panels\ModelControlPanel.cpp">
+      <Filter>ソース ファイル\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CameraController\CameraController_3D.cpp">
+      <Filter>ソース ファイル\CameraController</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Panels\CameraControlPanel.cpp">
+      <Filter>ソース ファイル\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Math\Quaternion.cpp">
+      <Filter>Framework\Math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -382,6 +397,30 @@
     </ClInclude>
     <ClInclude Include="Source\Panels\ImageControlPanel.h">
       <Filter>ソース ファイル\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Panels\ModelControlPanel.h">
+      <Filter>ソース ファイル\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Input\KeyCode.h">
+      <Filter>Framework\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Input\MouseButton.h">
+      <Filter>Framework\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Input\Gamepad.h">
+      <Filter>Framework\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CameraController\CameraController.h">
+      <Filter>ソース ファイル\CameraController</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CameraController\CameraController_3D.h">
+      <Filter>ソース ファイル\CameraController</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Panels\CameraControlPanel.h">
+      <Filter>ソース ファイル\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Math\Quaternion.h">
+      <Filter>Framework\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

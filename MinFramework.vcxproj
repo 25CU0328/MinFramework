@@ -150,6 +150,7 @@
     <ClCompile Include="External\imGui\imgui_tables.cpp" />
     <ClCompile Include="External\imGui\imgui_widgets.cpp" />
     <ClCompile Include="Source\App.cpp" />
+    <ClCompile Include="Source\CameraController\CameraController_3D.cpp" />
     <ClCompile Include="Source\Framework\Assets\AssetsManager.cpp" />
     <ClCompile Include="Source\Framework\Assets\Image\ImageLoader.cpp" />
     <ClCompile Include="Source\Framework\Assets\Model\ModleLoader.cpp" />
@@ -161,6 +162,7 @@
     <ClCompile Include="Source\Framework\ImGui\ImGuiPanel.cpp" />
     <ClCompile Include="Source\Framework\Input\InputManager.cpp" />
     <ClCompile Include="Source\Framework\main.cpp" />
+    <ClCompile Include="Source\Framework\Math\Quaternion.cpp" />
     <ClCompile Include="Source\Framework\Render\Core\CommandList.cpp" />
     <ClCompile Include="Source\Framework\Render\Core\CommandQueue.cpp" />
     <ClCompile Include="Source\Framework\Render\Core\Fence.cpp" />
@@ -184,7 +186,9 @@
     <ClCompile Include="Source\Framework\Runtime\Shader.cpp" />
     <ClCompile Include="Source\Framework\Runtime\Sprite.cpp" />
     <ClCompile Include="Source\Framework\TimeManager.cpp" />
+    <ClCompile Include="Source\Panels\CameraControlPanel.cpp" />
     <ClCompile Include="Source\Panels\ImageControlPanel.cpp" />
+    <ClCompile Include="Source\Panels\ModelControlPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="External\imGui\imconfig.h" />
@@ -197,6 +201,8 @@
     <ClInclude Include="External\imGui\imstb_truetype.h" />
     <ClInclude Include="Source\App.h" />
     <ClInclude Include="Source\AppDef.h" />
+    <ClInclude Include="Source\CameraController\CameraController.h" />
+    <ClInclude Include="Source\CameraController\CameraController_3D.h" />
     <ClInclude Include="Source\Framework\Assets\AssetData\MaterialData.h" />
     <ClInclude Include="Source\Framework\Assets\AssetData\ShaderData.h" />
     <ClInclude Include="Source\Framework\Assets\AssetsManager.h" />
@@ -213,8 +219,12 @@
     <ClInclude Include="Source\Framework\Framework.h" />
     <ClInclude Include="Source\Framework\ImGui\ImGuiManager.h" />
     <ClInclude Include="Source\Framework\ImGui\ImGuiPanel.h" />
+    <ClInclude Include="Source\Framework\Input\Gamepad.h" />
     <ClInclude Include="Source\Framework\Input\InputManager.h" />
+    <ClInclude Include="Source\Framework\Input\KeyCode.h" />
+    <ClInclude Include="Source\Framework\Input\MouseButton.h" />
     <ClInclude Include="Source\Framework\Math\Math.h" />
+    <ClInclude Include="Source\Framework\Math\Quaternion.h" />
     <ClInclude Include="Source\Framework\Math\Vector.h" />
     <ClInclude Include="Source\Framework\Math\Vector2.h" />
     <ClInclude Include="Source\Framework\Math\Vector3.h" />
@@ -245,7 +255,9 @@
     <ClInclude Include="Source\Framework\Runtime\Sprite.h" />
     <ClInclude Include="Source\Framework\TimeManager.h" />
     <ClInclude Include="Source\Framework\UI\FrameworkImgUI.h" />
+    <ClInclude Include="Source\Panels\CameraControlPanel.h" />
     <ClInclude Include="Source\Panels\ImageControlPanel.h" />
+    <ClInclude Include="Source\Panels\ModelControlPanel.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shader\BasicShaderHeader.hlsli" />

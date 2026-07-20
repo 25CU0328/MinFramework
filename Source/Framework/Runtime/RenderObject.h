@@ -23,8 +23,8 @@ namespace Runtime
 
 		// レンダリング用のデータを取得する
 		virtual RenderData GetData();
-		// ワールド行列を取得する
-		virtual DirectX::XMMATRIX GetWorldMatrix();
+		// 変換行列を取得する
+		virtual DirectX::XMMATRIX GetTransformMatrix() const;
 
 		// 描画の優先順位を設定する
 		void SetRenderPriority(const int _priority);
