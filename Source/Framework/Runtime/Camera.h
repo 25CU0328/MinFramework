@@ -1,9 +1,7 @@
 ﻿#pragma once
 
-#include "DirectXMath.h"
-using namespace DirectX;
-
 #include "Framework/Math/Vector.h"
+#include "Framework/Math/Quaternion.h"
 
 // フレームワークユーサが弄る
 namespace Runtime
@@ -40,7 +38,7 @@ namespace Runtime
 		// カメラの回転角度を取得する
 		Vector3f GetRotation() const;
 		// カメラの前方向ベクトルを取得する
-		Vector3f GetFront() const;
+		Vector3f GetForward() const;
 		// カメラの右方向ベクトルを取得する
 		Vector3f GetRight() const;
 
@@ -84,7 +82,7 @@ namespace Runtime
 		float m_viewHeight; // 正投影範囲の高さ
 
 		Vector3f m_position; // カメラ位置
-		Vector3f m_rotation; // カメラ回転角度
+		Quaternion m_rotation; // カメラ回転角度
 
 		ProjectionType m_projectionType;
 	};
