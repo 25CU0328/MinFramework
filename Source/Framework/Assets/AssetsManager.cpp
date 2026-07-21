@@ -17,6 +17,7 @@ AssetsManager::~AssetsManager()
 	auto iterator = m_textureMap.begin();
 	while (iterator != m_textureMap.end())
 	{
+		iterator->second->Term();
 		delete iterator->second;
 		++iterator;
 	}

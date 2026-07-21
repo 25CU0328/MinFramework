@@ -33,6 +33,9 @@ namespace Runtime
 
 		// レンダリング用のデータを取得する
 		RenderData GetData();
+
+		// テクスチャを設定する
+		void SetTexture(Render::Texture* const _pTexture);
 	private:
 		MeshData m_meshData;
 

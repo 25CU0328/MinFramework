@@ -80,6 +80,15 @@ Vector3f Model::GetScale() const
 	return m_scale;
 }
 
+// テクスチャを設定する
+void Model::SetTexture(Render::Texture* const _pTexture)
+{
+	for (Mesh* pMesh : m_pMeshes)
+	{
+		pMesh->SetTexture(_pTexture);
+	}
+}
+
 // 座標変換用の行列を取得する
 XMMATRIX Model::GetTransformMatrix() const
 {

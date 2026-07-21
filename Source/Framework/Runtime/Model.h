@@ -18,6 +18,8 @@ namespace Runtime
 		// メッシュを描画する
 		void Draw();
 
+		
+
 		// 位置を設定
 		void SetPosition(const Vector3f& _position);
 		// 位置を取得する
@@ -35,6 +37,8 @@ namespace Runtime
 		// スケイルを取得する
 		Vector3f GetScale() const;
 
+		// テクスチャを設定する
+		void SetTexture(Render::Texture* const _pTexture);
 
 		// 描画の優先順位を設定する
 		void SetRenderPriority(const int _priority);
@@ -45,6 +49,8 @@ namespace Runtime
 		void SetName(const std::string _name);
 		// モデル名を取得する
 		std::string GetName() const;
+
+
 	private:
 		// モデルにある全てのメッシュ
 		std::vector<Mesh*> m_pMeshes;

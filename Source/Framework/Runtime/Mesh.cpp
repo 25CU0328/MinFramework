@@ -104,3 +104,9 @@ RenderData Mesh::GetData()
 
     return renderData;
 }
+
+// テクスチャを設定する
+void Mesh::SetTexture(Render::Texture* const _pTexture)
+{
+    m_material.SetTexture(_pTexture);
+}
