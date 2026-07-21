@@ -72,29 +72,28 @@ void ModelControlPanel::Render()
 		ImGui::EndCombo();
 	}
 	ImGui::End();
-
-	if (m_pSelectedModel){
-		
-		
-		
-	}
 }
 
 // コントロールする対象を追加する
 void ModelControlPanel::AddControlTarget(Runtime::Model* _pModel)
 {
-	auto iterator = std::find(m_models.begin(), m_models.end(), m_pModel);
+	auto iterator = std::find(m_models.begin(), m_models.end(), _pModel);
 
 	if (iterator != m_models.end())
 		return;
 
 	m_models.emplace_back(_pModel);
+
+	if (m_pSelectedModel == nullptr)
+	{
+		m_pSelectedModel = m_models.back();
+	}
 }
 
 // コントロールする対象を記録から削除する
 void ModelControlPanel::RemoveControlTarget(Runtime::Model* _pModel)
 {
-	auto iterator = std::find(m_models.begin(), m_models.end(), m_pModel);
+	auto iterator = std::find(m_models.begin(), m_models.end(), _pModel);
 
 	if (iterator != m_models.begin())
 		return;

@@ -15,8 +15,9 @@
 #include "Panels/ModelControlPanel.h"
 #include "Panels/CameraControlPanel.h"
 #include "CameraController/CameraController_3D.h"
-Runtime::Model chairModel;
+Runtime::Model donutModel;
 Runtime::Model cubeModel;
+Runtime::Model coneModel;
 Runtime::Camera camera;
 Runtime::Sprite sprite;
 Runtime::Sprite sprite2;
@@ -34,21 +35,30 @@ void App::Init()
 	Render_I->SetCamera(&camera);
 	
 	ModelData modelData;
-	if (Assets_I->LoadModelFile("Assets/Models/Chair.obj", modelData))
+	if (Assets_I->LoadModelFile("Assets/Models/Donut.obj", modelData))
 	{
-		chairModel.Init(modelData, "Assets/Materials/NormalViewMaterial.txt");
-		chairModel.SetName("Chair");
+		donutModel.Init(modelData, "Assets/Materials/NormalViewMaterial.txt");
+		donutModel.SetName("Donut");
 	}
 
 	if (Assets_I->LoadModelFile("Assets/Models/Cube.obj", modelData))
 	{
 		cubeModel.Init(modelData);
 		cubeModel.SetName("Cube");
-		cubeModel.SetPosition(Vector3f(0.0f, 50.0f, 0.0f));
+		coneModel.SetTexture(Assets_I->GetTexture("Assets/Images/Wood.png"));
+		cubeModel.SetPosition(Vector3f(0.0f, 10.0f, 0.0f));
 	}
 	
+	if (Assets_I->LoadModelFile("Assets/Models/Cone.obj", modelData))
+	{
+		coneModel.Init(modelData);
+		coneModel.SetName("Cone");
+		coneModel.SetTexture(Assets_I->GetTexture("Assets/Images/MossyRock.jpg"));
+		coneModel.SetPosition(Vector3f(10.0f, 0.0f, 0.0f));
+	}
+
 	camera.Init(Runtime::ProjectionType::Perspective);
-	camera.SetPosition(Vector3f(0.0f, 50.0f, -100.0f));
+	camera.SetPosition(Vector3f(0.0f, 0.0f, -50.0f));
 	Render_I->SetCamera(&camera);
 	cameraController_3D.SetCamera(&camera);
 	cameraController_3D.SetCameraMode(CameraMode::FreeCamera);
@@ -56,13 +66,18 @@ void App::Init()
 
 	modelControlPanel.Init("Model Control Panel");
 	modelControlPanel.AddControlTarget(&cubeModel);
-	modelControlPanel.AddControlTarget(&chairModel);
-	
+	modelControlPanel.AddControlTarget(&donutModel);
+	modelControlPanel.AddControlTarget(&coneModel);
+
 	cameraControlPanel.Init("Camera Control Panel");
 	cameraControlPanel.SetCamera(&camera);
+	cameraControlPanel.SetCameraController(&cameraController_3D);
 	cameraControlPanel.SetPanelPosition(
 		Vector2f(static_cast<float>(WINDOW_WIDTH) - cameraControlPanel.GetPanelSize().x, 0.0f)
 	);
+	cameraControlPanel.AddOrbitTarget(&cubeModel);
+	cameraControlPanel.AddOrbitTarget(&donutModel);
+	cameraControlPanel.AddOrbitTarget(&coneModel);
 	/*
 	sprite.Init(
 		Vector2f(100.0f, 100.0f),
@@ -129,8 +144,9 @@ void App::Render()
 {
 	// sprite.Draw();
 	// sprite2.Draw();
-	chairModel.Draw();
+	donutModel.Draw();
 	cubeModel.Draw();
+	coneModel.Draw();
 }
 
 // 後片付け

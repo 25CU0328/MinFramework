@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="リソース ファイル\Shader">
-      <UniqueIdentifier>{f3fac0b5-bb49-4023-bad8-c6196b6262ef}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Framework">
       <UniqueIdentifier>{6868c706-a124-413a-96e8-e462d978ed5d}</UniqueIdentifier>
     </Filter>
@@ -422,18 +419,5 @@
     <ClInclude Include="Source\Framework\Math\Quaternion.h">
       <Filter>Framework\Math</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="Assets\Shader\PixelShader.hlsl">
-      <Filter>リソース ファイル\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="Assets\Shader\VertexShader.hlsl">
-      <Filter>リソース ファイル\Shader</Filter>
-    </FxCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\Shader\BasicShaderHeader.hlsli">
-      <Filter>リソース ファイル\Shader</Filter>
-    </None>
   </ItemGroup>
 </Project>

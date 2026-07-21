@@ -30,9 +30,7 @@ private:
 	// モデルの回転
 	Vector3f m_modelRotation;
 
-	
-	Runtime::Model* m_pModel;
-
+	// 選択されたモデル
 	Runtime::Model* m_pSelectedModel;
 	// コントロール対象となるモデル
 	std::vector<Runtime::Model*> m_models;

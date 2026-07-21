@@ -4,6 +4,8 @@
 #include "Framework/Framework.h"
 #include "Framework/Math/Math.h"
 
+#include "Framework/Runtime/Model.h"
+
 // コンストラクタ
 CameraController_3D::CameraController_3D()
 {
@@ -45,12 +47,33 @@ void CameraController_3D::Update()
 void CameraController_3D::SetCameraMode(CameraMode _cameraMode)
 {
 	m_cameraMode = _cameraMode;
+
+	switch (m_cameraMode)
+	{
+	case CameraMode::FreeCamera:
+		_updateFreeCamera(true);
+		break;
+
+	case CameraMode::Orbit:
+		_updateOrbitCamera(true);
+		break;
+	}
 }
 
+
+// カメラオービット時の対象を設定する
+void CameraController_3D::SetOrbitTarget(Runtime::Model* _pOrbitTarget)
+{
+	m_pOrbitTarget = _pOrbitTarget;
+
+	_updateOrbitCamera(true);
+}
 // カメラオービット時の距離を設定する
 void CameraController_3D::SetOrbitDistance(const float _distance)
 {
 	m_orbitDistance = _distance;
+
+	_updateOrbitCamera(true);
 }
 // カメラオービット時の距離を取得する
 float CameraController_3D::GetOrbitDistance() const
@@ -82,16 +105,17 @@ float CameraController_3D::GetCameraRotateSpeed() const
 
 
 // フリーカメラの更新処理
-void CameraController_3D::_updateFreeCamera()
+void CameraController_3D::_updateFreeCamera(bool isUpdateOnSetup)
 {
-	if (!Input_I->IsMousePressed(MouseButton::Right))
-	{
-		Input_I->SetCursorVisible(true);
-		return;
+	if (!isUpdateOnSetup) {
+		if (!Input_I->IsMousePressed(MouseButton::Right))
+		{
+			Input_I->SetCursorVisible(true);
+			return;
+		}
+
+		Input_I->SetCursorVisible(false);
 	}
-
-	Input_I->SetCursorVisible(false);
-
 	// 回転速度
 	float rotateSpeed = DegToRad(m_cameraRotateSpeed) * (float)Time_I->GetDeltaTime();
 	// 移動速度
@@ -135,8 +159,6 @@ void CameraController_3D::_updateFreeCamera()
 	// -----------
 	{
 		Vector2f mouseDelta = Input_I->GetMousePositionDelta();
-		printf(mouseDelta.GetString().c_str());
-		printf("\n");
 		mouseDelta *= rotateSpeed;
 		Vector3f cameraRot = m_pCamera->GetRotation();
 
@@ -147,21 +169,26 @@ void CameraController_3D::_updateFreeCamera()
 	}
 }
 // カメラの更新処理
-void CameraController_3D::_updateOrbitCamera()
+void CameraController_3D::_updateOrbitCamera(bool isUpdateOnSetup)
 {
-	if (!Input_I->IsMousePressed(MouseButton::Right))
-	{
-		Input_I->SetCursorVisible(true);
+	// オービット時のターゲットが設定されていない場合、処理しない
+	if (!m_pOrbitTarget)
 		return;
+
+	if (!isUpdateOnSetup) {
+		if (!Input_I->IsMousePressed(MouseButton::Right))
+		{
+			Input_I->SetCursorVisible(true);
+			return;
+		}
+
+		Input_I->SetCursorVisible(false);
 	}
-
-	Input_I->SetCursorVisible(false);
-
 	// 回転速度
 	float rotateSpeed = DegToRad(m_cameraRotateSpeed) * (float)Time_I->GetDeltaTime();
 
-	// オービット対象の位置
-	Vector3f modelPos = m_orbitTarget.GetPosition();
+	// オービット時のターゲットの位置
+	Vector3f modelPos = m_pOrbitTarget->GetPosition();
 
 	// カメラ回転・位置
 	Vector3f cameraRot = m_pCamera->GetRotation();
@@ -170,14 +197,15 @@ void CameraController_3D::_updateOrbitCamera()
 	// -----------
 	// カメラ回転処理
 	// -----------
-	{
+	if (!isUpdateOnSetup) {
 		Vector2f mouseDelta = Input_I->GetMousePositionDelta();
 		mouseDelta *= rotateSpeed;
 
 		cameraRot.x += mouseDelta.y;
 		cameraRot.y += mouseDelta.x;
+		
+		m_pCamera->SetRotation(cameraRot);
 	}
-	m_pCamera->SetRotation(cameraRot);
 
 	// カメラの正面ベクトルを取得し、それの
 	cameraPos = modelPos + m_pCamera->GetForward() * (-1.0f) * m_orbitDistance;
