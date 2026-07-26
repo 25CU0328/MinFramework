@@ -40,6 +40,9 @@ public:
 	void SetCameraRotateSpeed(const float _rotateSpeed);
 	// 
 	float GetCameraRotateSpeed() const;
+
+	// 目標位置を注視するように回転する
+	void SetLookAt(const Vector3f _targetPosition);
 private:
 	// フリーカメラの更新処理
 	void _updateFreeCamera(bool _isUpdateOnSetup = false);
@@ -49,6 +52,10 @@ private:
 private:
 	CameraMode m_cameraMode;	// カメラの操作モード
 	float m_cameraRotateSpeed;	// カメラの回転速度
+
+	// 回転
+	float m_yaw;
+	float m_pitch;
 
 	// FreeCameraモードで使われるプロパティ
 	float m_cameraMoveSpeed;	// カメラの移動速度

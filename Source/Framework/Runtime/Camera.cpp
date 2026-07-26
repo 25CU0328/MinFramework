@@ -53,7 +53,13 @@ void Camera::SetPosition(const Vector3f& _position)
 }
 
 // 回転角度を設定する
-void Camera::SetRotation(const Vector3f& _rotation)
+void Camera::SetRotation(const Quaternion& _rotation)
+{
+    m_rotation = _rotation;
+}
+
+// カメラの回転を設定する (オイラー角)
+void Camera::SetRotationEuler(const Vector3f& _rotation)
 {
     m_rotation = Quaternion::FromEuler(_rotation);
 }
@@ -65,7 +71,13 @@ Vector3f Camera::GetPosition() const
 }
 
 // カメラの回転角度を取得する
-Vector3f Camera::GetRotation() const
+Quaternion Camera::GetRotation() const
+{
+    return m_rotation;
+}
+
+// カメラ回転に対応するオイラー角を取得する
+Vector3f Camera::GetRotationEuler() const
 {
     return m_rotation.ToEuler();
 }
@@ -114,32 +126,26 @@ void Camera::SetOthographics(
     m_projectionType = ProjectionType::Perspective;
 }
 
+// 行列を取得する
 DirectX::XMMATRIX Camera::GetViewMatrix() const
 {
-    XMFLOAT3 position = XMFLOAT3(
+    // カメラ位置を表すベクトルを取得
+    XMFLOAT3 position = m_position.ToXMFloat3();
+    XMVECTOR cameraPosition = XMLoadFloat3(&position);
+   
+    // 回転行列を取得
+    XMMATRIX rotationMatrix = m_rotation.GetMatrix();
+    
+    // 移動行列
+    XMMATRIX translationMatrix = XMMatrixTranslation(
         m_position.x,
         m_position.y,
         m_position.z
     );
-    // カメラ位置を表すベクトル
-    XMVECTOR cameraPosition = XMLoadFloat3(&position);
-    // 前方向ベクトル
-    XMVECTOR forwardVector = XMVectorSet(0, 0, 1, 0);
-    // 回転行列
-    XMMATRIX rotationMatrix = m_rotation.GetMatrix();
 
-    forwardVector = XMVector3TransformNormal(forwardVector, rotationMatrix);
-
-    XMVECTOR targetVector = cameraPosition + forwardVector;
-
-    // 上方向ベクトル
-    XMVECTOR upVector = XMVectorSet(0, 1, 0, 0);
-
-    return XMMatrixLookAtLH(
-        cameraPosition,
-        targetVector,
-        upVector
-    );
+    // 変換行列の逆行列を取得する
+    XMVECTOR inverseMatrix;
+    return XMMatrixInverse(&inverseMatrix, rotationMatrix * translationMatrix);
 }
 
 XMMATRIX Camera::GetProjectionMatrix() const

@@ -30,13 +30,19 @@ namespace Runtime
 		// 位置を設定する
 		void SetPosition(const Vector3f& _position);
 
-		// 回転角度を設定する
-		void SetRotation(const Vector3f& _rotation);
+		// カメラの回転を設定する (クォータニオン)
+		void SetRotation(const Quaternion& _rotation);
 
+		// カメラの回転を設定する (オイラー角)
+		void SetRotationEuler(const Vector3f& _rotation);
+		
 		// カメラ位置を取得する
 		Vector3f GetPosition() const;
 		// カメラの回転角度を取得する
-		Vector3f GetRotation() const;
+		Quaternion GetRotation() const;
+		// カメラ回転に対応するオイラー角を取得する
+		Vector3f GetRotationEuler() const;
+
 		// カメラの前方向ベクトルを取得する
 		Vector3f GetForward() const;
 		// カメラの右方向ベクトルを取得する

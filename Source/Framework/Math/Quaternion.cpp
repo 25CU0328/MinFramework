@@ -1,10 +1,13 @@
 ﻿
 #include "Quaternion.h"
 
-#include "Vector3.h" 
+#include "Vector3.h"
 
 using namespace DirectX;
 
+#include <algorithm>
+
+#pragma region Static Method
 // オイラー角からクォータニオンを取得する
 Quaternion Quaternion::FromEuler(const Vector3f& _eulerAngle)
 {
@@ -14,18 +17,20 @@ Quaternion Quaternion::FromEuler(const Vector3f& _eulerAngle)
         _eulerAngle.z
     );
 }
+
 // オイラー角からクォータニオンを取得する
 Quaternion Quaternion::FromEuler(
-	const float& pitch,
-	const float& yaw,
-	const float& roll
+    const float& pitch,
+    const float& yaw,
+    const float& roll
 )
 {
+
     // オイラー角からベクトルを取得する
-    XMVECTOR vector = XMQuaternionRotationRollPitchYaw(
-            pitch,
-            yaw,
-            roll
+    DirectX::XMVECTOR vector = DirectX::XMQuaternionRotationRollPitchYaw(
+        pitch,
+        yaw,
+        roll
     );
 
     // ベクトルからクォータニオンを取得する
@@ -46,6 +51,92 @@ Quaternion Quaternion::Identity()
 
     return result;
 }
+
+// 目標角度まで補間する
+Quaternion Quaternion::Slerp(
+    const Quaternion& _original,
+    const Quaternion& _target,
+    const float& _ratio
+)
+{
+    DirectX::XMVECTOR slerpVector = DirectX::XMQuaternionSlerp(
+        _original._toXMVector(),
+        _target._toXMVector(),
+        _ratio
+    );
+
+    // 結果をXMVECTORからクォータニオンに転換する
+    Quaternion result;
+    result = result._fromXMVector(slerpVector);
+
+    return result;
+}
+
+// 目標位置に向けるために必要な回転を取得する
+Quaternion Quaternion::GetLookAtRotation(
+    const Vector3f& _position,
+    const Vector3f& _targetPosition,
+    const Quaternion& _currentRotation
+)
+{
+    // 注視する時の前方向ベクトル
+    Vector3f targetDirection = (_targetPosition - _position).GetNormalized();
+
+    // 目標位置と自身の位置が重なっている場合、単位クォータニオンを返す
+    if (targetDirection.GetLength() < 0.00001f)
+    {
+        return Quaternion::Identity();
+    }
+
+    // 自身の回転の方向を目標方向への投影
+    Vector3f currentForward = _currentRotation.GetForward();
+    float projection = currentForward.Dot(targetDirection);
+    projection = std::clamp(projection, -1.0f, 1.0f);
+
+    // 回転軸の方向
+    Vector3 rotateAxis = currentForward.Cross(targetDirection).GetNormalized();
+
+    // 回転角度
+    float angle = acosf(projection);
+
+    // 回転軸を中心に回転するクォータニオンを作成
+    Quaternion result;
+    result = result._fromXMVector(DirectX::XMQuaternionRotationAxis(
+        DirectX::XMVectorSet(
+            rotateAxis.x,
+            rotateAxis.y,
+            rotateAxis.z,
+            0.0f
+        ),
+        angle
+    ));
+
+    return result;
+}
+
+// 特定の方向を軸としての回転を取得する
+Quaternion Quaternion::GetRotationFromAxis(
+    const Vector3f& _axis,
+    const float& angle
+)
+{
+    Vector3f normalizedAxis = _axis.GetNormalized();
+    // 特定の軸で回転するベクトルを取得する
+    DirectX::XMVECTOR vector = DirectX::XMQuaternionRotationAxis(
+        DirectX::XMVectorSet(
+            normalizedAxis.x,
+            normalizedAxis.y,
+            normalizedAxis.z,
+            0.0f
+        ),
+        angle
+    );
+
+    Quaternion result = Quaternion::Identity();
+    return result._fromXMVector(vector);
+}
+
+#pragma endregion
 
 // オイラー角にキャストする
 Vector3f Quaternion::ToEuler() const
@@ -97,14 +188,14 @@ DirectX::XMMATRIX Quaternion::GetMatrix() const
 Vector3f Quaternion::GetForward() const
 {
     // 前方向のベクトルを取得する
-    XMVECTOR forward = XMVector3Rotate(
+    XMVECTOR forwardVector = XMVector3Rotate(
         XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f),
         _toXMVector()
     );
 
     // ベクトルをFloat3に保存する
     XMFLOAT3 tempFloat3;
-    XMStoreFloat3(&tempFloat3, forward);
+    XMStoreFloat3(&tempFloat3, forwardVector);
 
     return Vector3f(
         tempFloat3.x,
@@ -117,14 +208,14 @@ Vector3f Quaternion::GetForward() const
 Vector3f Quaternion::GetRight() const
 {
     // 右方向のベクトルを取得する
-    XMVECTOR right = XMVector3Rotate(
-        XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f), 
+    XMVECTOR rightVector = XMVector3Rotate(
+        XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f),
         _toXMVector()
     );
 
     // ベクトルをFloat3に保存する
     XMFLOAT3 tempFloat3;
-    XMStoreFloat3(&tempFloat3, right);
+    XMStoreFloat3(&tempFloat3, rightVector);
 
     return Vector3f(
         tempFloat3.x,
@@ -133,30 +224,50 @@ Vector3f Quaternion::GetRight() const
     );
 }
 
+// 上方向ベクトルを取得する
+Vector3f Quaternion::GetUp() const
+{
+    // 右方向のベクトルを取得する
+    XMVECTOR upVector = XMVector3Rotate(
+        XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f),
+        _toXMVector()
+    );
+
+    // ベクトルをFloat3に保存する
+    XMFLOAT3 tempFloat3;
+    XMStoreFloat3(&tempFloat3, upVector);
+
+    return Vector3f(
+        tempFloat3.x,
+        tempFloat3.y,
+        tempFloat3.z
+    );
+}
 Quaternion Quaternion::operator*(const Quaternion& _quaternion) const
 {
-    XMFLOAT4 tempFloat = { x, y, z, w };
-    XMVECTOR quaternion1 = XMLoadFloat4(&tempFloat);
+    // プロパティのxyzwからベクターを設定する
+    XMVECTOR quaternion1 = this->_toXMVector();
 
-    tempFloat = {
-        _quaternion.x, 
-        _quaternion.y, 
-        _quaternion.z, 
-        _quaternion.w
-    };
-    XMVECTOR quaternion2 = XMLoadFloat4(&tempFloat);
+    // 引数のクォータニオンでベクターを設定する
+    XMVECTOR quaternion2 = _quaternion._toXMVector();
 
+    // クォータニオンの掛け算
     XMVECTOR result = XMQuaternionMultiply(quaternion1, quaternion2);
 
-    Quaternion q;
-
-    XMStoreFloat4(&tempFloat,result);
-
-    return {tempFloat.x, tempFloat.y, tempFloat.z, tempFloat.w};
+    return _fromXMVector(result);
 }
 
 // XMVECTORにキャストする
 DirectX::XMVECTOR Quaternion::_toXMVector() const
 {
     return XMVectorSet(x, y, z, w);
+}
+
+// ベクトルからクォータニオンを取得する
+Quaternion Quaternion::_fromXMVector(const DirectX::XMVECTOR& _XMVector) const
+{
+    XMFLOAT4 float4;
+    XMStoreFloat4(&float4, _XMVector);
+
+    return Quaternion{ float4.x, float4.y, float4.z, float4.w };
 }

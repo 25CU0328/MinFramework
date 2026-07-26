@@ -24,10 +24,18 @@ public:
 	// カメラのコントローラーを設定する
 	void SetCameraController(CameraController_3D* _pController);
 
-	// Orbit時のターゲットを追加する
-	void AddOrbitTarget(Runtime::Model* _orbitTarget);
-	// Orbit時のターゲットをベクターから削除する
-	void RemoveOrbitTarget(Runtime::Model* _orbitTarget);
+	// カメラのターゲットとなるモデルを追加する
+	void AddTargetModel(Runtime::Model* _orbitTarget);
+	// カメラのターゲットとなるモデルをベクターから削除する
+	void RemoveTargetModel(Runtime::Model* _orbitTarget);
+
+private:
+	// フリーカメラモードの内容を設定する
+	void _setFreeModePanel();
+	// オービットモードの内容を設定する
+	void _setOrbitModePanel();
+	
+
 private:
 	// カメラの位置
 	Vector3f m_cameraPosition;
@@ -38,6 +46,9 @@ private:
 	Runtime::Camera* m_pCamera;
 	// カメラのコントローラー
 	CameraController_3D* m_pCameraController;
+
+	// 注視する目標となるモデル
+	Runtime::Model* m_pFocusTargetModel;
 
 	// ---------------------------
 	// カメラモードを記録するプロパティ
@@ -64,8 +75,8 @@ private:
 private:
 	float m_orbitDistance;
 
-	// 選択されたモデル
-	Runtime::Model* m_pSelectedModel;
+	// オービットターゲットとなるモデル
+	Runtime::Model* m_pOrbitTargetModel;
 	// コントロール対象となるモデル
 	std::vector<Runtime::Model*> m_models;
 };

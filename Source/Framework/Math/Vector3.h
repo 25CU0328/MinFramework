@@ -15,6 +15,33 @@ public:
 	Vector3() noexcept :x((T)0), y((T)0), z((T)0) {}
 	Vector3(T _x, T _y, T _z) noexcept :x(_x), y(_y), z(_z) {}
 
+	// 方向ベクトル
+public:
+	// 右方向
+	static Vector3<T> Right()	{ 
+		return Vector3<T>(
+			static_cast<T>(1), 
+			static_cast<T>(0), 
+			static_cast<T>(0)
+		); 
+	}
+	// 前方向
+	static Vector3<T> Forward() { 
+		return Vector3<T>(
+			static_cast<T>(0),
+			static_cast<T>(0),
+			static_cast<T>(1)
+		); 
+	}
+	// 上方向
+	static Vector3<T> Up()		{ 
+		return Vector3<T>(
+			static_cast<T>(0),
+			static_cast<T>(1),
+			static_cast<T>(0)
+		); 
+	}
+
 public:
 	// ベクトルの長さを取得する
 	T GetLength() const noexcept;
@@ -28,14 +55,15 @@ public:
 	Vector3<T> GetRotated(float yaw, float pitch, float roll) noexcept;
 	// ベクトルを表す文字列を取得する
 	std::string GetString() const noexcept;
-
+	// DirectXのXMFLOAT3にキャストする
+	DirectX::XMFLOAT3 ToXMFloat3() const noexcept;
 
 // オペレーターオーバーロード
 public:
-	Vector3<T> operator+(const Vector3<T>& _vector) noexcept;
-	Vector3<T> operator-(const Vector3<T>& _vector) noexcept;
-	Vector3<T> operator*(const T& _scale) noexcept;
-	Vector3<T> operator/(const T& _scale) noexcept;
+	Vector3<T> operator+(const Vector3<T>& _vector) const noexcept;
+	Vector3<T> operator-(const Vector3<T>& _vector) const noexcept;
+	Vector3<T> operator*(const T& _scale) const noexcept;
+	Vector3<T> operator/(const T& _scale) const noexcept;
 	Vector3<T>& operator=(const Vector3<T>& _vector) noexcept;
 	Vector3<T>& operator+=(const Vector3<T>& _vector) noexcept;
 	Vector3<T>& operator-=(const Vector3<T>& _vector) noexcept;
@@ -119,6 +147,16 @@ inline std::string Vector3<T>::GetString()  const noexcept
 	return str;
 }
 
+// DirectXのXMFLOAT3にキャストする
+template<typename T>
+inline DirectX::XMFLOAT3 Vector3<T>::ToXMFloat3() const noexcept
+{
+	return DirectX::XMFLOAT3(
+		static_cast<float>(x),
+		static_cast<float>(y),
+		static_cast<float>(z)
+	);
+}
 
 // 外積
 template<typename T>
@@ -134,7 +172,7 @@ inline Vector3<T> Vector3<T>::Cross(const Vector3<T>& _vector) const noexcept
 
 #pragma region Operator Override
 template<typename T>
-inline Vector3<T> Vector3<T>::operator+(const Vector3<T>& _vector) noexcept
+inline Vector3<T> Vector3<T>::operator+(const Vector3<T>& _vector) const noexcept
 {
 	return Vector3<T>(
 		x + _vector.x,
@@ -144,7 +182,7 @@ inline Vector3<T> Vector3<T>::operator+(const Vector3<T>& _vector) noexcept
 }
 
 template<typename T>
-inline Vector3<T> Vector3<T>::operator-(const Vector3<T>& _vector) noexcept
+inline Vector3<T> Vector3<T>::operator-(const Vector3<T>& _vector) const noexcept
 {
 	return Vector3<T>(
 		x - _vector.x,
@@ -154,7 +192,7 @@ inline Vector3<T> Vector3<T>::operator-(const Vector3<T>& _vector) noexcept
 }
 
 template<typename T>
-inline Vector3<T> Vector3<T>::operator*(const T& _scale) noexcept
+inline Vector3<T> Vector3<T>::operator*(const T& _scale) const noexcept
 {
 	return Vector3<T>(
 		x * _scale,
@@ -164,7 +202,7 @@ inline Vector3<T> Vector3<T>::operator*(const T& _scale) noexcept
 }
 
 template<typename T>
-inline Vector3<T> Vector3<T>::operator/(const T& _scale) noexcept
+inline Vector3<T> Vector3<T>::operator/(const T& _scale) const noexcept
 {
 	return Vector3<T>(
 		x / _scale,

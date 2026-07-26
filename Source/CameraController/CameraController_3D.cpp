@@ -20,6 +20,9 @@ CameraController_3D::CameraController_3D()
 
 	// オービット距離
 	m_orbitDistance = 100.0f;
+
+	m_yaw = 0.0f;
+	m_pitch = 0.0f;
 }
 // デストラクター
 CameraController_3D::~CameraController_3D()
@@ -103,6 +106,31 @@ float CameraController_3D::GetCameraRotateSpeed() const
 	return m_cameraRotateSpeed;
 }
 
+// 目標位置を注視するように回転する
+void CameraController_3D::SetLookAt(const Vector3f _targetPosition)
+{
+	// カメラから目標までの方向
+	Vector3f direction = (_targetPosition - m_pCamera->GetPosition()).GetNormalized();
+
+	// 向きからyawを算出
+	float yaw = atan2f(direction.x, direction.z);
+
+	// 
+	float pitch = atan2f(
+		direction.y,
+		std::sqrtf(std::pow(direction.x,2) + std::pow(direction.z, 2))
+	);
+
+	m_yaw = yaw;
+	m_pitch = pitch;
+
+	m_pCamera->SetRotation(Quaternion::FromEuler(
+			pitch,
+			yaw,
+			0.0f
+		)
+	);
+}
 
 // フリーカメラの更新処理
 void CameraController_3D::_updateFreeCamera(bool isUpdateOnSetup)
@@ -160,12 +188,25 @@ void CameraController_3D::_updateFreeCamera(bool isUpdateOnSetup)
 	{
 		Vector2f mouseDelta = Input_I->GetMousePositionDelta();
 		mouseDelta *= rotateSpeed;
-		Vector3f cameraRot = m_pCamera->GetRotation();
+		
+		// マウスの移動をpitch と yawに加算する
+		m_yaw += mouseDelta.x ;
+		m_pitch += mouseDelta.y;
 
-		cameraRot.x += mouseDelta.y;
-		cameraRot.y += mouseDelta.x;
+		// m_yawからクォータニオンを取得する
+		Quaternion yawRotation = Quaternion::GetRotationFromAxis(
+			Vector3f::Up(),
+			m_yaw
+		);
 
-		m_pCamera->SetRotation(cameraRot);
+		// m_pitchからクォータニオンを取得する
+		Quaternion pitchRotation = Quaternion::GetRotationFromAxis(
+			yawRotation.GetRight(),
+			m_pitch
+		);
+
+		// 回転をyaw*pitchで設定する
+		m_pCamera->SetRotation(yawRotation * pitchRotation);
 	}
 }
 // カメラの更新処理
@@ -191,7 +232,7 @@ void CameraController_3D::_updateOrbitCamera(bool isUpdateOnSetup)
 	Vector3f modelPos = m_pOrbitTarget->GetPosition();
 
 	// カメラ回転・位置
-	Vector3f cameraRot = m_pCamera->GetRotation();
+	Vector3f cameraRot = m_pCamera->GetRotationEuler();
 	Vector3f cameraPos = m_pCamera->GetPosition();
 
 	// -----------
@@ -201,13 +242,26 @@ void CameraController_3D::_updateOrbitCamera(bool isUpdateOnSetup)
 		Vector2f mouseDelta = Input_I->GetMousePositionDelta();
 		mouseDelta *= rotateSpeed;
 
-		cameraRot.x += mouseDelta.y;
-		cameraRot.y += mouseDelta.x;
+		// マウスの移動をpitch と yawに加算する
+		m_yaw += mouseDelta.x;
+		m_pitch += mouseDelta.y;
+
+		// m_yawからクォータニオンを取得する
+		Quaternion yawRotation = Quaternion::GetRotationFromAxis(
+			Vector3f::Up(),
+			m_yaw
+		);
+
+		// m_pitchからクォータニオンを取得する
+		Quaternion pitchRotation = Quaternion::GetRotationFromAxis(
+			yawRotation.GetRight(),
+			m_pitch
+		);
 		
-		m_pCamera->SetRotation(cameraRot);
+		m_pCamera->SetRotation(yawRotation * pitchRotation);
 	}
 
-	// カメラの正面ベクトルを取得し、それの
+	// カメラ前方の逆方向からオービット距離離れた位置に設定する
 	cameraPos = modelPos + m_pCamera->GetForward() * (-1.0f) * m_orbitDistance;
 	m_pCamera->SetPosition(cameraPos);
 }
