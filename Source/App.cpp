@@ -15,7 +15,7 @@
 #include "Panels/ModelControlPanel.h"
 #include "Panels/CameraControlPanel.h"
 #include "CameraController/CameraController_3D.h"
-Runtime::Model chairModel;
+Runtime::Model donutModel;
 Runtime::Model cubeModel;
 Runtime::Model coneModel;
 Runtime::Model groundModel;
@@ -37,10 +37,11 @@ void App::Init()
 	Render_I->SetCamera(&camera);
 	
 	ModelData modelData;
-	if (Assets_I->LoadModelFile("Assets/Models/Chair.obj", modelData))
+	if (Assets_I->LoadModelFile("Assets/Models/Donut.obj", modelData))
 	{
-		chairModel.Init(modelData, "Assets/Materials/NormalViewMaterial.txt");
-		chairModel.SetName("Chair");
+		donutModel.Init(modelData, "Assets/Materials/NormalViewMaterial.txt");
+		donutModel.SetName("Donut");
+		donutModel.SetPosition(Vector3f(0.0f, 10.0f, 0.0f));
 	}
 
 	if (Assets_I->LoadModelFile("Assets/Models/Cube.obj", modelData))
@@ -56,7 +57,7 @@ void App::Init()
 		coneModel.Init(modelData);
 		coneModel.SetName("Cone");
 		coneModel.SetTexture(Assets_I->GetTexture("Assets/Images/MossyRock.jpg"));
-		coneModel.SetPosition(Vector3f(10.0f, 0.0f, 0.0f));
+		coneModel.SetPosition(Vector3f(10.0f, 10.0f, 0.0f));
 	}
 
 	if (Assets_I->LoadModelFile("Assets/Models/Ground.obj", modelData))
@@ -67,7 +68,7 @@ void App::Init()
 	}
 
 	camera.Init(Runtime::ProjectionType::Perspective);
-	camera.SetPosition(Vector3f(0.0f, 0.0f, -50.0f));
+	camera.SetPosition(Vector3f(0.0f, 10.0f, -50.0f));
 	Render_I->SetCamera(&camera);
 	cameraController_3D.SetCamera(&camera);
 	cameraController_3D.SetCameraMode(CameraMode::FreeCamera);
@@ -75,7 +76,7 @@ void App::Init()
 
 	modelControlPanel.Init("Model Control Panel");
 	modelControlPanel.AddControlTarget(&cubeModel);
-	modelControlPanel.AddControlTarget(&chairModel);
+	modelControlPanel.AddControlTarget(&donutModel);
 	modelControlPanel.AddControlTarget(&coneModel);
 
 	cameraControlPanel.Init("Camera Control Panel");
@@ -86,7 +87,7 @@ void App::Init()
 	);
 
 	cameraControlPanel.AddTargetModel(&cubeModel);
-	cameraControlPanel.AddTargetModel(&chairModel);
+	cameraControlPanel.AddTargetModel(&donutModel);
 	cameraControlPanel.AddTargetModel(&coneModel);
 }
 
@@ -99,7 +100,7 @@ void App::Update()
 // 描画処理
 void App::Render()
 {
-	chairModel.Draw();
+	donutModel.Draw();
 	cubeModel.Draw();
 	coneModel.Draw();
 	groundModel.Draw();

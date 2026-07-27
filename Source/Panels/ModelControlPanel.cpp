@@ -24,7 +24,7 @@ void ModelControlPanel::Render()
 	if (m_pSelectedModel)
 	{
 		m_modelPosition = m_pSelectedModel->GetPosition();
-		m_modelRotation = m_pSelectedModel->GetRotation();
+		m_modelRotation = m_pSelectedModel->GetRotationEuler();
 		m_modelScale = m_pSelectedModel->GetScale();
 	}
 
@@ -37,7 +37,7 @@ void ModelControlPanel::Render()
 	ImGui::Text("回転");
 	if (ImGui::SliderFloat3("Rotation:", &m_modelRotation.x, 0.0f, 360.0f) && m_pSelectedModel)
 	{
-		m_pSelectedModel->SetRotation(m_modelRotation);
+		m_pSelectedModel->SetRotationEuler(m_modelRotation);
 	}
 
 	ImGui::Text("スケール");

@@ -25,7 +25,7 @@ bool Model::Init(
 	}
 
 	m_scale = Vector3(1.0f, 1.0f, 1.0f);
-	m_rotation = Vector3f(0.0f, 0.0f, 0.0f);
+	m_rotation = Quaternion::Identity();
 
 	return true;
 }
@@ -43,41 +43,6 @@ void Model::Draw()
 		// メッシュを描画する
 		pMesh->Draw();
 	}
-}
-
-
-// 位置を設定
-void Model::SetPosition(const Vector3f& _position)
-{
-	m_position = _position;
-}
-
-// 位置を取得する
-Vector3f Model::GetPosition() const
-{
-	return m_position;
-}
-
-// 回転を設定する
-void Model::SetRotation(const Vector3f& _rotation)
-{
-	m_rotation = _rotation;
-}
-// 回転を所得する
-Vector3f Model::GetRotation() const
-{
-	return m_rotation;
-}
-
-// スケイルを設定
-void Model::SetScale(const Vector3f& _scale)
-{
-	m_scale = _scale;
-}
-// スケイルを取得する
-Vector3f Model::GetScale() const
-{
-	return m_scale;
 }
 
 // テクスチャを設定する
@@ -133,14 +98,3 @@ int Model::GetRenderPriority() const
 	return m_renderPriority;
 }
 
-
-// モデル名を設定する
-void Model::SetName(const std::string _name)
-{
-	m_name = _name;
-}
-// モデル名を取得する
-std::string Model::GetName() const
-{
-	return m_name;
-}

@@ -7,7 +7,7 @@ void CameraControlPanel::Init(const char* _panelName)
 {
 	ImGuiPanel::Init(_panelName);
 
-	m_size = Vector2f(300.0f, 200.0f);
+	m_size = Vector2f(300.0f, 300.0f);
 
 	m_cameraModePairs = {
 		{"FreeCamera", (int)CameraMode::FreeCamera},
@@ -22,11 +22,12 @@ void CameraControlPanel::Render()
 {
 	ImGuiPanel::Render();
 
+	// パネルの始まり
 	ImGui::Begin(m_panelName);
 	
-	// ------------------------
-	// カメラモードのドロップボックスの設定
-	// ------------------------
+	// --------------------------------------
+	// カメラモードを決めるドロップボックスの設定
+	// --------------------------------------
 	ImGui::Text("カメラモード");
 	if (ImGui::BeginCombo("CameraMode：",m_selectedPair.modeName.c_str()))
 	{
@@ -54,13 +55,17 @@ void CameraControlPanel::Render()
 		ImGui::EndCombo();
 	}
 
+	// カメラの位置を取得する
 	m_cameraPosition = m_pCamera->GetPosition();
+	
+	// カメラの回転を取得する
 	Vector3f rotation = m_pCamera->GetRotationEuler();
 	rotation.x = RadToDeg(rotation.x);
 	rotation.y = RadToDeg(rotation.y);
 	rotation.z = RadToDeg(rotation.z);
 	m_cameraRotation = rotation;
 
+	// オービット時の距離を取得する
 	m_orbitDistance = m_pCameraController->GetOrbitDistance();
 
 	switch (m_selectedPair.mode)
@@ -74,6 +79,7 @@ void CameraControlPanel::Render()
 		break;
 	}
 
+	// パネルの終わり
 	ImGui::End();
 }
 
@@ -89,37 +95,102 @@ void CameraControlPanel::SetCameraController(CameraController_3D* const _pContro
 	m_pCameraController = _pController;
 }
 
-// Orbit時のターゲットを追加する
-void CameraControlPanel::AddTargetModel(Runtime::Model* _orbitTarget)
+// カメラのターゲットとなるモデルを追加する
+void CameraControlPanel::AddTargetModel(Runtime::Model* _pTargetModel)
 {
-	auto iterator = std::find(m_models.begin(), m_models.end(), _orbitTarget);
+	// 引数はヌルポインタの場合、処理しない
+	if (_pTargetModel == nullptr || _pTargetModel->GetName() == "")
+		return;
+
+	auto iterator = std::find(m_models.begin(), m_models.end(), _pTargetModel);
 
 	if (iterator != m_models.end())
 		return;
 
-	m_models.emplace_back(_orbitTarget);
+	m_models.emplace_back(_pTargetModel);
+
+	// オービットターゲットはまだ設定されていない場合
+	if (m_pOrbitTargetModel == nullptr)
+	{
+		m_pOrbitTargetModel = m_models.back();
+	}
+	// 注視ターゲットはまだ設定されていない場合
+	if (m_pFocusTargetModel == nullptr)
+	{
+		m_pFocusTargetModel = m_models.back();
+	}
 }
 
-// Orbit時のターゲットをベクターから削除する
-void CameraControlPanel::RemoveTargetModel(Runtime::Model* _orbitTarget)
+// カメラのターゲットとなるモデルをベクターから削除する
+void CameraControlPanel::RemoveTargetModel(Runtime::Model* _pTargetModel)
 {
-	auto iterator = std::find(m_models.begin(), m_models.end(), _orbitTarget);
+	// 引数はヌルポインタの場合、処理しない
+	if (_pTargetModel == nullptr)
+		return;
+
+	auto iterator = std::find(m_models.begin(), m_models.end(), _pTargetModel);
 
 	if (iterator != m_models.begin())
 		return;
 
+	// そのモデルはオービットターゲットの場合
+	if (m_pOrbitTargetModel == *iterator)
+	{
+		// ヌルじゃないモデルポインタを検索
+		auto iterator = std::find_if_not(
+			m_models.begin(),
+			m_models.end(),
+			[](Runtime::Model* pModel) { return pModel == nullptr; }
+		);
+
+		// ヌルじゃないモデルポインタがあったら
+		if (iterator != m_models.end())
+		{
+			m_pOrbitTargetModel = *iterator;
+		}
+		// ヌルじゃないモデルポインタがない場合
+		else 
+		{
+			m_pOrbitTargetModel = nullptr;
+		}
+	}
+
+	// そのモデルは注視ターゲットの場合
+	if (m_pFocusTargetModel == *iterator)
+	{
+		// ヌルじゃない
+		auto iterator = std::find_if_not(
+			m_models.begin(),
+			m_models.end(),
+			[](Runtime::Model* pModel) { return pModel == nullptr; }
+		);
+
+		// ヌルじゃないモデルポインタがあったら
+		if (iterator != m_models.end())
+		{
+			m_pFocusTargetModel = *iterator;
+		}
+		// ヌルじゃないモデルポインタがない場合
+		else {
+			m_pFocusTargetModel = nullptr;
+		}
+	}
+
+	// ベクターから削除する
 	m_models.erase(iterator);
 }
 
 // フリーカメラモードの内容を設定する
 void CameraControlPanel::_setFreeModePanel()
 {
+	// 位置を表示・操作するスライダーを設定する
 	ImGui::Text("位置：");
 	if (ImGui::SliderFloat3("Position", &m_cameraPosition.x, -1000.0f, 1000.0f))
 	{
 		m_pCamera->SetPosition(m_cameraPosition);
 	}
 
+	// 回転を表示・操作するスライダーを設定する
 	ImGui::Text("回転：");
 	if (ImGui::SliderFloat3("Rotation", &m_cameraRotation.x, -180.0f, 180.0f))
 	{
@@ -131,6 +202,8 @@ void CameraControlPanel::_setFreeModePanel()
 
 		m_pCamera->SetRotationEuler(rotation);
 	}
+
+	// モデルを選択するドロップボックスを設定する
 	ImGui::Text("モデルを注視：");
 	if (ImGui::BeginCombo(
 		"Model",
@@ -140,6 +213,9 @@ void CameraControlPanel::_setFreeModePanel()
 	{
 		for (Runtime::Model* pModel : m_models)
 		{
+			if (pModel == nullptr)
+				continue;
+
 			bool isSelected = (m_pFocusTargetModel == pModel);
 
 			// モデルを選択した場合の処理
@@ -157,8 +233,11 @@ void CameraControlPanel::_setFreeModePanel()
 		ImGui::EndCombo();
 	}
 	
+	// 次のUIアイテムを同じ行で描画する命令
+	ImGui::SameLine();
 
-	if (ImGui::Button("Focus", ImVec2(100.0f, 50.0f)))
+	// Focusボタンを設定
+	if (ImGui::Button("Focus", ImVec2(50.0f, 20.0f)))
 	{
 		if (m_pFocusTargetModel) 
 		{
@@ -170,6 +249,7 @@ void CameraControlPanel::_setFreeModePanel()
 // オービットモードの内容を設定する
 void CameraControlPanel::_setOrbitModePanel()
 {
+	// オービットのターゲットを決めるドロップボックスを設定する
 	ImGui::Text("オービットターゲット：");
 	if (ImGui::BeginCombo(
 		"Orbit Target",
@@ -178,6 +258,9 @@ void CameraControlPanel::_setOrbitModePanel()
 	{
 		for (Runtime::Model* pModel : m_models)
 		{
+			if (pModel == nullptr)
+				continue;
+
 			bool isSelected = (m_pOrbitTargetModel == pModel);
 
 			// モデルを選択した場合の処理

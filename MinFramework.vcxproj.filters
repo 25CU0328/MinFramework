@@ -216,6 +216,12 @@
     <ClCompile Include="Source\Framework\Math\Quaternion.cpp">
       <Filter>Framework\Math</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Framework\Runtime\GameObject.cpp">
+      <Filter>Framework\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Runtime\Transform.cpp">
+      <Filter>Framework\Runtime</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AppDef.h">
@@ -418,6 +424,12 @@
     </ClInclude>
     <ClInclude Include="Source\Framework\Math\Quaternion.h">
       <Filter>Framework\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Runtime\GameObject.h">
+      <Filter>Framework\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Runtime\Transform.h">
+      <Filter>Framework\Runtime</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

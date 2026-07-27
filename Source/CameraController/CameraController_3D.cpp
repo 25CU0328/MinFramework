@@ -112,12 +112,12 @@ void CameraController_3D::SetLookAt(const Vector3f _targetPosition)
 	// カメラから目標までの方向
 	Vector3f direction = (_targetPosition - m_pCamera->GetPosition()).GetNormalized();
 
-	// 向きからyawを算出
+	// 方向ベクトルのx座標とy座標からyawを算出
 	float yaw = atan2f(direction.x, direction.z);
 
-	// 
+	// 方向ベクトルのy座標とxz平面への投影からpitchを算出
 	float pitch = atan2f(
-		direction.y,
+		-direction.y,
 		std::sqrtf(std::pow(direction.x,2) + std::pow(direction.z, 2))
 	);
 
