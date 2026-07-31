@@ -114,6 +114,7 @@ void CameraControlPanel::AddTargetModel(Runtime::Model* _pTargetModel)
 	{
 		m_pOrbitTargetModel = m_models.back();
 	}
+
 	// 注視ターゲットはまだ設定されていない場合
 	if (m_pFocusTargetModel == nullptr)
 	{
@@ -183,14 +184,14 @@ void CameraControlPanel::RemoveTargetModel(Runtime::Model* _pTargetModel)
 // フリーカメラモードの内容を設定する
 void CameraControlPanel::_setFreeModePanel()
 {
-	// 位置を表示・操作するスライダーを設定する
+	// 位置を調整するスライダーの設定
 	ImGui::Text("位置：");
 	if (ImGui::SliderFloat3("Position", &m_cameraPosition.x, -1000.0f, 1000.0f))
 	{
 		m_pCamera->SetPosition(m_cameraPosition);
 	}
 
-	// 回転を表示・操作するスライダーを設定する
+	// 回転を調整するスライダーの設定
 	ImGui::Text("回転：");
 	if (ImGui::SliderFloat3("Rotation", &m_cameraRotation.x, -180.0f, 180.0f))
 	{
@@ -204,9 +205,11 @@ void CameraControlPanel::_setFreeModePanel()
 	}
 
 	// モデルを選択するドロップボックスを設定する
+
+	// 注視するモデルを選択するドロップボックスの設定
 	ImGui::Text("モデルを注視：");
 	if (ImGui::BeginCombo(
-		"Model",
+		"を",
 		m_pFocusTargetModel ?
 		m_pFocusTargetModel->GetName().c_str() : "None"
 	))
@@ -237,7 +240,7 @@ void CameraControlPanel::_setFreeModePanel()
 	ImGui::SameLine();
 
 	// Focusボタンを設定
-	if (ImGui::Button("Focus", ImVec2(50.0f, 20.0f)))
+	if (ImGui::Button("Focus", ImVec2(50.0f, 30.0f)))
 	{
 		if (m_pFocusTargetModel) 
 		{

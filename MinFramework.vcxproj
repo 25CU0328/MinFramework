@@ -189,7 +189,6 @@
     <ClCompile Include="Source\Framework\Runtime\Transform.cpp" />
     <ClCompile Include="Source\Framework\TimeManager.cpp" />
     <ClCompile Include="Source\Panels\CameraControlPanel.cpp" />
-    <ClCompile Include="Source\Panels\ImageControlPanel.cpp" />
     <ClCompile Include="Source\Panels\ModelControlPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -260,7 +259,6 @@
     <ClInclude Include="Source\Framework\TimeManager.h" />
     <ClInclude Include="Source\Framework\UI\FrameworkImgUI.h" />
     <ClInclude Include="Source\Panels\CameraControlPanel.h" />
-    <ClInclude Include="Source\Panels\ImageControlPanel.h" />
     <ClInclude Include="Source\Panels\ModelControlPanel.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

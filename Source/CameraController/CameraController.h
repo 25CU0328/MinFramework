@@ -8,6 +8,7 @@ public:
 	// 初期化処理
 	virtual void Init(Runtime::Camera* _pCamera) {}
 	
+	// コントロールするカメラを設定する
 	void SetCamera(Runtime::Camera* _pCamera) {
 		m_pCamera = _pCamera;
 	}

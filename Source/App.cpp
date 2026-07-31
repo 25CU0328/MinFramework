@@ -11,11 +11,10 @@
 #include "Framework/Runtime/Model.h"
 
 #include "Framework/Assets/AssetData/MaterialData.h"
-#include "Panels/ImageControlPanel.h"
 #include "Panels/ModelControlPanel.h"
 #include "Panels/CameraControlPanel.h"
 #include "CameraController/CameraController_3D.h"
-Runtime::Model donutModel;
+Runtime::Model chairModel;
 Runtime::Model cubeModel;
 Runtime::Model coneModel;
 Runtime::Model groundModel;
@@ -35,74 +34,113 @@ void App::Init()
 {
 	camera.Init(Runtime::ProjectionType::Perspective);
 	Render_I->SetCamera(&camera);
-	
+
+	// モデル操作パネルの初期化
+	modelControlPanel.Init("Model Control Panel");
+
+	// カメラ操作パネルの初期化処理
+	cameraControlPanel.Init("Camera Control Panel");
+
+	// モデルのデータを保存するための変数
 	ModelData modelData;
-	if (Assets_I->LoadModelFile("Assets/Models/Donut.obj", modelData))
+
+	// 椅子のモデルを読み込む
+	if (Assets_I->LoadModelFile("Assets/Models/Chair.obj", modelData))
 	{
-		donutModel.Init(modelData, "Assets/Materials/NormalViewMaterial.txt");
-		donutModel.SetName("Donut");
-		donutModel.SetPosition(Vector3f(0.0f, 10.0f, 0.0f));
+		// モデルの初期化
+		chairModel.Init(modelData, "Assets/Materials/NormalViewMaterial.txt");
+		// オブジェクト名を設定する
+		chairModel.SetName("Chair");
+		// 位置を設定する
+		chairModel.SetPosition(Vector3f(0.0f, 1.0f, 0.0f));
+		// モデル操作パネルに追加する
+		modelControlPanel.AddControlTarget(&chairModel);
+		// カメラ操作パネルに追加する
+		cameraControlPanel.AddTargetModel(&chairModel);
 	}
 
+	// 立方体を読み込む
 	if (Assets_I->LoadModelFile("Assets/Models/Cube.obj", modelData))
 	{
+		// モデルの初期化
 		cubeModel.Init(modelData);
+		// オブジェクト名を設定する
 		cubeModel.SetName("Cube");
-		coneModel.SetTexture(Assets_I->GetTexture("Assets/Images/Wood.png"));
+		// 位置を設定する
 		cubeModel.SetPosition(Vector3f(0.0f, 10.0f, 0.0f));
-	}
-	
-	if (Assets_I->LoadModelFile("Assets/Models/Cone.obj", modelData))
-	{
-		coneModel.Init(modelData);
-		coneModel.SetName("Cone");
-		coneModel.SetTexture(Assets_I->GetTexture("Assets/Images/MossyRock.jpg"));
-		coneModel.SetPosition(Vector3f(10.0f, 10.0f, 0.0f));
+		// モデル操作パネルに追加する
+		modelControlPanel.AddControlTarget(&cubeModel);
+		// カメラ操作パネルに追加する
+		cameraControlPanel.AddTargetModel(&cubeModel);
 	}
 
+	// 円錐のモデルを読み込む
+	if (Assets_I->LoadModelFile("Assets/Models/Cone.obj", modelData))
+	{
+		// モデルの初期化
+		coneModel.Init(modelData);
+		// オブジェクト名を設定する
+		coneModel.SetName("Cone");
+		// テクスチャを設定する
+		coneModel.SetTexture(Assets_I->GetTexture("Assets/Images/Wood.png"));
+		// 位置を設定する
+		coneModel.SetPosition(Vector3f(10.0f, 10.0f, 0.0f));
+		// モデル操作パネルに追加する
+		modelControlPanel.AddControlTarget(&coneModel);
+		// カメラ操作パネルに追加する
+		cameraControlPanel.AddTargetModel(&coneModel);
+	}
+
+	// 地面のモデルを読み込む
 	if (Assets_I->LoadModelFile("Assets/Models/Ground.obj", modelData))
 	{
+		// モデルの初期化
 		groundModel.Init(modelData);
+		// オブジェクト名を設定する
 		groundModel.SetName("Ground");
+		// テクスチャを設定する
 		groundModel.SetTexture(Assets_I->GetTexture("Assets/Images/MossyRock.jpg"));
 	}
 
 	camera.Init(Runtime::ProjectionType::Perspective);
 	camera.SetPosition(Vector3f(0.0f, 10.0f, -50.0f));
+
+	// レンダリングマネージャーにカメラを設定する
 	Render_I->SetCamera(&camera);
+	// カメラを設定する
 	cameraController_3D.SetCamera(&camera);
+	// カメラの操作モードをフリーカメラモードにする
 	cameraController_3D.SetCameraMode(CameraMode::FreeCamera);
-	cameraController_3D.SetOrbitDistance(300.0f);
 
-	modelControlPanel.Init("Model Control Panel");
-	modelControlPanel.AddControlTarget(&cubeModel);
-	modelControlPanel.AddControlTarget(&donutModel);
-	modelControlPanel.AddControlTarget(&coneModel);
-
-	cameraControlPanel.Init("Camera Control Panel");
+	// カメラを設定する
 	cameraControlPanel.SetCamera(&camera);
+	// カメラコントローラーを設定する
 	cameraControlPanel.SetCameraController(&cameraController_3D);
+	// ウィンドウの右上に設定するお
 	cameraControlPanel.SetPanelPosition(
 		Vector2f(static_cast<float>(WINDOW_WIDTH) - cameraControlPanel.GetPanelSize().x, 0.0f)
 	);
 
-	cameraControlPanel.AddTargetModel(&cubeModel);
-	cameraControlPanel.AddTargetModel(&donutModel);
-	cameraControlPanel.AddTargetModel(&coneModel);
+	
 }
 
 // 更新処理
 void App::Update()
 {
+	// カメラコントローラーを更新する
 	cameraController_3D.Update();
 }
 
 // 描画処理
 void App::Render()
 {
-	donutModel.Draw();
+	// 椅子を描画する
+	chairModel.Draw();
+	// 立方体を描画する
 	cubeModel.Draw();
+	// 円錐を描画する
 	coneModel.Draw();
+	// 地面を描画する
 	groundModel.Draw();
 }
 

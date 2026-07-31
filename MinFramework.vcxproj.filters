@@ -198,9 +198,6 @@
     <ClCompile Include="Source\Framework\Collision\Collider\Collider.cpp">
       <Filter>Framework\Collision\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Panels\ImageControlPanel.cpp">
-      <Filter>ソース ファイル\Panels</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Framework\ImGui\ImGuiPanel.cpp">
       <Filter>Framework\ImGui</Filter>
     </ClCompile>
@@ -397,9 +394,6 @@
     </ClInclude>
     <ClInclude Include="Source\Framework\ImGui\ImGuiPanel.h">
       <Filter>Framework\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Panels\ImageControlPanel.h">
-      <Filter>ソース ファイル\Panels</Filter>
     </ClInclude>
     <ClInclude Include="Source\Panels\ModelControlPanel.h">
       <Filter>ソース ファイル\Panels</Filter>

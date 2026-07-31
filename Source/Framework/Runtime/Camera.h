@@ -62,6 +62,13 @@ namespace Runtime
 			const float _farZ
 		);
 
+		/// <summary>
+		/// カメラの投影方式を正投影に設定する
+		/// </summary>
+		/// <param name="_fov">		幅				</param>
+		/// <param name="_aspect">	高さ				</param>
+		/// <param name="_nearZ">	近接平面との距離	</param>
+		/// <param name="_farZ">	遠方平面との距離	</param>
 		void SetOthographics(
 			const float _width,
 			const float _height,
@@ -90,6 +97,6 @@ namespace Runtime
 		Vector3f m_position; // カメラ位置
 		Quaternion m_rotation; // カメラ回転角度
 
-		ProjectionType m_projectionType;
+		ProjectionType m_projectionType; // 投影方式
 	};
 }
