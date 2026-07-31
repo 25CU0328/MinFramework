@@ -24,22 +24,35 @@ void ModelControlPanel::Render()
 	if (m_pSelectedModel)
 	{
 		m_modelPosition = m_pSelectedModel->GetPosition();
-		m_modelRotation = m_pSelectedModel->GetRotationEuler();
+
+		// 回転を取得し、角度に転換する
+		Vector3f rotationEuler = m_pSelectedModel->GetRotationEuler();
+		rotationEuler.x = DegToRad(rotationEuler.x);
+		rotationEuler.y = DegToRad(rotationEuler.y);
+		rotationEuler.z = DegToRad(rotationEuler.z);
+		m_modelRotation = rotationEuler;
+
 		m_modelScale = m_pSelectedModel->GetScale();
 	}
 
+	// 位置をコントロールするスライダーの設定
 	ImGui::Text("位置");
 	if(ImGui::SliderFloat3("Position:", &m_modelPosition.x, -100.0f, 100.0f) && m_pSelectedModel)
 	{
 		m_pSelectedModel->SetPosition(m_modelPosition);
 	}
 
+	// 回転をコントロールするスライダーの設定
 	ImGui::Text("回転");
 	if (ImGui::SliderFloat3("Rotation:", &m_modelRotation.x, 0.0f, 360.0f) && m_pSelectedModel)
 	{
+		m_modelRotation.x = DegToRad(m_modelRotation.x);
+		m_modelRotation.y = DegToRad(m_modelRotation.y);
+		m_modelRotation.z = DegToRad(m_modelRotation.z);
 		m_pSelectedModel->SetRotationEuler(m_modelRotation);
 	}
 
+	// スケールをコントロールするスライダーの設定
 	ImGui::Text("スケール");
 	if (ImGui::SliderFloat3("Scale:", &m_modelScale.x, 0.5, 5.0) && m_pSelectedModel)
 	{

@@ -3,8 +3,8 @@
 
 #include "Framework/ImGui/ImGuiPanel.h"
 
-#include "ImageControlPanel.h"
 #include "Framework/Runtime/Model.h"
+
 
 #include <vector>
 

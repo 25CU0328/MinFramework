@@ -65,10 +65,11 @@ XMMATRIX Model::GetTransformMatrix() const
 	);
 	
 	// 回転行列
+	Vector3f rotationEuler = m_rotation.ToEuler();
 	XMMATRIX rotationMatrix = XMMatrixRotationRollPitchYaw(
-		DegToRad(m_rotation.x),
-		DegToRad(m_rotation.y),
-		DegToRad(m_rotation.z)
+		rotationEuler.x,
+		rotationEuler.y,
+		rotationEuler.z
 	);
 
 	// 平行移動行列
