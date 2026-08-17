@@ -19,15 +19,15 @@ public:
 	void Render();
 
 	// カメラを設定する
-	void SetCamera(Runtime::Camera* _pCamera);
+	void SetCamera(Camera* _pCamera);
 
 	// カメラのコントローラーを設定する
 	void SetCameraController(CameraController_3D* _pController);
 
 	// カメラのターゲットとなるモデルを追加する
-	void AddTargetModel(Runtime::Model* _orbitTarget);
+	void AddTargetModel(Model* _orbitTarget);
 	// カメラのターゲットとなるモデルをベクターから削除する
-	void RemoveTargetModel(Runtime::Model* _orbitTarget);
+	void RemoveTargetModel(Model* _orbitTarget);
 
 private:
 	// フリーカメラモードの内容を設定する
@@ -43,12 +43,12 @@ private:
 	Vector3f m_cameraRotation;
 
 	// カメラ
-	Runtime::Camera* m_pCamera;
+	Camera* m_pCamera;
 	// カメラのコントローラー
 	CameraController_3D* m_pCameraController;
 
 	// 注視する目標となるモデル
-	Runtime::Model* m_pFocusTargetModel;
+	Model* m_pFocusTargetModel;
 
 	// ---------------------------
 	// カメラモードを記録するプロパティ
@@ -76,7 +76,7 @@ private:
 	float m_orbitDistance;
 
 	// オービットターゲットとなるモデル
-	Runtime::Model* m_pOrbitTargetModel;
+	Model* m_pOrbitTargetModel;
 	// コントロール対象となるモデル
-	std::vector<Runtime::Model*> m_models;
+	std::vector<Model*> m_models;
 };

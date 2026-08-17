@@ -1,11 +1,13 @@
 ﻿#pragma once
 
+// マネージャークラスをインクルード
 #include "Render/RenderManager.h"
 #include "Assets/AssetsManager.h"
 #include "TimeManager.h"
 #include "Input/InputManager.h"
 #include "Collision/CollisionManager.h"
 #include "ImGui/ImGuiManager.h"
+#include "Scene/SceneManager.h"
 
 #include "App.h"
 
@@ -17,6 +19,8 @@
 #define Input_I Framework_I->GetInputManager()
 #define Collision_I Framework_I->GetCollisionManager()
 #define ImGui_I Framework_I->GetImGuiManager()
+
+#define Scene_I Framework_I->GetSceneManager()
 
 /*
 	フレームワークの重要機能を管理するためのクラス
@@ -64,6 +68,9 @@ public:
 
 	// ImGuiマネージャーを取得する
 	ImGuiManager* GetImGuiManager();
+
+	// シーンマネージャーを取得する
+	SceneManager* GetSceneManager();
 private:
 	// 描画関連処理のマネージャー
 	Render::RenderManager m_renderManager;
@@ -78,7 +85,10 @@ private:
 
 	// 衝突判定のマネージャー
 	CollisionManager m_collisionManager;
-	
+
 	// ImGui関連処理のマネージャー
 	ImGuiManager m_ImGuiManager;
+
+	// シーンを管理するマネージャー
+	SceneManager m_sceneManager;
 };

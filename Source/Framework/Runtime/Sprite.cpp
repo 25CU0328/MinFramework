@@ -4,7 +4,7 @@
 #include "Framework/Framework.h"
 
 // コンストラクタ
-Runtime::Sprite::Sprite()
+Sprite::Sprite()
 	: m_position(Vector2(0.0f, 0.0f))
 	, m_size(Vector2f(0.0f, 0.0f))
 	, m_rotation(0)
@@ -12,13 +12,13 @@ Runtime::Sprite::Sprite()
 
 }
 // デストラクター
-Runtime::Sprite::~Sprite()
+Sprite::~Sprite()
 {
 
 }
 
 // 初期化処理
-void Runtime::Sprite::Init(
+void Sprite::Init(
 	const Vector2f _size,
 	const Vector2f _position,
 	const std::string _texturePath,
@@ -47,7 +47,7 @@ void Runtime::Sprite::Init(
 	_initBuffers();
 }
 // 初期化処理
-void Runtime::Sprite::Init(
+void Sprite::Init(
 	const float _sizeX,
 	const float _sizeY,
 	const float _positionX,
@@ -70,41 +70,41 @@ void Runtime::Sprite::Init(
 }
 
 // スプライトを描画する
-void Runtime::Sprite::Draw()
+void Sprite::Draw()
 {
 	// レンダリングを要求する
 	Render_I->QueueRender(this);
 }
 
 // テクスチャを設定する
-void Runtime::Sprite::SetTexture(Render::Texture* const _pNewTexture)
+void Sprite::SetTexture(Render::Texture* const _pNewTexture)
 {
 	m_material.SetTexture(_pNewTexture);
 }
 
 // 位置を設定する
-void Runtime::Sprite::SetPosition(const Vector2f& _position)
+void Sprite::SetPosition(const Vector2f& _position)
 {
 	m_position = _position;
 }
 // 位置を設定する
-void Runtime::Sprite::SetPosition(const float _x, const float _y)
+void Sprite::SetPosition(const float _x, const float _y)
 {
 	m_position.x = _x;
 	m_position.y = _y;
 }
 // 回転角度を設定する
-void Runtime::Sprite::SetRotation(const int _degree)
+void Sprite::SetRotation(const int _degree)
 {
 	m_rotation = _degree;
 }
 // サイズを設定する
-void Runtime::Sprite::SetSize(const Vector2f& _size)
+void Sprite::SetSize(const Vector2f& _size)
 {
 	m_size = _size;
 }
 // サイズを設定する
-void Runtime::Sprite::SetSize(const float _x, const float _y)
+void Sprite::SetSize(const float _x, const float _y)
 {
 	m_size.x = _x;
 	m_size.y = _y;
@@ -112,23 +112,23 @@ void Runtime::Sprite::SetSize(const float _x, const float _y)
 
 
 // 位置を取得する
-Vector2f Runtime::Sprite::GetPosition() const
+Vector2f Sprite::GetPosition() const
 {
 	return m_position;
 }
 // サイズを取得する
-Vector2f Runtime::Sprite::GetSize() const
+Vector2f Sprite::GetSize() const
 {
 	return m_size;
 }
 // 回転角度(逆時計回り)を取得する
-int Runtime::Sprite::GetRotation() const
+int Sprite::GetRotation() const
 {
 	return m_rotation;
 }
 
 // テクスチャの表示範囲を指定する
-void Runtime::Sprite::SetTextureRange(
+void Sprite::SetTextureRange(
 	const float _x,
 	const float _y,
 	const float _width,
@@ -153,7 +153,7 @@ void Runtime::Sprite::SetTextureRange(
 }
 
 // レンダリング用のデータを取得する
-RenderData Runtime::Sprite::GetData()
+RenderData Sprite::GetData()
 {
 	RenderData data = {};
 	data.vertexBufferView = m_vertexBuffer.GetView();
@@ -165,7 +165,7 @@ RenderData Runtime::Sprite::GetData()
 	return data;
 }
 
-DirectX::XMMATRIX Runtime::Sprite::GetTransformMatrix() const
+DirectX::XMMATRIX Sprite::GetTransformMatrix() const
 {
 	XMMATRIX scaleMatrix = DirectX::XMMatrixScaling(
 		m_size.x,
@@ -186,7 +186,7 @@ DirectX::XMMATRIX Runtime::Sprite::GetTransformMatrix() const
 	return scaleMatrix * rotateMatrix * translateMatrix;
 }
 
-void Runtime::Sprite::_initBuffers()
+void Sprite::_initBuffers()
 {
 	// メッシュデータ(Quad)の初期化
 	m_meshData.vertexDatas =

@@ -3,7 +3,7 @@
 using namespace Assets;
 
 // コンストラクタ
-AssetsManager::AssetsManager() 
+AssetsManager::AssetsManager()
 	: m_imageLoader()
 	, m_modelLoader()
 	, m_textureMap()
@@ -95,7 +95,7 @@ Runtime::Shader* AssetsManager::GetShader(std::string _filePath)
 	{
 		// ファイルに書いてあるデータを読み込む
 		ShaderData shaderData = FromJson<ShaderData>(_filePath);
-		
+
 		pShader = new Runtime::Shader();
 		// もし初期化が失敗したら
 		if (!pShader->Init(shaderData))

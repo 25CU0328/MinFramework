@@ -4,7 +4,7 @@
 #include "Framework/Framework.h"
 
 // 初期化処理
-bool Runtime::Shader::Init(ShaderData _shaderData)
+bool Shader::Init(ShaderData _shaderData)
 {
 	if (_shaderData.pixelShaderName == "" || _shaderData.vertexShaderName == "")
 	{
@@ -76,16 +76,18 @@ bool Runtime::Shader::Init(ShaderData _shaderData)
 		printf("[Shader]：Failed to Initialize pipelineState");
 		return false;
 	}
+
+	return true;
 }
 
 // ルートシグネチャーを取得する
-ID3D12RootSignature* Runtime::Shader::GetRootSignature()
+ID3D12RootSignature* Shader::GetRootSignature()
 {
 	return m_rootSignature.Get();
 }
 
 // パイプラインステートを取得する
-ID3D12PipelineState* Runtime::Shader::GetPipelineState()
+ID3D12PipelineState* Shader::GetPipelineState()
 {
 	return m_pipelineState.Get();
 }

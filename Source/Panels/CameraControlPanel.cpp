@@ -244,7 +244,9 @@ void CameraControlPanel::_setFreeModePanel()
 	{
 		if (m_pFocusTargetModel) 
 		{
-			m_pCameraController->SetLookAt(m_pFocusTargetModel->GetPosition());
+			m_pCameraController->SetLookAt(
+				m_pFocusTargetModel->GetTransform().GetWorldPosition()
+			);
 		}
 	}
 }

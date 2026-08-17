@@ -38,7 +38,7 @@ namespace Assets
 		/// <returns> モデルデータ </returns>
 		bool LoadModelFile(std::string _strFileName, ModelData& _outData);
 
-		
+
 
 		/// <summary>
 		/// テクスチャを取得する
@@ -46,7 +46,7 @@ namespace Assets
 		/// <param name="_filePath"> 画像のファイルパス </param>
 		/// <returns>取得したいテクスチャのポインター</returns>
 		Render::Texture* GetTexture(std::string _filePath);
-		
+
 		/// <summary>
 		/// テクスチャを取得する
 		/// </summary>
@@ -66,6 +66,17 @@ namespace Assets
 			return m_jsonLoader.LoadJson<T>(_filePath);
 		}
 
+		/// <summary>
+		/// Jsonファイルに構造体のデータを書き込む
+		/// </summary>
+		/// <typeparam name="T"> 構造体のデータ型 </typeparam>
+		/// <param name="_filePath"> ファイルパス </param>
+		/// <param name="_data"> 書き込みたいデータ </param>
+		template<typename T>
+		void WriteJsonFile(std::string _filePath, const T& _data)
+		{
+			return m_jsonLoader.WriteToJson<T>(_filePath, _data);
+		}
 	private:
 		/// <summary>
 		/// 画像ファイルの読み込み

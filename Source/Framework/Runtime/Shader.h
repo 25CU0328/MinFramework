@@ -8,24 +8,23 @@
 
 #include <d3d12.h>
 
-namespace Runtime{
-	class Shader
-	{
-	public:
-		// 初期化処理
-		bool Init(ShaderData _shaderData);
 
-		// ルートシグネチャーを取得する
-		ID3D12RootSignature* GetRootSignature();
+class Shader
+{
+public:
+	// 初期化処理
+	bool Init(ShaderData _shaderData);
 
-		// パイプラインステートを取得する
-		ID3D12PipelineState* GetPipelineState();
+	// ルートシグネチャーを取得する
+	ID3D12RootSignature* GetRootSignature();
 
-	private:
-		Render::ShaderByteCode m_vsByteCode;
-		Render::ShaderByteCode m_psByteCode;
+	// パイプラインステートを取得する
+	ID3D12PipelineState* GetPipelineState();
 
-		Render::RootSignature m_rootSignature;
-		Render::PipelineState m_pipelineState;
-	};
-}
+private:
+	Render::ShaderByteCode m_vsByteCode;
+	Render::ShaderByteCode m_psByteCode;
+
+	Render::RootSignature m_rootSignature;
+	Render::PipelineState m_pipelineState;
+};

@@ -1,6 +1,6 @@
 ﻿
 #include "Mesh.h"
-using namespace Runtime;
+
 
 #include "DirectXMath.h"
 using namespace DirectX;

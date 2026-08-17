@@ -2,6 +2,11 @@
 
 #include <string>
 
+#include <DirectXMath.h>
+
+// jsonにシリアライズをするためにインクルード
+#include "nlohmann/json.hpp"
+
 template <class T>
 class Vector3
 {
@@ -10,7 +15,7 @@ public:
 	T y;
 	T z;
 
-// コンストラクタ
+	// コンストラクタ
 public:
 	Vector3() noexcept :x((T)0), y((T)0), z((T)0) {}
 	Vector3(T _x, T _y, T _z) noexcept :x(_x), y(_y), z(_z) {}
@@ -18,28 +23,47 @@ public:
 	// 方向ベクトル
 public:
 	// 右方向
-	static Vector3<T> Right()	{ 
+	static Vector3<T> Right() {
 		return Vector3<T>(
-			static_cast<T>(1), 
-			static_cast<T>(0), 
+			static_cast<T>(1),
+			static_cast<T>(0),
 			static_cast<T>(0)
-		); 
+		);
 	}
 	// 前方向
-	static Vector3<T> Forward() { 
+	static Vector3<T> Forward() {
 		return Vector3<T>(
 			static_cast<T>(0),
 			static_cast<T>(0),
 			static_cast<T>(1)
-		); 
+		);
 	}
 	// 上方向
-	static Vector3<T> Up()		{ 
+	static Vector3<T> Up() {
 		return Vector3<T>(
 			static_cast<T>(0),
 			static_cast<T>(1),
 			static_cast<T>(0)
-		); 
+		);
+	}
+
+	// DirectXのXMVECTORからキャストする
+	static Vector3<T> FromXMVector(const DirectX::XMVECTOR& _vector) {
+		return Vector3<T>(
+			static_cast<T>(DirectX::XMVectorGetX(_vector)),
+			static_cast<T>(DirectX::XMVectorGetY(_vector)),
+			static_cast<T>(DirectX::XMVectorGetZ(_vector))
+		);
+	}
+
+	// DirectXのXMVECTORにキャストする
+	static DirectX::XMVECTOR ToXMVector(const Vector3<T>& _vector) {
+		return DirectX::XMVectorSet(
+			static_cast<float>(_vector.x),
+			static_cast<float>(_vector.y),
+			static_cast<float>(_vector.z),
+			1.0f
+		);
 	}
 
 public:
@@ -58,7 +82,7 @@ public:
 	// DirectXのXMFLOAT3にキャストする
 	DirectX::XMFLOAT3 ToXMFloat3() const noexcept;
 
-// オペレーターオーバーロード
+	// オペレーターオーバーロード
 public:
 	Vector3<T> operator+(const Vector3<T>& _vector) const noexcept;
 	Vector3<T> operator-(const Vector3<T>& _vector) const noexcept;
@@ -69,8 +93,8 @@ public:
 	Vector3<T>& operator-=(const Vector3<T>& _vector) noexcept;
 	Vector3<T>& operator*=(const T& _scale) noexcept;
 	Vector3<T>& operator/=(const T& _scale) noexcept;
-	bool operator==(const Vector3<T>& _vector) noexcept;
-	bool operator!=(const Vector3<T>& _vector) noexcept;
+	bool operator==(const Vector3<T>& _vector) const noexcept;
+	bool operator!=(const Vector3<T>& _vector) const noexcept;
 
 };
 
@@ -103,8 +127,8 @@ inline Vector3<T> Vector3<T>::GetNormalized()const noexcept {
 	}
 	else {
 		return Vector3<T>(
-			static_cast<T>(0), 
-			static_cast<T>(0), 
+			static_cast<T>(0),
+			static_cast<T>(0),
 			static_cast<T>(0)
 		);
 	}
@@ -264,7 +288,7 @@ inline Vector3<T>& Vector3<T>::operator/=(const T& _scale) noexcept {
 
 // ==オペレーターオペレーター
 template<typename T>
-inline bool Vector3<T>::operator==(const Vector3<T>& _vector) noexcept {
+inline bool Vector3<T>::operator==(const Vector3<T>& _vector) const noexcept {
 	return fabs(x - _vector.x) <= (T)1e-6
 		&& fabs(y - _vector.y) <= (T)1e-6
 		&& fabs(z - _vector.z) <= (T)1e-6;
@@ -272,7 +296,7 @@ inline bool Vector3<T>::operator==(const Vector3<T>& _vector) noexcept {
 
 // !=オペレーターオペレーター
 template<typename T>
-inline bool Vector3<T>::operator!=(const Vector3<T>& _vector) noexcept {
+inline bool Vector3<T>::operator!=(const Vector3<T>& _vector) const noexcept {
 	return fabs(x - _vector.x) > (T)1e-6
 		&& fabs(y - _vector.y) > (T)1e-6
 		&& fabs(z - _vector.z) > (T)1e-6;
@@ -280,7 +304,12 @@ inline bool Vector3<T>::operator!=(const Vector3<T>& _vector) noexcept {
 
 #pragma endregion
 
-//汎用ベクトル2次元ベクトル型定義
+//汎用ベクトル3次元ベクトル型定義
 using Vector3f = Vector3<float>;
 using Vector3i = Vector3<int>;
 using Vector3d = Vector3<double>;
+
+// シリアライズするためのマクロ
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(Vector3f, x, y, z)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(Vector3i, x, y, z)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(Vector3d, x, y, z)

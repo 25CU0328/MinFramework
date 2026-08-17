@@ -84,9 +84,9 @@ bool Render::Texture::Init(const ImageData& _imageData)
 	result = m_pResource->WriteToSubresource(
 		0,
 		nullptr,
-		image->pixels,		
-		image->rowPitch,	// 1ラインサイズ
-		image->slicePitch	// 1枚サイズ
+		image->pixels,
+		(UINT)image->rowPitch,	// 1ラインサイズ
+		(UINT)image->slicePitch	// 1枚サイズ
 	);
 
 	if (FAILED(result))

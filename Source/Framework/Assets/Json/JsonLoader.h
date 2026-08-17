@@ -17,9 +17,9 @@ namespace Assets
 
 	public:
 		// コンストラクタ
-		JsonLoader(){}
+		JsonLoader() {}
 		// デストラクター
-		~JsonLoader(){}
+		~JsonLoader() {}
 
 		/// <summary>
 		/// Jsonファイルから構造体のメンバーごとの値を読み込む
@@ -32,10 +32,30 @@ namespace Assets
 		{
 			std::ifstream file(_filePath);
 
-			nlohmann::basic_json jsonFile;
-			file >> jsonFile;
+			nlohmann::basic_json jsonData;
+			file >> jsonData;
 
-			return jsonFile.get<T>();
+			return jsonData.get<T>();
+		}
+
+		/// <summary>
+		/// データをJSONファイルを上書き・保存する
+		/// </summary>
+		/// <typeparam name="T"> 上書き・保存したいデータのデータ型 </typeparam>
+		/// <param name="_filePath"> 上書き・保存したいファイルパス </param>
+		/// <param name="_newData"> 上書き・保存したいデータ </param>
+		template<typename T>
+		void WriteToJson(const std::string& _filePath, const T& _data)
+		{
+			// 構造体メンバーをJsonDataに代入
+			nlohmann::basic_json jsonData;
+			jsonData = _data;
+
+			// 出力ファイルを開く
+			std::ofstream file(_filePath);
+
+			// ファイルを上書き・保存する
+			file << jsonData;
 		}
 	};
 }

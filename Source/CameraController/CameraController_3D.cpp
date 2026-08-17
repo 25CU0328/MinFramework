@@ -229,11 +229,11 @@ void CameraController_3D::_updateOrbitCamera(bool isUpdateOnSetup)
 	float rotateSpeed = DegToRad(m_cameraRotateSpeed) * (float)Time_I->GetDeltaTime();
 
 	// オービット時のターゲットの位置
-	Vector3f modelPos = m_pOrbitTarget->GetPosition();
+	Vector3f modelPos = m_pOrbitTarget->GetTransform().GetWorldPosition();
 
 	// カメラ回転・位置
-	Vector3f cameraRot = m_pCamera->GetRotationEuler();
-	Vector3f cameraPos = m_pCamera->GetPosition();
+	Vector3f cameraRot = m_pCamera->GetTransform().GetLocalRotation().ToEuler();
+	Vector3f cameraPos = m_pCamera->GetTransform().GetWorldPosition();
 
 	// -----------
 	// カメラ回転処理

@@ -17,52 +17,57 @@ void ModelControlPanel::Init(const char* _panelName)
 void ModelControlPanel::Render()
 {
 	ImGuiPanel::Render();
-	 
+
 	ImGui::Begin(m_panelName);
-	
+
 	// 選択されたモデルがある場合
 	if (m_pSelectedModel)
 	{
-		m_modelPosition = m_pSelectedModel->GetPosition();
+		m_modelPosition = m_pSelectedModel->GetTransform().GetWorldPosition();
 
 		// 回転を取得し、角度に転換する
-		Vector3f rotationEuler = m_pSelectedModel->GetRotationEuler();
-		rotationEuler.x = DegToRad(rotationEuler.x);
-		rotationEuler.y = DegToRad(rotationEuler.y);
-		rotationEuler.z = DegToRad(rotationEuler.z);
+		Vector3f rotationEuler = m_pSelectedModel->GetTransform().GetLocalRotation().ToEuler();
+		rotationEuler.x = RadToDeg(rotationEuler.x);
+		rotationEuler.y = RadToDeg(rotationEuler.y);
+		rotationEuler.z = RadToDeg(rotationEuler.z);
 		m_modelRotation = rotationEuler;
 
-		m_modelScale = m_pSelectedModel->GetScale();
+		m_modelScale = m_pSelectedModel->GetTransform().GetLocalScale();
 	}
 
 	// 位置をコントロールするスライダーの設定
 	ImGui::Text("位置");
-	if(ImGui::SliderFloat3("Position:", &m_modelPosition.x, -100.0f, 100.0f) && m_pSelectedModel)
+	if (ImGui::SliderFloat3("Position:", &m_modelPosition.x, -100.0f, 100.0f) && m_pSelectedModel)
 	{
-		m_pSelectedModel->SetPosition(m_modelPosition);
+		m_pSelectedModel->GetTransform().SetWorldPosition(m_modelPosition);
 	}
 
 	// 回転をコントロールするスライダーの設定
 	ImGui::Text("回転");
-	if (ImGui::SliderFloat3("Rotation:", &m_modelRotation.x, 0.0f, 360.0f) && m_pSelectedModel)
+	if (ImGui::SliderFloat3("Rotation:", &m_modelRotation.x, -180.0f, 180.0f) && m_pSelectedModel)
 	{
+		// 回転角度をラジアンに変換する
 		m_modelRotation.x = DegToRad(m_modelRotation.x);
 		m_modelRotation.y = DegToRad(m_modelRotation.y);
 		m_modelRotation.z = DegToRad(m_modelRotation.z);
-		m_pSelectedModel->SetRotationEuler(m_modelRotation);
+
+		// 回転を設定する
+		m_pSelectedModel->GetTransform().SetLocalRotation(
+			Quaternion::FromEuler(m_modelRotation)
+		);
 	}
 
 	// スケールをコントロールするスライダーの設定
 	ImGui::Text("スケール");
 	if (ImGui::SliderFloat3("Scale:", &m_modelScale.x, 0.5, 5.0) && m_pSelectedModel)
 	{
-		m_pSelectedModel->SetScale(m_modelScale);
+		m_pSelectedModel->GetTransform().SetLocalScale(m_modelScale);
 	}
 
 	ImGui::Text("操作対象");
 	if (ImGui::BeginCombo(
 		"モデル：",
-		m_pSelectedModel ? 
+		m_pSelectedModel ?
 		m_pSelectedModel->GetName().c_str() : "None"
 	))
 	{

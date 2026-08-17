@@ -1,8 +1,12 @@
 ﻿#pragma once
 
-#include <cmath>
 #include "string"
 #include "Math.h"
+
+#include <DirectXMath.h>
+
+// jsonにシリアライズをするためにインクルード
+#include "nlohmann/json.hpp"
 
 template <class T>
 class Vector2
@@ -43,7 +47,7 @@ public:
 	bool operator!=(const Vector2<T>& _vector) noexcept;
 
 
-	
+
 };
 
 // ベクトルの距離を取得する
@@ -84,7 +88,7 @@ inline Vector2<T> Vector2<T>::GetRotated(float _degree) const noexcept
 	float radian = DegToRad(_degree);
 	float sin = std::sin(radian);
 	float cos = std::cos(radian);
-	
+
 	return Vector2<T>(
 		x * static_cast<T>(cos) - y * static_cast<T>(sin),
 		y * static_cast<T>(sin) + x * static_cast<T>(cos)
@@ -222,3 +226,8 @@ Vector2<T> Lerp(
 using Vector2f = Vector2<float>;
 using Vector2i = Vector2<int>;
 using Vector2d = Vector2<double>;
+
+// シリアライズするためのマクロ
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(Vector2f, x, y)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(Vector2i, x, y)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(Vector2d, x, y)

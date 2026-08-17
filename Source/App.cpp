@@ -52,7 +52,7 @@ void App::Init()
 		// オブジェクト名を設定する
 		chairModel.SetName("Chair");
 		// 位置を設定する
-		chairModel.SetPosition(Vector3f(0.0f, 1.0f, 0.0f));
+		chairModel.GetTransform().SetWorldPosition(Vector3f(0.0f, 1.0f, 0.0f));
 		// モデル操作パネルに追加する
 		modelControlPanel.AddControlTarget(&chairModel);
 		// カメラ操作パネルに追加する
@@ -67,7 +67,7 @@ void App::Init()
 		// オブジェクト名を設定する
 		cubeModel.SetName("Cube");
 		// 位置を設定する
-		cubeModel.SetPosition(Vector3f(0.0f, 10.0f, 0.0f));
+		cubeModel.GetTransform().SetWorldPosition(Vector3f(0.0f, 10.0f, 0.0f));
 		// モデル操作パネルに追加する
 		modelControlPanel.AddControlTarget(&cubeModel);
 		// カメラ操作パネルに追加する
@@ -84,7 +84,7 @@ void App::Init()
 		// テクスチャを設定する
 		coneModel.SetTexture(Assets_I->GetTexture("Assets/Images/Wood.png"));
 		// 位置を設定する
-		coneModel.SetPosition(Vector3f(10.0f, 10.0f, 0.0f));
+		coneModel.GetTransform().SetWorldPosition(Vector3f(10.0f, 10.0f, 0.0f));
 		// モデル操作パネルに追加する
 		modelControlPanel.AddControlTarget(&coneModel);
 		// カメラ操作パネルに追加する

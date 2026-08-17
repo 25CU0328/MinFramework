@@ -1,6 +1,5 @@
 ﻿
 #include "Camera.h"
-using namespace Runtime;
 
 #include "AppDef.h"
 using namespace DirectX;

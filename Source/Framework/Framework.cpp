@@ -114,3 +114,9 @@ ImGuiManager* Framework::GetImGuiManager()
 {
 	return &m_ImGuiManager;
 }
+
+// シーンマネージャーを取得する
+SceneManager* Framework::GetSceneManager()
+{
+	return &m_sceneManager;
+}

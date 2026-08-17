@@ -2,7 +2,7 @@
 #include "RenderObject.h"
 
 // コンストラクタ
-Runtime::RenderObject::RenderObject()
+RenderObject::RenderObject()
 	: m_vertexBuffer()
 	, m_indexBuffer()
 	, m_constantBuffer()
@@ -11,32 +11,32 @@ Runtime::RenderObject::RenderObject()
 
 }
 // デストラクター
-Runtime::RenderObject::~RenderObject()
+RenderObject::~RenderObject()
 {
 
 }
 
 // レンダリング用のデータを取得する
-RenderData Runtime::RenderObject::GetData()
+RenderData RenderObject::GetData()
 {
 	return RenderData();
 }
 
 // ワールド行列を取得する
-DirectX::XMMATRIX Runtime::RenderObject::GetTransformMatrix() const
+DirectX::XMMATRIX RenderObject::GetTransformMatrix() const
 {
 	return DirectX::XMMatrixIdentity();
 }
 
 
 // 描画の優先順位を設定する
-void Runtime::RenderObject::SetRenderPriority(const int _priority)
+void RenderObject::SetRenderPriority(const int _priority)
 {
 	m_renderPriority = _priority;
 }
 
 // 描画の優先順位を取得する
-int Runtime::RenderObject::GetRenderPriority() const
+int RenderObject::GetRenderPriority() const
 {
 	return m_renderPriority;
 }

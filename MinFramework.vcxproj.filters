@@ -73,6 +73,9 @@
     <Filter Include="ソース ファイル\CameraController">
       <UniqueIdentifier>{27de8f6e-5f03-4463-9701-c2ffbffc33ba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Scene">
+      <UniqueIdentifier>{60756a7d-896a-40ce-ad6e-4dd1b00f262e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\App.cpp">
@@ -218,6 +221,9 @@
     </ClCompile>
     <ClCompile Include="Source\Framework\Runtime\Transform.cpp">
       <Filter>Framework\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Editor\Scene\SceneManager.cpp">
+      <Filter>Framework\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -424,6 +430,15 @@
     </ClInclude>
     <ClInclude Include="Source\Framework\Runtime\Transform.h">
       <Filter>Framework\Runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Editor\Scene\SceneManager.h">
+      <Filter>Framework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Assets\AssetData\GameObjectData.h">
+      <Filter>Framework\Assets\AssetData</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Assets\AssetData\SceneData.h">
+      <Filter>Framework\Assets\AssetData</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

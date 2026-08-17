@@ -6,7 +6,7 @@
 #include "Framework/Assets/AssetData/MaterialData.h"
 
 // 初期化処理
-bool Runtime::Material::Init(std::string _filePath)
+bool Material::Init(std::string _filePath)
 {
 	MaterialData materialData = Assets_I->FromJson<MaterialData>(_filePath);
 
@@ -33,19 +33,19 @@ bool Runtime::Material::Init(std::string _filePath)
 }
 
 // テクスチャを取得する
-Render::Texture* Runtime::Material::GetTexture() const
+Render::Texture* Material::GetTexture() const
 {
 	return m_pMainTexture;
 }
 
 // メインテクスチャを設定する
-void Runtime::Material::SetTexture(Render::Texture* const _pNewTexture)
+void Material::SetTexture(Render::Texture* const _pNewTexture)
 {
 	m_pMainTexture = _pNewTexture;
 }
 
 // シェーダーを取得する
-Runtime::Shader* Runtime::Material::GetShader() const
+Shader* Material::GetShader() const
 {
 	return m_pShader;
 }

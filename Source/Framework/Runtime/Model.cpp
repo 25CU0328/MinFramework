@@ -1,6 +1,5 @@
 ﻿
 #include "Model.h"
-using namespace Runtime;
 
 #include "Framework/Framework.h"
 #include "Framework/Math/Math.h"
@@ -24,16 +23,13 @@ bool Model::Init(
 		}
 	}
 
-	m_scale = Vector3(1.0f, 1.0f, 1.0f);
-	m_rotation = Quaternion::Identity();
-
 	return true;
 }
 
 // メッシュを描画する
 void Model::Draw()
 {
-	XMMATRIX matrix = GetTransformMatrix();
+	XMMATRIX matrix = GetTransform().GetWorldMatrix();
 	
 	for (Mesh* pMesh : m_pMeshes)
 	{
@@ -52,34 +48,6 @@ void Model::SetTexture(Render::Texture* const _pTexture)
 	{
 		pMesh->SetTexture(_pTexture);
 	}
-}
-
-// 座標変換用の行列を取得する
-XMMATRIX Model::GetTransformMatrix() const
-{
-	// スケーリング行列
-	XMMATRIX scaleMatrix = XMMatrixScaling(
-		m_scale.x,
-		m_scale.y,
-		m_scale.z
-	);
-	
-	// 回転行列
-	Vector3f rotationEuler = m_rotation.ToEuler();
-	XMMATRIX rotationMatrix = XMMatrixRotationRollPitchYaw(
-		rotationEuler.x,
-		rotationEuler.y,
-		rotationEuler.z
-	);
-
-	// 平行移動行列
-	XMMATRIX translateMatrix = XMMatrixTranslation(
-		m_position.x,
-		m_position.y,
-		m_position.z
-	);
-
-	return scaleMatrix * rotationMatrix * translateMatrix;
 }
 
 // 描画の優先順位を設定する

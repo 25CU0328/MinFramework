@@ -157,6 +157,7 @@
     <ClCompile Include="Source\Framework\Collision\Collider\RectCollider.cpp" />
     <ClCompile Include="Source\Framework\Collision\Collider\Collider.cpp" />
     <ClCompile Include="Source\Framework\Collision\CollisionManager.cpp" />
+    <ClCompile Include="Source\Framework\Editor\Scene\SceneManager.cpp" />
     <ClCompile Include="Source\Framework\Framework.cpp" />
     <ClCompile Include="Source\Framework\ImGui\ImGuiManager.cpp" />
     <ClCompile Include="Source\Framework\ImGui\ImGuiPanel.cpp" />
@@ -204,7 +205,9 @@
     <ClInclude Include="Source\AppDef.h" />
     <ClInclude Include="Source\CameraController\CameraController.h" />
     <ClInclude Include="Source\CameraController\CameraController_3D.h" />
+    <ClInclude Include="Source\Framework\Assets\AssetData\GameObjectData.h" />
     <ClInclude Include="Source\Framework\Assets\AssetData\MaterialData.h" />
+    <ClInclude Include="Source\Framework\Assets\AssetData\SceneData.h" />
     <ClInclude Include="Source\Framework\Assets\AssetData\ShaderData.h" />
     <ClInclude Include="Source\Framework\Assets\AssetsManager.h" />
     <ClInclude Include="Source\Framework\Assets\Image\ImageData.h" />
@@ -217,6 +220,7 @@
     <ClInclude Include="Source\Framework\Collision\Collider\ColliderType.h" />
     <ClInclude Include="Source\Framework\Collision\CollisionEvent.h" />
     <ClInclude Include="Source\Framework\Collision\CollisionManager.h" />
+    <ClInclude Include="Source\Framework\Editor\Scene\SceneManager.h" />
     <ClInclude Include="Source\Framework\Framework.h" />
     <ClInclude Include="Source\Framework\ImGui\ImGuiManager.h" />
     <ClInclude Include="Source\Framework\ImGui\ImGuiPanel.h" />
