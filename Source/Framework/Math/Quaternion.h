@@ -34,12 +34,19 @@ public:
         const Vector3f& _targetPosition,    // 目標の位置
         const Quaternion& _currentRotation  // 自身の回転
     );
-    
+
     // 特定の方向を軸としての回転を取得する
     static Quaternion GetRotationFromAxis(
         const Vector3f& _axis,
         const float& angle
     );
+
+	// XMVectorからクォータニオンを作る
+	static Quaternion FromXMVector(const DirectX::XMVECTOR& _vector);
+
+	// クォータニオンからXMVectorを作る
+	static DirectX::XMVECTOR ToXMVector(const Quaternion& _quaternion);
+
 public:
     // オイラー角にキャストする
     Vector3f ToEuler() const;
@@ -54,6 +61,9 @@ public:
     // 上方向ベクトルを取得する
     Vector3f GetUp() const;
 
+    // クォータニオンの逆回転を取得
+    Quaternion GetInverse() const;
+
     // クォータニオンの乗算
     Quaternion operator*(const Quaternion& rhs) const;
 public:
@@ -62,8 +72,6 @@ public:
     float z;
     float w;
 
-private:
-    // XMVECTORにキャストする
-    DirectX::XMVECTOR _toXMVector() const;
-    Quaternion _fromXMVector(const DirectX::XMVECTOR& _XMVector) const;
 };
+
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(Quaternion, x, y, z, w)
