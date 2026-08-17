@@ -71,7 +71,7 @@ void ModelControlPanel::Render()
 		m_pSelectedModel->GetName().c_str() : "None"
 	))
 	{
-		for (Runtime::Model* pModel : m_models)
+		for (Model* pModel : m_models)
 		{
 			bool isSelected = (m_pSelectedModel == pModel);
 
@@ -93,7 +93,7 @@ void ModelControlPanel::Render()
 }
 
 // コントロールする対象を追加する
-void ModelControlPanel::AddControlTarget(Runtime::Model* _pModel)
+void ModelControlPanel::AddControlTarget(Model* _pModel)
 {
 	auto iterator = std::find(m_models.begin(), m_models.end(), _pModel);
 
@@ -109,7 +109,7 @@ void ModelControlPanel::AddControlTarget(Runtime::Model* _pModel)
 }
 
 // コントロールする対象を記録から削除する
-void ModelControlPanel::RemoveControlTarget(Runtime::Model* _pModel)
+void ModelControlPanel::RemoveControlTarget(Model* _pModel)
 {
 	auto iterator = std::find(m_models.begin(), m_models.end(), _pModel);
 

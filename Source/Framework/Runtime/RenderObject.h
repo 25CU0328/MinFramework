@@ -36,7 +36,7 @@ protected:
 	Render::IndexBuffer		m_indexBuffer;		// インデックスバッファー
 	Render::ConstantBuffer	m_constantBuffer;	// 定数バッファー
 
-	Runtime::Material		m_material;			// マテリアル
+	Material		m_material;			// マテリアル
 
 private:
 

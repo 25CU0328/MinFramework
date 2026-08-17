@@ -84,7 +84,7 @@ void CameraControlPanel::Render()
 }
 
 // カメラを設定する
-void CameraControlPanel::SetCamera(Runtime::Camera* _pCamera)
+void CameraControlPanel::SetCamera(Camera* _pCamera)
 {
 	m_pCamera = _pCamera;
 }
@@ -96,7 +96,7 @@ void CameraControlPanel::SetCameraController(CameraController_3D* const _pContro
 }
 
 // カメラのターゲットとなるモデルを追加する
-void CameraControlPanel::AddTargetModel(Runtime::Model* _pTargetModel)
+void CameraControlPanel::AddTargetModel(Model* _pTargetModel)
 {
 	// 引数はヌルポインタの場合、処理しない
 	if (_pTargetModel == nullptr || _pTargetModel->GetName() == "")
@@ -123,7 +123,7 @@ void CameraControlPanel::AddTargetModel(Runtime::Model* _pTargetModel)
 }
 
 // カメラのターゲットとなるモデルをベクターから削除する
-void CameraControlPanel::RemoveTargetModel(Runtime::Model* _pTargetModel)
+void CameraControlPanel::RemoveTargetModel(Model* _pTargetModel)
 {
 	// 引数はヌルポインタの場合、処理しない
 	if (_pTargetModel == nullptr)
@@ -141,7 +141,7 @@ void CameraControlPanel::RemoveTargetModel(Runtime::Model* _pTargetModel)
 		auto iterator = std::find_if_not(
 			m_models.begin(),
 			m_models.end(),
-			[](Runtime::Model* pModel) { return pModel == nullptr; }
+			[](Model* pModel) { return pModel == nullptr; }
 		);
 
 		// ヌルじゃないモデルポインタがあったら
@@ -163,7 +163,7 @@ void CameraControlPanel::RemoveTargetModel(Runtime::Model* _pTargetModel)
 		auto iterator = std::find_if_not(
 			m_models.begin(),
 			m_models.end(),
-			[](Runtime::Model* pModel) { return pModel == nullptr; }
+			[](Model* pModel) { return pModel == nullptr; }
 		);
 
 		// ヌルじゃないモデルポインタがあったら
@@ -214,7 +214,7 @@ void CameraControlPanel::_setFreeModePanel()
 		m_pFocusTargetModel->GetName().c_str() : "None"
 	))
 	{
-		for (Runtime::Model* pModel : m_models)
+		for (Model* pModel : m_models)
 		{
 			if (pModel == nullptr)
 				continue;
@@ -261,7 +261,7 @@ void CameraControlPanel::_setOrbitModePanel()
 		m_pOrbitTargetModel ? m_pOrbitTargetModel->GetName().c_str() : "None"
 	))
 	{
-		for (Runtime::Model* pModel : m_models)
+		for (Model* pModel : m_models)
 		{
 			if (pModel == nullptr)
 				continue;

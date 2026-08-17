@@ -18,9 +18,9 @@ public:
 	void Render();
 
 	// コントロールする対象を追加する
-	void AddControlTarget(Runtime::Model* _pModel);
+	void AddControlTarget(Model* _pModel);
 	// コントロールする対象を記録から削除する
-	void RemoveControlTarget(Runtime::Model* _pModel);
+	void RemoveControlTarget(Model* _pModel);
 
 private:
 	// モデルの位置
@@ -31,7 +31,7 @@ private:
 	Vector3f m_modelRotation;
 
 	// 選択されたモデル
-	Runtime::Model* m_pSelectedModel;
+	Model* m_pSelectedModel;
 	// コントロール対象となるモデル
-	std::vector<Runtime::Model*> m_models;
+	std::vector<Model*> m_models;
 };
