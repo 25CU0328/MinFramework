@@ -44,7 +44,7 @@ namespace Render
 		/// インデックスビューを取得する
 		/// </summary>
 		/// <returns> インデックスビュー </returns>
-		D3D12_INDEX_BUFFER_VIEW& GetView();
+		const D3D12_INDEX_BUFFER_VIEW& GetView() const;
 
 	private:
 		// インデックスバッファーの本体

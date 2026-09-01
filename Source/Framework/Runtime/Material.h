@@ -17,10 +17,19 @@ public:
 	// メインテクスチャを設定する
 	void SetTexture(Render::Texture* const _pNewTexture);
 
+	// マテリアルのファイルパスを取得する
+	std::string GetFilePath() const;
+
 	// シェーダーを取得する
 	Shader* GetShader() const;
-		
+	
+	// 現在のマテリアルデータをファイルに保存する
+	void SaveToFile() const;
 protected:
+	// マテリアル名
+	std::string m_filePath;
+	// マテリアルに使われるテクスチャ
 	Render::Texture* m_pMainTexture;
+	// マテリアルに使われるシェーダー
 	Shader* m_pShader;
 };

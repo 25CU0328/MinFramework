@@ -9,9 +9,6 @@ using namespace DirectX;
 #include <string>
 // コンストラクタ
 Mesh::Mesh()
-    : m_position(0, 0, 0)
-    , m_rotation(0, 0, 0)
-    , m_scale(1, 1, 1)
 {
     
 }
@@ -25,10 +22,10 @@ Mesh::~Mesh()
 // 初期化処理
 bool Mesh::Init(
     ID3D12Device* _pDevice, 
-    MeshData& _data,
-    std::string _materialName
+    MeshData& _data
 )
 {
+    // バーテックスデータの初期化
     if (!m_vertexBuffer.Init(
         _pDevice,
         _data.vertexDatas.size(),
@@ -40,6 +37,7 @@ bool Mesh::Init(
         return false;
     }
 
+    // インデックスバッファーの初期化
     if (!m_indexBuffer.Init(
         _pDevice,
         (UINT)_data.indices.size(),
@@ -51,62 +49,38 @@ bool Mesh::Init(
         return false;
     }
 
+    // 定数バッファーの初期化
     if (!m_constantBuffer.Init(_pDevice))
     {
+        printf("【Mesh】：Failed to Init ConstantBuffer\n");
         return false;
     }
-
    
-    // メッシュデータを受け取る
     m_meshData = _data;
-
-    _materialName = _materialName == ""
-        ? "Assets/Materials/SpriteDefaultMaterial.txt"
-        : _materialName;
-
-    if (!m_material.Init(_materialName))
-    {
-        printf("【Mesh】：Failed to Init Material\n");
-        return false;
-    }
-   
-
     return true;
 }
 
-// メッシュを描画する命令
-void Mesh::Draw()
+
+// ヴァーテックスバッファーを取得する
+const Render::VertexBuffer* Mesh::GetVertexBuffer() const
 {
-    Render_I->QueueRender(this);
+    return &m_vertexBuffer;
 }
 
-// 座標変換用の行列を設定する
-void Mesh::SetTransformMatrix(const XMMATRIX _matrix)
+// インデックスバッファーを取得する
+const Render::IndexBuffer* Mesh::GetIndexBuffer() const
 {
-    m_transformMatrix = _matrix;
+    return &m_indexBuffer;
 }
 
-// 座標変換用の行列を取得する
-XMMATRIX Mesh::GetTransformMatrix() const
+// 定数バッファーを取得する
+const Render::ConstantBuffer* Mesh::GetConstantBuffer() const
 {
-    return m_transformMatrix;
+    return &m_constantBuffer;
 }
 
-// レンダリング用のデータを取得する
-RenderData Mesh::GetData()
+// メッシュを取得する
+MeshData Mesh::GetMeshData() const
 {
-    RenderData renderData = {};
-    renderData.vertexBufferView = m_vertexBuffer.GetView();
-    renderData.indexBufferView = m_indexBuffer.GetView();
-    renderData.pConstantBuffer = &m_constantBuffer;
-    renderData.indexNum = (UINT)m_meshData.indices.size();
-    renderData.pMaterial = &m_material;
-
-    return renderData;
-}
-
-// テクスチャを設定する
-void Mesh::SetTexture(Render::Texture* const _pTexture)
-{
-    m_material.SetTexture(_pTexture);
+    return m_meshData;
 }

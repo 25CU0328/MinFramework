@@ -153,3 +153,9 @@ D3D12_GPU_DESCRIPTOR_HANDLE Render::Texture::GetGPUHandle()
 {
 	return m_GpuHandle;
 }
+
+// テクスチャのファイルパスを取得する
+std::string Render::Texture::GetFilePath() const
+{
+	return m_filePath;
+}

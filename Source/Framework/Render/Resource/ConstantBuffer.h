@@ -33,7 +33,7 @@ namespace Render
 		// 初期化処理
 		bool Init(ID3D12Device* _pDevice);
 		// 行列データを更新する
-		void UpdateMatrix(void* data, UINT size);
+		void UpdateMatrix(void* data, UINT size) const;
 
 		// 定数バッファーの本体を取得する
 		ID3D12Resource* GetResource() const;

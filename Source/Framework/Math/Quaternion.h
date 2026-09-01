@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <DirectXMath.h>
+#include <nlohmann/json.hpp>
 
 template <class T> class Vector3;
 using Vector3f = Vector3<float>;
@@ -71,7 +72,12 @@ public:
     float y;
     float z;
     float w;
-
 };
 
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(Quaternion, x, y, z, w)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(
+    Quaternion, 
+    x, 
+    y, 
+    z,
+    w
+)

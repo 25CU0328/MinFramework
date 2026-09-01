@@ -1,10 +1,8 @@
 ﻿#pragma once
 
+#include "Framework/Runtime/GameObject.h"
 #include "Framework/ImGui/ImGuiPanel.h"
-
-#include "Framework/Runtime/Model.h"
 #include "Framework/Runtime/Camera.h"
-
 #include <vector>
 
 class CameraController_3D;
@@ -25,9 +23,9 @@ public:
 	void SetCameraController(CameraController_3D* _pController);
 
 	// カメラのターゲットとなるモデルを追加する
-	void AddTargetModel(Model* _orbitTarget);
+	void AddTargetModel(GameObject* _orbitTarget);
 	// カメラのターゲットとなるモデルをベクターから削除する
-	void RemoveTargetModel(Model* _orbitTarget);
+	void RemoveTargetModel(GameObject* _orbitTarget);
 
 private:
 	// フリーカメラモードの内容を設定する
@@ -48,7 +46,7 @@ private:
 	CameraController_3D* m_pCameraController;
 
 	// 注視する目標となるモデル
-	Model* m_pFocusTargetModel;
+	GameObject* m_pFocusObject;
 
 	// ---------------------------
 	// カメラモードを記録するプロパティ
@@ -76,7 +74,7 @@ private:
 	float m_orbitDistance;
 
 	// オービットターゲットとなるモデル
-	Model* m_pOrbitTargetModel;
-	// コントロール対象となるモデル
-	std::vector<Model*> m_models;
+	GameObject* m_pOrbitObject;
+	// 操作の参考対象となるモデル
+	std::vector<GameObject*> m_Objects;
 };

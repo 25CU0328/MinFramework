@@ -99,7 +99,7 @@ bool IndexBuffer::Init(
 /// インデックスビューを取得するための関数
 /// </summary>
 /// <returns> インデックスビュー </returns>
-D3D12_INDEX_BUFFER_VIEW& IndexBuffer::GetView()
+const D3D12_INDEX_BUFFER_VIEW& IndexBuffer::GetView() const 
 {
 	return m_bufferView;
 }

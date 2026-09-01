@@ -4,8 +4,6 @@
 #include "Framework/Framework.h"
 #include "Framework/Math/Math.h"
 
-#include "Framework/Runtime/Model.h"
-
 // コンストラクタ
 CameraController_3D::CameraController_3D()
 {
@@ -65,7 +63,7 @@ void CameraController_3D::SetCameraMode(CameraMode _cameraMode)
 
 
 // カメラオービット時の対象を設定する
-void CameraController_3D::SetOrbitTarget(Runtime::Model* _pOrbitTarget)
+void CameraController_3D::SetOrbitTarget(GameObject* _pOrbitTarget)
 {
 	m_pOrbitTarget = _pOrbitTarget;
 

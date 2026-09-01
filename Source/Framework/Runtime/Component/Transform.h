@@ -2,23 +2,19 @@
 
 #include "Framework/Math/Vector.h"
 #include "Framework/Math/Quaternion.h"
+#include "GameComponent.h"
 
 #include <vector>
 
 class GameObject; // 前方宣言
 
-class Transform
+class Transform : public GameComponent
 {
 public:
 	// コンストラクタ
 	Transform();
 	// デストラクター
 	~Transform();
-
-	// トランスフォームと紐づくゲームオブジェクトを設定する
-	void SetGameObject(GameObject* const _pGameObject);
-	// トランスフォームと紐づくゲームオブジェクトを取得する
-	GameObject* GetGameObject() const;
 
 	// 親トランスフォームを設定する
 	void SetParent(Transform* _pTransform);
@@ -74,6 +70,13 @@ public:
 
 	// ワールド行列を取得する
 	DirectX::XMMATRIX GetWorldMatrix() const;
+
+	// トランスフォームのコンポネントデータを取得する
+	GameComponentData GetComponentData() const;
+
+	// コンポネントを設定する
+	void SetComponent(const GameComponentData _componentData);
+
 protected:
 	// 「更新が必要」と設定する
 	void _setDirty();
@@ -101,9 +104,6 @@ private:
 	// ワールドスケール
 	mutable Vector3f m_worldScale;
 private:
-	// このトランスフォームに紐づくゲームオブジェクト
-	GameObject* m_pGameObject;
-
 	// 親トランスフォーム
 	Transform* m_pParent;
 	// 子トランスフォーム

@@ -6,10 +6,10 @@ class CameraController
 {
 public:
 	// 初期化処理
-	virtual void Init(Runtime::Camera* _pCamera) {}
+	virtual void Init(Camera* _pCamera) {}
 	
 	// コントロールするカメラを設定する
-	void SetCamera(Runtime::Camera* _pCamera) {
+	void SetCamera(Camera* _pCamera) {
 		m_pCamera = _pCamera;
 	}
 
@@ -19,5 +19,5 @@ public:
 
 protected:
 	// コントロールするカメラ
-	Runtime::Camera* m_pCamera;
+	Camera* m_pCamera;
 };

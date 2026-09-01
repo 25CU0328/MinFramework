@@ -5,6 +5,14 @@
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Editor|Win32">
+      <Configuration>Editor</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Editor|x64">
+      <Configuration>Editor</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
@@ -33,6 +41,12 @@
     <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Editor|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
@@ -41,6 +55,12 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Editor|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v145</PlatformToolset>
@@ -61,10 +81,16 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Editor|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Editor|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -74,7 +100,25 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)Build\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Editor|x64'">
+    <OutDir>$(SolutionDir)Build\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)Build\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Editor|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
@@ -115,14 +159,50 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(ProjectDir)External\assimp\lib;$(ProjectDir)External\DirectXTex\lib\$(Configuration);D:\Dev\MinFramework\External\DirectXTex\lib\Editor;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>assimp-vc145-mtd.lib;DirectXTex.lib;d3d12.lib;dxgi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/OUT:"D:\Dev\MinFramework\Build\x64\Debug\MinFramework.exe" /MANIFEST /NXCOMPAT /DYNAMICBASE "assimp-vc145-mtd.lib" "DirectXTex.lib" "d3d12.lib" "dxgi.lib" "kernel32.lib" "user32.lib" "gdi32.lib" "winspool.lib" "comdlg32.lib" "advapi32.lib" "shell32.lib" "ole32.lib" "oleaut32.lib" "uuid.lib" "odbc32.lib" "odbccp32.lib" /DEBUG /MACHINE:X64 /INCREMENTAL  /SUBSYSTEM:CONSOLE /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /ManifestFile:"MinFramework\x64\Debug\MinFramework.exe.intermediate.manifest" /ERRORREPORT:PROMPT /ILK:"MinFramework\x64\Debug\MinFramework.ilk" /NOLOGO /LIBPATH:"D:\Dev\MinFramework\External\assimp\lib" /LIBPATH:"D:\Dev\MinFramework\External\DirectXTex\lib\Debug" /TLBID:1 %(AdditionalOptions)</AdditionalOptions>
+      <ProfileGuidedDatabase>
+      </ProfileGuidedDatabase>
+      <LinkTimeCodeGeneration>
+      </LinkTimeCodeGeneration>
+      <LinkTimeCodeGenerationObjectFile>
+      </LinkTimeCodeGenerationObjectFile>
+      <OptimizeReferences>
+      </OptimizeReferences>
+      <EnableCOMDATFolding>
+      </EnableCOMDATFolding>
+    </Link>
+    <PreBuildEvent>
+      <Command>copy /Y "$(SolutionDir)External\assimp\bin\assimp-vc145-mtd.dll" "$(OutDir)"
+</Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>copy /Y "$(SolutionDir)External\DirectXTex\bin\$(Configuration)\DirectXTex.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Editor|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)External\assimp\include;$(ProjectDir)External\DirectXTex\Include;$(ProjectDir)Source;$(ProjectDir)External;$(ProjectDir)External\imGui</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)External\assimp\lib;$(ProjectDir)External\DirectXTex\lib\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>assimp-vc145-mtd.lib;DirectXTex.lib;d3d12.lib;dxgi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ProfileGuidedDatabase>$(OutDir)$(TargetName).pgd</ProfileGuidedDatabase>
     </Link>
     <PreBuildEvent>
       <Command>copy /Y "$(SolutionDir)External\assimp\bin\assimp-vc145-mtd.dll" "$(OutDir)"</Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>xcopy /Y /E "$(ProjectDir)Assets\" "$(OutDir)Assets\"</Command>
+      <Command>copy /Y "$(SolutionDir)External\DirectXTex\bin\$(Configuration)\DirectXTex.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -133,13 +213,25 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)External\assimp\include;$(ProjectDir)External\DirectXTex\Include;$(ProjectDir)Source;$(ProjectDir)External;$(ProjectDir)External\imGui</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(ProjectDir)External\assimp\lib;$(ProjectDir)External\DirectXTex\lib\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>assimp-vc145-mtd.lib;DirectXTex.lib;d3d12.lib;dxgi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/OUT:"D:\Dev\MinFramework\Build\x64\Debug\MinFramework.exe" /MANIFEST /NXCOMPAT /PDB:"D:\Dev\MinFramework\Build\x64\Debug\MinFramework.pdb" /DYNAMICBASE "assimp-vc145-mtd.lib" "DirectXTex.lib" "d3d12.lib" "dxgi.lib" "kernel32.lib" "user32.lib" "gdi32.lib" "winspool.lib" "comdlg32.lib" "advapi32.lib" "shell32.lib" "ole32.lib" "oleaut32.lib" "uuid.lib" "odbc32.lib" "odbccp32.lib" /DEBUG /MACHINE:X64 /INCREMENTAL /SUBSYSTEM:CONSOLE /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /ManifestFile:"MinFramework\x64\Debug\MinFramework.exe.intermediate.manifest" /ERRORREPORT:PROMPT /ILK:"MinFramework\x64\Debug\MinFramework.ilk" /NOLOGO /LIBPATH:"D:\Dev\MinFramework\External\assimp\lib" /LIBPATH:"D:\Dev\MinFramework\External\DirectXTex\lib\Debug" /LIBPATH:"D:\Dev\MinFramework\External\DirectXTex\lib\Editor" /TLBID:1 %(AdditionalOptions)</AdditionalOptions>
+      <ProfileGuidedDatabase />
+      <LinkTimeCodeGeneration>
+      </LinkTimeCodeGeneration>
+      <LinkTimeCodeGenerationObjectFile />
     </Link>
+    <PostBuildEvent>
+      <Command>copy /Y "$(SolutionDir)External\DirectXTex\bin\$(Configuration)\DirectXTex.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="External\imGui\imgui.cpp" />
@@ -157,7 +249,9 @@
     <ClCompile Include="Source\Framework\Collision\Collider\RectCollider.cpp" />
     <ClCompile Include="Source\Framework\Collision\Collider\Collider.cpp" />
     <ClCompile Include="Source\Framework\Collision\CollisionManager.cpp" />
-    <ClCompile Include="Source\Framework\Editor\Scene\SceneManager.cpp" />
+    <ClCompile Include="Source\Framework\Editor.cpp" />
+    <ClCompile Include="Source\Framework\Editor\SceneInspector.cpp" />
+    <ClCompile Include="Source\Framework\Editor\SelectionManager.cpp" />
     <ClCompile Include="Source\Framework\Framework.cpp" />
     <ClCompile Include="Source\Framework\ImGui\ImGuiManager.cpp" />
     <ClCompile Include="Source\Framework\ImGui\ImGuiPanel.cpp" />
@@ -180,14 +274,17 @@
     <ClCompile Include="Source\Framework\Render\Resource\Texture.cpp" />
     <ClCompile Include="Source\Framework\Render\Resource\VertexBuffer.cpp" />
     <ClCompile Include="Source\Framework\Runtime\Camera.cpp" />
+    <ClCompile Include="Source\Framework\Runtime\Component\GameComponent.cpp" />
+    <ClCompile Include="Source\Framework\Runtime\Component\MeshRenderer.cpp" />
+    <ClCompile Include="Source\Framework\Runtime\Component\Renderer.cpp" />
+    <ClCompile Include="Source\Framework\Runtime\Component\TextureRenderer.cpp" />
+    <ClCompile Include="Source\Framework\Runtime\Component\Transform.cpp" />
     <ClCompile Include="Source\Framework\Runtime\GameObject.cpp" />
     <ClCompile Include="Source\Framework\Runtime\Material.cpp" />
     <ClCompile Include="Source\Framework\Runtime\Mesh.cpp" />
-    <ClCompile Include="Source\Framework\Runtime\Model.cpp" />
-    <ClCompile Include="Source\Framework\Runtime\RenderObject.cpp" />
     <ClCompile Include="Source\Framework\Runtime\Shader.cpp" />
-    <ClCompile Include="Source\Framework\Runtime\Sprite.cpp" />
-    <ClCompile Include="Source\Framework\Runtime\Transform.cpp" />
+    <ClCompile Include="Source\Framework\Scene\Scene.cpp" />
+    <ClCompile Include="Source\Framework\Scene\SceneManager.cpp" />
     <ClCompile Include="Source\Framework\TimeManager.cpp" />
     <ClCompile Include="Source\Panels\CameraControlPanel.cpp" />
     <ClCompile Include="Source\Panels\ModelControlPanel.cpp" />
@@ -205,6 +302,7 @@
     <ClInclude Include="Source\AppDef.h" />
     <ClInclude Include="Source\CameraController\CameraController.h" />
     <ClInclude Include="Source\CameraController\CameraController_3D.h" />
+    <ClInclude Include="Source\Framework\Assets\AssetData\ComponentData.h" />
     <ClInclude Include="Source\Framework\Assets\AssetData\GameObjectData.h" />
     <ClInclude Include="Source\Framework\Assets\AssetData\MaterialData.h" />
     <ClInclude Include="Source\Framework\Assets\AssetData\SceneData.h" />
@@ -220,7 +318,10 @@
     <ClInclude Include="Source\Framework\Collision\Collider\ColliderType.h" />
     <ClInclude Include="Source\Framework\Collision\CollisionEvent.h" />
     <ClInclude Include="Source\Framework\Collision\CollisionManager.h" />
-    <ClInclude Include="Source\Framework\Editor\Scene\SceneManager.h" />
+    <ClInclude Include="Source\Framework\Editor.h" />
+    <ClInclude Include="Source\Framework\Editor\EditorDef.h" />
+    <ClInclude Include="Source\Framework\Editor\SceneInspector.h" />
+    <ClInclude Include="Source\Framework\Editor\SelectionManager.h" />
     <ClInclude Include="Source\Framework\Framework.h" />
     <ClInclude Include="Source\Framework\ImGui\ImGuiManager.h" />
     <ClInclude Include="Source\Framework\ImGui\ImGuiPanel.h" />
@@ -252,14 +353,20 @@
     <ClInclude Include="Source\Framework\Render\Resource\Texture.h" />
     <ClInclude Include="Source\Framework\Render\Resource\VertexBuffer.h" />
     <ClInclude Include="Source\Framework\Runtime\Camera.h" />
+    <ClInclude Include="Source\Framework\Runtime\Component\GameComponents.h" />
+    <ClInclude Include="Source\Framework\Runtime\Component\ComponentType.h" />
+    <ClInclude Include="Source\Framework\Runtime\Component\GameComponent.h" />
+    <ClInclude Include="Source\Framework\Runtime\Component\GameComponentFactory.h" />
+    <ClInclude Include="Source\Framework\Runtime\Component\MeshRenderer.h" />
+    <ClInclude Include="Source\Framework\Runtime\Component\Renderer.h" />
+    <ClInclude Include="Source\Framework\Runtime\Component\TextureRenderer.h" />
+    <ClInclude Include="Source\Framework\Runtime\Component\Transform.h" />
     <ClInclude Include="Source\Framework\Runtime\GameObject.h" />
     <ClInclude Include="Source\Framework\Runtime\Material.h" />
     <ClInclude Include="Source\Framework\Runtime\Mesh.h" />
-    <ClInclude Include="Source\Framework\Runtime\Model.h" />
-    <ClInclude Include="Source\Framework\Runtime\RenderObject.h" />
     <ClInclude Include="Source\Framework\Runtime\Shader.h" />
-    <ClInclude Include="Source\Framework\Runtime\Sprite.h" />
-    <ClInclude Include="Source\Framework\Runtime\Transform.h" />
+    <ClInclude Include="Source\Framework\Scene\Scene.h" />
+    <ClInclude Include="Source\Framework\Scene\SceneManager.h" />
     <ClInclude Include="Source\Framework\TimeManager.h" />
     <ClInclude Include="Source\Framework\UI\FrameworkImgUI.h" />
     <ClInclude Include="Source\Panels\CameraControlPanel.h" />

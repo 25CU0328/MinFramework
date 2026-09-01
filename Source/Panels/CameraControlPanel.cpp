@@ -96,89 +96,89 @@ void CameraControlPanel::SetCameraController(CameraController_3D* const _pContro
 }
 
 // カメラのターゲットとなるモデルを追加する
-void CameraControlPanel::AddTargetModel(Model* _pTargetModel)
+void CameraControlPanel::AddTargetModel(GameObject* _pObject)
 {
 	// 引数はヌルポインタの場合、処理しない
-	if (_pTargetModel == nullptr || _pTargetModel->GetName() == "")
+	if (_pObject == nullptr || _pObject->GetName() == "")
 		return;
 
-	auto iterator = std::find(m_models.begin(), m_models.end(), _pTargetModel);
+	auto iterator = std::find(m_Objects.begin(), m_Objects.end(), _pObject);
 
-	if (iterator != m_models.end())
+	if (iterator != m_Objects.end())
 		return;
 
-	m_models.emplace_back(_pTargetModel);
+	m_Objects.emplace_back(_pObject);
 
 	// オービットターゲットはまだ設定されていない場合
-	if (m_pOrbitTargetModel == nullptr)
+	if (m_pOrbitObject == nullptr)
 	{
-		m_pOrbitTargetModel = m_models.back();
+		m_pOrbitObject = m_Objects.back();
 	}
 
 	// 注視ターゲットはまだ設定されていない場合
-	if (m_pFocusTargetModel == nullptr)
+	if (m_pFocusObject == nullptr)
 	{
-		m_pFocusTargetModel = m_models.back();
+		m_pFocusObject = m_Objects.back();
 	}
 }
 
 // カメラのターゲットとなるモデルをベクターから削除する
-void CameraControlPanel::RemoveTargetModel(Model* _pTargetModel)
+void CameraControlPanel::RemoveTargetModel(GameObject* _pObject)
 {
 	// 引数はヌルポインタの場合、処理しない
-	if (_pTargetModel == nullptr)
+	if (_pObject == nullptr)
 		return;
 
-	auto iterator = std::find(m_models.begin(), m_models.end(), _pTargetModel);
+	auto iterator = std::find(m_Objects.begin(), m_Objects.end(), _pObject);
 
-	if (iterator != m_models.begin())
+	if (iterator != m_Objects.begin())
 		return;
 
 	// そのモデルはオービットターゲットの場合
-	if (m_pOrbitTargetModel == *iterator)
+	if (m_pOrbitObject == *iterator)
 	{
 		// ヌルじゃないモデルポインタを検索
 		auto iterator = std::find_if_not(
-			m_models.begin(),
-			m_models.end(),
-			[](Model* pModel) { return pModel == nullptr; }
+			m_Objects.begin(),
+			m_Objects.end(),
+			[](GameObject* pObject) { return pObject == nullptr; }
 		);
 
 		// ヌルじゃないモデルポインタがあったら
-		if (iterator != m_models.end())
+		if (iterator != m_Objects.end())
 		{
-			m_pOrbitTargetModel = *iterator;
+			m_pOrbitObject = *iterator;
 		}
 		// ヌルじゃないモデルポインタがない場合
 		else 
 		{
-			m_pOrbitTargetModel = nullptr;
+			m_pOrbitObject = nullptr;
 		}
 	}
 
 	// そのモデルは注視ターゲットの場合
-	if (m_pFocusTargetModel == *iterator)
+	if (m_pFocusObject == *iterator)
 	{
 		// ヌルじゃない
 		auto iterator = std::find_if_not(
-			m_models.begin(),
-			m_models.end(),
-			[](Model* pModel) { return pModel == nullptr; }
+			m_Objects.begin(),
+			m_Objects.end(),
+			[](GameObject* pObject) { return pObject == nullptr; }
 		);
 
 		// ヌルじゃないモデルポインタがあったら
-		if (iterator != m_models.end())
+		if (iterator != m_Objects.end())
 		{
-			m_pFocusTargetModel = *iterator;
+			m_pFocusObject = *iterator;
 		}
 		// ヌルじゃないモデルポインタがない場合
 		else {
-			m_pFocusTargetModel = nullptr;
+			m_pFocusObject = nullptr;
 		}
 	}
 
 	// ベクターから削除する
-	m_models.erase(iterator);
+	m_Objects.erase(iterator);
 }
 
 // フリーカメラモードの内容を設定する
@@ -210,21 +210,21 @@ void CameraControlPanel::_setFreeModePanel()
 	ImGui::Text("モデルを注視：");
 	if (ImGui::BeginCombo(
 		"を",
-		m_pFocusTargetModel ?
-		m_pFocusTargetModel->GetName().c_str() : "None"
+		m_pFocusObject ?
+		m_pFocusObject->GetName().c_str() : "None"
 	))
 	{
-		for (Model* pModel : m_models)
+		for (GameObject* pObject : m_Objects)
 		{
-			if (pModel == nullptr)
+			if (pObject == nullptr)
 				continue;
 
-			bool isSelected = (m_pFocusTargetModel == pModel);
+			bool isSelected = (m_pFocusObject == pObject);
 
 			// モデルを選択した場合の処理
-			if (ImGui::Selectable(pModel->GetName().c_str(), isSelected))
+			if (ImGui::Selectable(pObject->GetName().c_str(), isSelected))
 			{
-				m_pFocusTargetModel = pModel;
+				m_pFocusObject = pObject;
 			}
 
 			if (isSelected)
@@ -242,10 +242,10 @@ void CameraControlPanel::_setFreeModePanel()
 	// Focusボタンを設定
 	if (ImGui::Button("Focus", ImVec2(50.0f, 30.0f)))
 	{
-		if (m_pFocusTargetModel) 
+		if (m_pFocusObject) 
 		{
 			m_pCameraController->SetLookAt(
-				m_pFocusTargetModel->GetTransform().GetWorldPosition()
+				m_pFocusObject->GetComponent<Transform>()->GetWorldPosition()
 			);
 		}
 	}
@@ -258,22 +258,22 @@ void CameraControlPanel::_setOrbitModePanel()
 	ImGui::Text("オービットターゲット：");
 	if (ImGui::BeginCombo(
 		"Orbit Target",
-		m_pOrbitTargetModel ? m_pOrbitTargetModel->GetName().c_str() : "None"
+		m_pOrbitObject ? m_pOrbitObject->GetName().c_str() : "None"
 	))
 	{
-		for (Model* pModel : m_models)
+		for (GameObject* pObject : m_Objects)
 		{
-			if (pModel == nullptr)
+			if (pObject == nullptr)
 				continue;
 
-			bool isSelected = (m_pOrbitTargetModel == pModel);
+			bool isSelected = (m_pOrbitObject == pObject);
 
 			// モデルを選択した場合の処理
-			if (ImGui::Selectable(pModel->GetName().c_str(), isSelected))
+			if (ImGui::Selectable(pObject->GetName().c_str(), isSelected))
 			{
-				m_pOrbitTargetModel = pModel;
+				m_pOrbitObject = pObject;
 
-				m_pCameraController->SetOrbitTarget(m_pOrbitTargetModel);
+				m_pCameraController->SetOrbitTarget(m_pOrbitObject);
 			}
 
 			if (isSelected)

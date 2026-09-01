@@ -2,9 +2,7 @@
 #include<Windows.h>
 #include<tchar.h>
 
-#ifdef _DEBUG
 #include<iostream>
-#endif
 
 // ゲーム
 #include "App.h"

@@ -1,6 +1,6 @@
 ﻿
 #include "CameraController.h"
-
+#include "Framework/Runtime/GameObject.h"
 
 // カメラの操作モードを表す列挙型
 enum class CameraMode {
@@ -8,7 +8,7 @@ enum class CameraMode {
 	Orbit,
 };
 
-namespace Runtime { class Model; }
+class Model; 
 
 class CameraController_3D : public CameraController
 {
@@ -25,7 +25,7 @@ public:
 	void SetCameraMode(CameraMode _cameraMode);
 
 	// カメラオービット時の対象を設定する
-	void SetOrbitTarget(Runtime::Model* _pOrbitTarget);
+	void SetOrbitTarget(GameObject* _pOrbitTarget);
 	// カメラオービット時の距離を設定する
 	void SetOrbitDistance(const float _distance);
 	// カメラオービット時の距離を取得する
@@ -62,5 +62,5 @@ private:
 
 	// Orbitモードで使われるプロパティ
 	float m_orbitDistance;			// 回る時の距離
-	Runtime::Model* m_pOrbitTarget;	// 回る時のターゲット
+	GameObject* m_pOrbitTarget;	// 回る時のターゲット
 };

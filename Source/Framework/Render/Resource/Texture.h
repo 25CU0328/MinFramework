@@ -8,6 +8,8 @@
 #include "Framework/Assets/Image/ImageData.h"
 #include "Framework/Render/ComPtr.h"
 
+#include <string>
+
 namespace Render
 {
 	class Texture
@@ -36,7 +38,13 @@ namespace Render
 		D3D12_CPU_DESCRIPTOR_HANDLE GetCPUHandle();
 		// バッファーのGPUハンドルを取得する
 		D3D12_GPU_DESCRIPTOR_HANDLE GetGPUHandle();
+
+		// テクスチャのファイルパスを取得する
+		std::string GetFilePath() const;
 	private:
+		// テクスチャのファイルパス
+		std::string m_filePath;
+
 		// テクスチャのバッファー
 		ComPtr<ID3D12Resource> m_pResource;
 

@@ -3,7 +3,7 @@
 
 #include "Framework/ImGui/ImGuiPanel.h"
 
-#include "Framework/Runtime/Model.h"
+#include "Framework/Runtime/GameObject.h"
 
 
 #include <vector>
@@ -12,15 +12,18 @@ class ModelControlPanel : public ImGuiPanel
 {
 public:
 	// 初期化処理
-	void Init(const char* _panelName = "");
+	void Init(
+		const char* _panelName = "", 
+		const Vector2f _minimunSize = Vector2f(100.0f, 100.0f)
+	);
 
 	// 描画処理
 	void Render();
 
 	// コントロールする対象を追加する
-	void AddControlTarget(Model* _pModel);
+	void AddControlTarget(GameObject* _pModel);
 	// コントロールする対象を記録から削除する
-	void RemoveControlTarget(Model* _pModel);
+	void RemoveControlTarget(GameObject* _pModel);
 
 private:
 	// モデルの位置
@@ -31,7 +34,7 @@ private:
 	Vector3f m_modelRotation;
 
 	// 選択されたモデル
-	Model* m_pSelectedModel;
+	GameObject* m_pSelectedModel;
 	// コントロール対象となるモデル
-	std::vector<Model*> m_models;
+	std::vector<GameObject*> m_models;
 };

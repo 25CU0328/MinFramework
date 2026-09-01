@@ -50,7 +50,7 @@ namespace Render
 		void UpdateVertex(void* _pVertexData, UINT64 _dataSize, UINT _sizePerVertex);
 
 		// バーテックスバッファーの記述子を取得する
-		D3D12_VERTEX_BUFFER_VIEW& GetView();
+		const D3D12_VERTEX_BUFFER_VIEW& GetView() const;
 
 	private:
 		// バーテックスバッファーの本体

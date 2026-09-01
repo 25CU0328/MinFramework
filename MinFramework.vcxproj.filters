@@ -76,6 +76,21 @@
     <Filter Include="Framework\Scene">
       <UniqueIdentifier>{60756a7d-896a-40ce-ad6e-4dd1b00f262e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Editor">
+      <UniqueIdentifier>{4a94fc01-dcf7-4e0c-a005-d449f56c1fbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Editor\GameObject">
+      <UniqueIdentifier>{6cf48c27-a1b4-443e-ada8-9107b5389050}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Editor\GameObject\Component">
+      <UniqueIdentifier>{3a09a5db-f70c-4f5e-ac9a-c1b717e93e86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Runtime\Component">
+      <UniqueIdentifier>{2ddf9c75-7626-458b-a912-e6b0bd9efd50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Runtime\GameObject">
+      <UniqueIdentifier>{325cb6ce-63ef-472f-9b43-0fd1d2da8365}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\App.cpp">
@@ -144,16 +159,7 @@
     <ClCompile Include="Source\Framework\Runtime\Mesh.cpp">
       <Filter>Framework\Runtime</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Framework\Runtime\Model.cpp">
-      <Filter>Framework\Runtime</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Framework\Runtime\RenderObject.cpp">
-      <Filter>Framework\Runtime</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Framework\Runtime\Shader.cpp">
-      <Filter>Framework\Runtime</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Framework\Runtime\Sprite.cpp">
       <Filter>Framework\Runtime</Filter>
     </ClCompile>
     <ClCompile Include="Source\Framework\Framework.cpp">
@@ -219,11 +225,35 @@
     <ClCompile Include="Source\Framework\Runtime\GameObject.cpp">
       <Filter>Framework\Runtime</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Framework\Runtime\Transform.cpp">
-      <Filter>Framework\Runtime</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Framework\Editor\Scene\SceneManager.cpp">
+    <ClCompile Include="Source\Framework\Scene\Scene.cpp">
       <Filter>Framework\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Scene\SceneManager.cpp">
+      <Filter>Framework\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Runtime\Component\GameComponent.cpp">
+      <Filter>Framework\Runtime\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Runtime\Component\Transform.cpp">
+      <Filter>Framework\Runtime\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Runtime\Component\MeshRenderer.cpp">
+      <Filter>Framework\Runtime\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Runtime\Component\TextureRenderer.cpp">
+      <Filter>Framework\Runtime\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Runtime\Component\Renderer.cpp">
+      <Filter>Framework\Runtime\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Editor\SceneInspector.cpp">
+      <Filter>Framework\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Editor\SelectionManager.cpp">
+      <Filter>Framework\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Editor.cpp">
+      <Filter>Framework</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -323,16 +353,7 @@
     <ClInclude Include="Source\Framework\Runtime\Mesh.h">
       <Filter>Framework\Runtime</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Framework\Runtime\Model.h">
-      <Filter>Framework\Runtime</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Framework\Runtime\RenderObject.h">
-      <Filter>Framework\Runtime</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Framework\Runtime\Shader.h">
-      <Filter>Framework\Runtime</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Framework\Runtime\Sprite.h">
       <Filter>Framework\Runtime</Filter>
     </ClInclude>
     <ClInclude Include="Source\Framework\Framework.h">
@@ -428,17 +449,56 @@
     <ClInclude Include="Source\Framework\Runtime\GameObject.h">
       <Filter>Framework\Runtime</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Framework\Runtime\Transform.h">
-      <Filter>Framework\Runtime</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Framework\Editor\Scene\SceneManager.h">
-      <Filter>Framework\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Framework\Assets\AssetData\GameObjectData.h">
       <Filter>Framework\Assets\AssetData</Filter>
     </ClInclude>
     <ClInclude Include="Source\Framework\Assets\AssetData\SceneData.h">
       <Filter>Framework\Assets\AssetData</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Scene\Scene.h">
+      <Filter>Framework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Scene\SceneManager.h">
+      <Filter>Framework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Runtime\Component\GameComponent.h">
+      <Filter>Framework\Runtime\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Runtime\Component\ComponentType.h">
+      <Filter>Framework\Runtime\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Runtime\Component\Transform.h">
+      <Filter>Framework\Runtime\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Runtime\Component\MeshRenderer.h">
+      <Filter>Framework\Runtime\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Runtime\Component\GameComponentFactory.h">
+      <Filter>Framework\Runtime\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Runtime\Component\GameComponents.h">
+      <Filter>Framework\Runtime\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Runtime\Component\TextureRenderer.h">
+      <Filter>Framework\Runtime\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Runtime\Component\Renderer.h">
+      <Filter>Framework\Runtime\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Assets\AssetData\ComponentData.h">
+      <Filter>Framework\Assets\AssetData</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Editor\SceneInspector.h">
+      <Filter>Framework\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Editor\SelectionManager.h">
+      <Filter>Framework\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Editor.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Editor\EditorDef.h">
+      <Filter>Framework\Editor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -117,7 +117,7 @@ void VertexBuffer::UpdateVertex(void* _pVertexData, UINT64 _dataSize, UINT _size
 }
 
 // バーテックスバッファーの記述子を取得する
-D3D12_VERTEX_BUFFER_VIEW& VertexBuffer::GetView()
+const D3D12_VERTEX_BUFFER_VIEW& VertexBuffer::GetView() const
 {
 	return m_bufferView;
 }

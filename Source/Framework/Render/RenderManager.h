@@ -3,7 +3,7 @@
 #include "Graphics.h"
 
 #include "Framework/Render/RenderData.h"
-#include "Framework/Runtime/RenderObject.h"
+#include "Framework/Runtime/Component/Renderer.h"
 #include "Framework/Runtime/Camera.h"
 /*
 	フレーム使用者としての描画責任者
@@ -32,17 +32,17 @@ namespace Render
 		// 初期化処理
 		bool Init(HWND* _hwnd);
 
-		void QueueRender(Runtime::RenderObject* _pRenderObject);
+		void QueueRender(Renderer* _pRenderer);
 
 		// 描画処理
 		void Render();
 
 		// カメラを設定する
-		void SetCamera(Runtime::Camera* _pCamera);
+		void SetCamera(Camera* _pCamera);
 
 	private:
 		Graphics m_graphics;
-		Runtime::Camera* m_pCamera;
-		std::vector<Runtime::RenderObject*> m_RenderObjects;
+		Camera* m_pCamera;
+		std::vector<Renderer*> m_renderers;
 	};
 }

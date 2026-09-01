@@ -10,7 +10,7 @@ Transform::Transform()
 	, m_children()
 	, m_isDirty(true)
 {
-
+	m_componentType = GameComponentType::Transform;
 }
 
 // デストラクター
@@ -22,19 +22,6 @@ Transform::~Transform()
 		pChild->SetParent(nullptr);
 	}
 }
-
-// トランスフォームと紐づくゲームオブジェクトを設定する
-void Transform::SetGameObject(GameObject* const _pGameObject)
-{
-	m_pGameObject = _pGameObject;
-}
-
-// トランスフォームと紐づくゲームオブジェクトを取得する
-GameObject* Transform::GetGameObject() const
-{
-	return m_pGameObject;
-}
-
 
 // 親トランスフォームを設定する
 void Transform::SetParent(Transform* pNewParent)
@@ -339,6 +326,36 @@ DirectX::XMMATRIX Transform::GetWorldMatrix() const
 	}
 
 	return m_worldMatrix;
+}
+
+// トランスフォームのコンポネントデータを取得する
+GameComponentData Transform::GetComponentData() const
+{
+	// トランスフォームデータを作成する
+	TransformData transformData;
+	{
+		transformData.position	= m_localPosition;
+		transformData.rotation	= m_localRotation;
+		transformData.scale		= m_localScale;
+	}
+
+	GameComponentData componentData;
+	{
+		componentData.type = m_componentType;
+		componentData.data = transformData;
+	}
+
+	return componentData;
+}
+
+// コンポネントを設定する
+void Transform::SetComponent(const GameComponentData _componentData)
+{
+	TransformData data = _componentData.data.get<TransformData>();
+
+	SetLocalPosition(data.position);
+	SetLocalRotation(data.rotation);
+	SetLocalScale(data.scale);
 }
 
 // ワールド行列などのデータを更新する

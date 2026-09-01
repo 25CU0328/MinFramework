@@ -1,13 +1,14 @@
 ﻿#pragma once
 
 #include "Framework/Assets/Model/ModelData.h"
-#include "RenderObject.h"
-#include "Framework/Math/Vector3.h"
 
-#include "Camera.h"
+#include "Framework/Render/Resource/VertexBuffer.h"
+#include "Framework/Render/Resource/IndexBuffer.h"
+#include "Framework/Render/Resource/ConstantBuffer.h"
 
 
-class Mesh : public RenderObject
+// モデルのメッシュを表すクラス
+class Mesh
 {
 public:
 	// コンストラクタ
@@ -15,32 +16,34 @@ public:
 	// デストラクター
 	~Mesh();
 
+public:
 	// 初期化処理
 	bool Init(
 		ID3D12Device* _pDevice, 
-		MeshData& _data, 
-		std::string _materialName = ""
+		MeshData& _data
 	);
 
-	// メッシュを描画する
-	void Draw();
 
-	// 座標変換用の行列を設定する
-	void SetTransformMatrix(const XMMATRIX _matrix);
-	// 座標変換用の行列を取得する
-	XMMATRIX GetTransformMatrix() const;
+	// ヴァーテックスバッファーを取得する
+	const Render::VertexBuffer* GetVertexBuffer() const;
+	// インデックスバッファーを取得する
+	const Render::IndexBuffer* GetIndexBuffer() const;
+	// 定数バッファーを取得する
+	const Render::ConstantBuffer* GetConstantBuffer() const;
+	
+	// メッシュを取得する
+	MeshData GetMeshData() const;
 
-	// レンダリング用のデータを取得する
-	RenderData GetData();
-
-	// テクスチャを設定する
-	void SetTexture(Render::Texture* const _pTexture);
 private:
-	MeshData m_meshData;
+	// ---------------------------
+	// バッファー
+	// ---------------------------
+	Render::VertexBuffer	m_vertexBuffer;		// ヴァーテックスバッファー
+	Render::IndexBuffer		m_indexBuffer;		// インデックスバッファー
+	Render::ConstantBuffer	m_constantBuffer;	// 定数バッファー
 
-	Vector3f m_position;	// 位置
-	Vector3f m_rotation;	// 回転角度
-	Vector3f m_scale;		// スケール
+	int m_renderPriority;	// 描画の優先順位
 
-	XMMATRIX m_transformMatrix;		// 座標変換用の行列
+	MeshData m_meshData;	// メッシュを生成する時に使われるデータ
 };
+

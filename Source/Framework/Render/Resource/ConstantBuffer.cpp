@@ -52,7 +52,7 @@ bool ConstantBuffer::Init(ID3D12Device* _pDevice)
 }
 
 // データの更新
-void ConstantBuffer::UpdateMatrix(void* data, UINT size)
+void ConstantBuffer::UpdateMatrix(void* data, UINT size) const
 {
 	memcpy(m_mappedData,data,size);
 }

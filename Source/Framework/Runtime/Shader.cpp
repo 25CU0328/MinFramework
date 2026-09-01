@@ -26,12 +26,15 @@ bool Shader::Init(ShaderData _shaderData)
 		return false;
 	}
 
+	// ルートシグネチャーを初期化する
 	if (!m_rootSignature.Init(UINT(2)))
 	{
-		printf("[Shader]：Failed to Initialize RootSignature");
+		printf("[Shader]：Failed to Initialize RootSignature\n");
 		return false;
 	}
 
+	// ファイルパスを設定する
+	m_filePath = _shaderData.filePath;
 
 	// ヴァーテックスシェーダーのインプットを定義する
 	D3D12_INPUT_ELEMENT_DESC inputLayout[] = {
@@ -90,4 +93,10 @@ ID3D12RootSignature* Shader::GetRootSignature()
 ID3D12PipelineState* Shader::GetPipelineState()
 {
 	return m_pipelineState.Get();
+}
+
+// ファイルパス
+std::string Shader::GetFilePath() const
+{
+	return m_filePath;
 }

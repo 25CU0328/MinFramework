@@ -7,7 +7,7 @@
 #include "Framework/Render/Pipeline/PipelineState.h"
 
 #include <d3d12.h>
-
+#include <string>
 
 class Shader
 {
@@ -21,7 +21,13 @@ public:
 	// パイプラインステートを取得する
 	ID3D12PipelineState* GetPipelineState();
 
+	// ファイルパス
+	std::string GetFilePath() const;
 private:
+	// ファイルパス
+	std::string m_filePath;
+
+	// 
 	Render::ShaderByteCode m_vsByteCode;
 	Render::ShaderByteCode m_psByteCode;
 
