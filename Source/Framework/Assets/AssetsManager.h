@@ -52,7 +52,7 @@ namespace Assets
 		/// </summary>
 		/// <param name="_filePath"></param>
 		/// <returns></returns>
-		Runtime::Shader* GetShader(std::string _filePath);
+		Shader* GetShader(std::string _filePath);
 
 		/// <summary>
 		/// Jsonファイルから構造体のデータを読み込む
@@ -99,6 +99,6 @@ namespace Assets
 		// テクスチャデータを管理するマップ
 		std::unordered_map<std::string, Render::Texture*> m_textureMap;
 		// シェーダーを管理するマップ
-		std::unordered_map<std::string, Runtime::Shader*> m_shaderMap;
+		std::unordered_map<std::string, Shader*> m_shaderMap;
 	};
 }

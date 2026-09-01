@@ -39,6 +39,9 @@ bool Assets::Model::ModleLoader::LoadObjModel(const std::string _strFilePath, Mo
 
 	_outData = _parseSceneData(pScene);
 
+	// ファイルパスを設定する
+	_outData.filePath = _strFilePath;
+
 	return true;
 }
 

@@ -29,7 +29,7 @@ bool Assets::Image::ImageLoader::LoadImageFile(
 
 	if (FAILED(result))
 	{
-		printf("【ImageLoader】Failed to Load Image\n");
+		printf("[ImageLoader] Failed to Load Image\n");
 		return false;
 	}
 

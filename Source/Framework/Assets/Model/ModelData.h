@@ -4,6 +4,7 @@
 using namespace DirectX;
 
 #include <vector>
+#include <string>
 
 // 頂点データ
 struct VertexData
@@ -25,5 +26,8 @@ struct MeshData
 // モデル全体のデータ
 struct ModelData
 {
+	// データに対応するファイルのファイルパス
+	std::string filePath;
+
 	std::vector<MeshData> meshDatas;
 };

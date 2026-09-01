@@ -1,5 +1,5 @@
 {
-    "vertexShaderName":"Assets/Shaders/SpriteDefault/SpriteDefaultVS.hlsl",
-
-    "pixelShaderName":"Assets/Shaders/SpriteDefault/SpriteDefaultPS.hlsl"
+    	"filePath": "Assets/Shaders/SpriteDefault/SpriteDefaultShader.txt",
+	"vertexShaderName":"Assets/Shaders/SpriteDefault/SpriteDefaultVS.hlsl",
+	"pixelShaderName":"Assets/Shaders/SpriteDefault/SpriteDefaultPS.hlsl"
 }

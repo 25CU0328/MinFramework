@@ -55,7 +55,7 @@ namespace Assets
 			std::ofstream file(_filePath);
 
 			// ファイルを上書き・保存する
-			file << jsonData;
+			file << jsonData.dump(4);
 		}
 	};
 }

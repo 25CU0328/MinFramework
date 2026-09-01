@@ -1,0 +1,78 @@
+{
+    "filePath": "Assets/SceneData/test.txt",
+    "objectDatas": [
+        {
+            "componentDatas": [
+                {
+                    "data": {
+                        "position": {
+                            "x": 30.434999465942383,
+                            "y": -4.3480000495910645,
+                            "z": 0.0
+                        },
+                        "rotation": {
+                            "w": 0.06824254989624023,
+                            "x": 7.939210604490654e-07,
+                            "y": -0.9976687431335449,
+                            "z": -5.430579719245543e-08
+                        },
+                        "scale": {
+                            "x": 0.5,
+                            "y": 0.5,
+                            "z": 0.5
+                        }
+                    },
+                    "type": 0
+                },
+                {
+                    "data": {
+                        "materialPath": "Assets/Materials/NormalViewMaterial.txt",
+                        "meshFilePath": "Assets/Models/Chair.obj",
+                        "textureFilePath": ""
+                    },
+                    "type": 1
+                }
+            ],
+            "objectId": 0,
+            "objectName": "Chair",
+            "parentId": -1
+        },
+        {
+            "componentDatas": [
+                {
+                    "data": {
+                        "position": {
+                            "x": 34.336181640625,
+                            "y": 30.434999465942383,
+                            "z": 19.799306869506836
+                        },
+                        "rotation": {
+                            "w": 1.0,
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    },
+                    "type": 0
+                },
+                {
+                    "data": {
+                        "materialPath": "Assets/Materials/NormalViewMaterial.txt",
+                        "meshFilePath": "Assets/Models/Cube.obj",
+                        "textureFilePath": ""
+                    },
+                    "type": 1
+                }
+            ],
+            "objectId": 1,
+            "objectName": "Cube",
+            "parentId": 0
+        }
+    ],
+    "sceneName": "TestScene"
+}
